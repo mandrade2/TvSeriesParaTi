@@ -4,14 +4,14 @@
 
 | Nombre | Github | Email |
 | :----- | :----- | :------- |
-| X | X | X |
-| X | X | X |
-| X | X | X |
+| MATÍAS ANDRADE | @Mandrade2 | mandrade2@uc.cl |
+| JUAN CASTRO | @jecastro2 | jecastro2@uc.cl |
+| ARTURO DEL REAL | @arturodelreal | aodelreal@uc.cl |
 
 ## Product Owner
 | Nombre | Github | Email |
 | :----- | :----- | :------- |
-| Ricardo Lira | rlira2 | rlira2@uc.cl |
+  | RICARDO LIRA | rlira2 | rlira2@uc.cl |
 
 ________________________
 
