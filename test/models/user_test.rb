@@ -24,12 +24,60 @@
 #  locked_at              :datetime
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  username               :string
 #
 
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  def setup
+    @user = users(:one)
+  end
+
+  test 'usuario valido' do
+    assert @user.valid?
+  end
+
+  test 'nombre presente' do
+    @user.name = '    '
+    assert_not @user.valid?
+  end
+
+  test 'no acepta nombres cortos' do
+    @user.name = 'a'
+    assert_not @user.valid?
+  end
+
+  test 'no acepta nombres demasiado largos' do
+    @user.name = 'a' * 51
+    assert_not @user.valid?
+  end
+
+  test 'no acepta nombre con formato invalido' do
+    invalid_names = %w[rigo.berto pe_dro 123ejemplo]
+    invalid_names.each do |name|
+      @user.name = name
+      assert_not @user.valid?
+    end
+  end
+
+  test 'no acepta nombres de usuarios repetidos' do
+    @user.username = users(:two).username
+    assert_not @user.valid?
+  end
+
+  test 'no acepta nombres de usuario cortos ni largos' do
+    @user.username = 'a1234'
+    assert_not @user.valid?
+    @user.username = 'a1234' * 20
+    assert_not @user.valid?
+  end
+
+  test 'no acepta roles fuera de la lista' do
+    invalid_roles = %w[papa suadmin common_user]
+    invalid_roles.each do |role|
+      @user.role = role
+      assert_not @user.valid?
+    end
+  end
 end

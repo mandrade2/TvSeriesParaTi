@@ -32,4 +32,9 @@ body {
   line-height: 60px;
   border-radius: 5px;
   background-color: $header_color;
+  nav {
+    li {
+      color: $header_text_color
+    }
+  }
 }

@@ -24,6 +24,7 @@
 #  locked_at              :datetime
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  username               :string
 #
 
 class User < ApplicationRecord
@@ -31,4 +32,14 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :recoverable,
          :rememberable, :trackable, :validatable, :confirmable, :lockable
+  validates :username, presence: true, uniqueness: true,
+                       length: { minimum: 6, maximum: 50 }
+  validates :name, presence: true,
+                   format: { with: /\A[a-z '-]+\z/i,
+                             message: 'Nombre debe estar compuesto solo
+                                      por letras, espacios, guiones y
+                                      apostrofes.' },
+                   length: { minimum: 2, maximum: 50 }
+  validates :role, inclusion: { in: %w[admin user child],
+                                message: '%{value} no es un rol valido' }
 end
