@@ -1,1 +1,35 @@
+/* Variables */
 
+$header_color: #333333;
+$header_text_color: #9d9d9d;
+
+/* Main */
+
+.jumbotron {
+  height: 100%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  position: static;
+  overflow: scroll;
+}
+
+/* Footer */
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+  border-radius: 5px;
+  background-color: $header_color;
+}
