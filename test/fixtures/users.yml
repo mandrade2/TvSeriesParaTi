@@ -24,6 +24,7 @@
 #  locked_at              :datetime
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  username               :string
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
@@ -33,10 +34,17 @@
 # below each fixture, per the syntax in the comments below
 #
 one:
+  username: tomtest
   name: Tom
-  role: User
+  role: user
   email: test@example.org
   encrypted_password: <%= User.new.send(:password_digest, '123greetings') %>
 
-two: {}
+two:
+  name: pedrotest
+  name: Pedro
+  role: admin
+  email: another@newexample.com
+  encrypted_password: <%= User.new.send(:password_digest, 'foobar') %>
+
 # column: value

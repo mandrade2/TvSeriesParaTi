@@ -7,7 +7,7 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get news" do
-    get pages_news_url
+    get news_url
     assert_response :success
   end
 
