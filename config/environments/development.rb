@@ -42,6 +42,23 @@ Rails.application.configure do
   # number of complex assets.
   config.assets.debug = true
 
+  config.action_mailer.smtp_settings = {
+    address: "smtp.live.com",
+    port: 587,
+    domain: 'mail.live.com',
+    authentication: "plain",
+    enable_starttls_auto: true,
+    user_name: 'castropenna@hotmail.com',
+    password: 'k1i2k9e8'
+  }
+  # ActionMailer Config
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.raise_delivery_errors = true
+  # Send email in development mode?
+  config.action_mailer.perform_deliveries = true
+
+
   # Suppress logger output for asset requests.
   config.assets.quiet = true
 
