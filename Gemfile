@@ -7,6 +7,7 @@ end
 
 gem 'annotate'
 gem 'bootstrap-sass'
+gem 'cancancan', '~> 1.16'
 gem 'coffee-rails', '~> 4.2'
 gem 'devise'
 gem 'jbuilder', '~> 2.5'
