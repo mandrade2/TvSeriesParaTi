@@ -21,6 +21,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.0]
 
       ## Base attributes
       t.string :name
+      t.string :role
 
       ## Confirmable
       t.string   :confirmation_token

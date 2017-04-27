@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :series
   devise_for :users
   root 'pages#home'
   get 'news', to: 'pages#news'

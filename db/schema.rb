@@ -10,14 +10,67 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170426192037) do
+ActiveRecord::Schema.define(version: 20170427031727) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "users", force: :cascade do |t|
+  create_table "actors", force: :cascade do |t|
     t.string   "name"
-    t.string   "role"
+    t.string   "nacionality"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "actors_series", id: false, force: :cascade do |t|
+    t.integer "series_id", null: false
+    t.integer "actor_id",  null: false
+    t.index ["actor_id"], name: "index_actors_series_on_actor_id", using: :btree
+    t.index ["series_id", "actor_id"], name: "index_actors_series_on_series_id_and_actor_id", unique: true, using: :btree
+    t.index ["series_id"], name: "index_actors_series_on_series_id", using: :btree
+  end
+
+  create_table "directors", force: :cascade do |t|
+    t.string   "name"
+    t.string   "nacionality"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "directors_series", id: false, force: :cascade do |t|
+    t.integer "series_id",   null: false
+    t.integer "director_id", null: false
+    t.index ["director_id"], name: "index_directors_series_on_director_id", using: :btree
+    t.index ["series_id", "director_id"], name: "index_directors_series_on_series_id_and_director_id", unique: true, using: :btree
+    t.index ["series_id"], name: "index_directors_series_on_series_id", using: :btree
+  end
+
+  create_table "genders", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "genders_series", id: false, force: :cascade do |t|
+    t.integer "series_id", null: false
+    t.integer "gender_id", null: false
+    t.index ["gender_id"], name: "index_genders_series_on_gender_id", using: :btree
+    t.index ["series_id", "gender_id"], name: "index_genders_series_on_series_id_and_gender_id", unique: true, using: :btree
+    t.index ["series_id"], name: "index_genders_series_on_series_id", using: :btree
+  end
+
+  create_table "series", force: :cascade do |t|
+    t.string   "name"
+    t.string   "description"
+    t.string   "country"
+    t.integer  "seasons"
+    t.integer  "chapters_duration"
+    t.float    "rating"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
@@ -28,6 +81,8 @@ ActiveRecord::Schema.define(version: 20170426192037) do
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
+    t.string   "name"
+    t.string   "role"
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
