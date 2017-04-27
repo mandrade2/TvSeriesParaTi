@@ -1,0 +1,32 @@
+# == Schema Information
+#
+# Table name: series
+#
+#  id                :integer          not null, primary key
+#  name              :string
+#  description       :string
+#  country           :string
+#  seasons           :integer
+#  chapters_duration :integer
+#  rating            :float
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyStringjaskajaskajaskajaksjakajskajaksjdkajh
+  country: MyString
+  seasons: 1
+  chapters_duration: 1
+  rating: 1.5
+
+two:
+  name: MyString
+  description: MyStringasdgetwhsrthrwwherhrtehsdfhrtshsthrsrth
+  country: MyString
+  seasons: 1
+  chapters_duration: 1
+  rating: 1.5
