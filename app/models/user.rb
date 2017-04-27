@@ -30,6 +30,7 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
+  after_initialize :set_defaults
   devise :database_authenticatable, :registerable, :recoverable,
          :rememberable, :trackable, :validatable, :confirmable, :lockable
   validates :username, presence: true, uniqueness: true,
@@ -42,4 +43,18 @@ class User < ApplicationRecord
                    length: { minimum: 2, maximum: 50 }
   validates :role, inclusion: { in: %w[admin user child],
                                 message: '%{value} no es un rol valido' }
+
+  def admin?
+    role == 'admin'
+  end
+
+  def user?
+    role == 'user'
+  end
+
+  private
+
+  def set_defaults
+    self.role = 'admin'
+  end
 end
