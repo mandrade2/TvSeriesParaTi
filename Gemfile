@@ -10,6 +10,7 @@ gem 'bootstrap-sass'
 gem 'cancancan', '~> 1.16'
 gem 'coffee-rails', '~> 4.2'
 gem 'devise'
+gem 'faker', '~> 1.7.3'
 gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails'
 gem 'jquery-turbolinks'
@@ -23,6 +24,12 @@ gem 'uglifier', '>= 1.3.0'
 
 group :development, :test do
   gem 'byebug', platform: :mri
+  gem 'capybara'
+  gem 'factory_girl_rails'
+  gem 'guard-rspec'
+  gem 'rspec-rails'
+  gem 'spring-commands-rspec'
+  gem 'vcr'
 end
 
 group :development do
@@ -31,6 +38,11 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'web-console', '>= 3.3.0'
+end
+
+group :test do
+  gem 'rails-controller-testing'
+  gem 'webmock'
 end
 
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]

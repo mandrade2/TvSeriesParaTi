@@ -6,7 +6,6 @@
     </div>
     <nav>
       <ul class="nav navbar-nav">
-        <li><%= link_to 'Home', root_path %></li>
         <li><%= link_to 'News', news_path %></li>
         <li><%= link_to 'Users', users_path if current_user and can? :manage, User %></li>
       </ul>

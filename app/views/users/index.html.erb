@@ -1,17 +1,20 @@
 
 <h1>Usuarios: </h1>
 
-<%= form_tag users_search_path, class: "form-inline" do %>
-  <div class="form-group">
-    <%= select_tag "search for", options_for_select(%i[username name email],
-                                                    :username),
-                                                    class: 'form-control' %>
-  </div>
-  <div class="form-group">
-    <%= text_field_tag :search_text, nil, class: 'form-control' %>
-  </div>
-  <%= submit_tag 'Search', class: "btn btn-default" %>
-<% end %>
+<div id="users_search">
+  <%= form_tag users_search_path, class: "form-inline" do %>
+    <div class="form-group">
+      <%= select_tag "search_for", options_for_select(%i[username name email],
+                                                      :username),
+                                                      class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= text_field_tag :search_text, nil, class: 'form-control', name: 'search_text' %>
+    </div>
+    <%= submit_tag 'Search', class: "btn btn-default" %>
+  <% end %>
+  <%= link_to 'List all users', users_path, class: 'pull-right' %>
+</div>
 
 <table class="table">
   <tr>
@@ -21,16 +24,18 @@
   </tr>
 
 <% @users.each do |user| %>
-  <tr>
-    <td><%= user.name %></td>
-    <td><%= user.username %></td>
-    <td><%= user.email %></td>
-    <td>
-      <%= button_to "Destroy", users_destroy_path, method: :delete,
-                                                   params: { user_id: user },
-                                                   data: { confirm:
-                                                   'Estas seguro?'} %> 
-    </td>
-  </tr>
+  <% if user.username != current_user.username && user.role != 'admin' %>
+    <tr>
+      <td><%= user.name %></td>
+      <td><%= user.username %></td>
+      <td><%= user.email %></td>
+      <td>
+        <%= button_to "Destroy", users_destroy_path, method: :delete,
+                                                     params: { user_id: user },
+                                                     data: { confirm:
+                                                     'Estas seguro?'} %>
+      </td>
+    </tr>
+  <% end %>
 <% end %>
 </table>

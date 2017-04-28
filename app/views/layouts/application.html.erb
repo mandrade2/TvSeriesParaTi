@@ -12,13 +12,11 @@
   <body>
 
   <%= render 'layouts/header' %>
-
-  <div class="container">
+  
+  <div class="jumbotron">
     <% flash.each do |message_type, message| %>
         <div class="alert alert-<%= message_type %>"><%= message %></div>
     <% end %>
-  </div>
-  <div class="jumbotron">
     <h1><%= yield :header %></h1>
     <div class="container">
       <%= yield %>

@@ -7,7 +7,6 @@ class Ability
       can %i[update manage destroy], User
     elsif user.user?
       can :read, :all
-      can %i[update manage destroy], User, role: 'child'
     end
   end
 end

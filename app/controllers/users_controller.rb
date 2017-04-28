@@ -1,25 +1,29 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!
+
   def index
-    #@users = params[:users] || User.all
-    #if params[:users]
-    #  @users.merge(User.new(name: 'hey'))
-    #end
+    return redirect_to root_path unless current_user.admin?
     @users = User.all
+    return @users unless params[:search_for].present?
+    @users = if params[:search_for] == 'email'
+               @users.email_like(params[:search_text])
+             elsif params[:search_for] == 'name'
+               @users.name_like(params[:search_text])
+             else
+               @users.username_like(params[:search_text])
+             end
+    if @users.empty?
+      flash[:notice] = 'Busqueda sin resultados'
+    end
   end
 
   def search
-    if %w[username name email].include?(params[:search_for])
-      search_text = '%' + params[search_text] + '%'
-      @users = User.where("#{params[:search_for]} like '#{search_text}'")
-    else
-      @users = User.all
-    end
-    render 'users/index'
+    redirect_to users_path
   end
 
   def destroy
     @user = User.find(params[:user_id])
     @user.destroy
-    redirect_to root_path
+    redirect_to users_path
   end
 end

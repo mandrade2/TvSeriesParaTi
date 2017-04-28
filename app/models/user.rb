@@ -30,7 +30,10 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  after_initialize :set_defaults
+  scope :email_like, (->(email) { where("email like '%#{email}%'") })
+  scope :username_like, (->(username) { where("username like '%#{username}%'") })
+  scope :name_like, (->(name) { where("name like '%#{name}%'") })
+  before_create :set_defaults
   devise :database_authenticatable, :registerable, :recoverable,
          :rememberable, :trackable, :validatable, :confirmable, :lockable
   validates :username, presence: true, uniqueness: true,
@@ -55,6 +58,6 @@ class User < ApplicationRecord
   private
 
   def set_defaults
-    self.role = 'admin'
+    self.role = 'user'
   end
 end
