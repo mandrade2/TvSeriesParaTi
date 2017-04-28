@@ -1,0 +1,10 @@
+<% provide(:title, "News") %>
+<h1>Pages#news</h1>
+<p>Find me in app/views/pages/news.html.erb</p>
+<li id="noticia-<%= noticia.id %>">
+  <span class="user"><%= link_to noticia.user.name, noticia.user %></span>
+  <span class="content"><%= noticia.content %></span>
+  <span class="timestamp">
+    Posted <%= time_ago_in_words(noticia.created_at) %> ago.
+  </span>
+</li>

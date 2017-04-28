@@ -33,6 +33,7 @@ class User < ApplicationRecord
   scope :email_like, (->(email) { where("email like '%#{email}%'") })
   scope :username_like, (->(username) { where("username like '%#{username}%'") })
   scope :name_like, (->(name) { where("name like '%#{name}%'") })
+  has_many :noticiums, dependent: :destroy
   before_create :set_defaults
   devise :database_authenticatable, :registerable, :recoverable,
          :rememberable, :trackable, :validatable, :confirmable, :lockable

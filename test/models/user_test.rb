@@ -80,4 +80,11 @@ class UserTest < ActiveSupport::TestCase
       assert_not @user.valid?
     end
   end
+  test "associated microposts should be destroyed" do
+    @user.save
+    @user.noticiums.create!(content: "Lorem ipsum",title: "titulo x")
+    assert_difference 'Noticium.count', -1 do
+      @user.destroy
+    end
+  end
 end

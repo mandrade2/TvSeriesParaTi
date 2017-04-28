@@ -21,6 +21,11 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 
+  def show
+    @user = User.find(params[:id])
+    @microposts = @user.noticiums.paginate(page: params[:page])
+  end
+
   def destroy
     @user = User.find(params[:user_id])
     @user.destroy
