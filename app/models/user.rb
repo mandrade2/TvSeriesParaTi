@@ -33,7 +33,7 @@ class User < ApplicationRecord
   scope :email_like, (->(email) { where("email like '%#{email}%'") })
   scope :username_like, (->(username) { where("username like '%#{username}%'") })
   scope :name_like, (->(name) { where("name like '%#{name}%'") })
-  before_create :set_defaults
+  after_initialize :set_defaults
   devise :database_authenticatable, :registerable, :recoverable,
          :rememberable, :trackable, :validatable, :confirmable, :lockable
   validates :username, presence: true, uniqueness: true,
@@ -44,7 +44,7 @@ class User < ApplicationRecord
                                       por letras, espacios, guiones y
                                       apostrofes.' },
                    length: { minimum: 2, maximum: 50 }
-  validates :role, inclusion: { in: %w[admin user child],
+  validates :role, inclusion: { in: ["admin", "user", "child", nil],
                                 message: '%{value} no es un rol valido' }
 
   def admin?
