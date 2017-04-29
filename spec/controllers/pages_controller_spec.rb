@@ -17,11 +17,6 @@ RSpec.describe PagesController, type: :controller do
       expect(response).to render_template('pages/about')
     end
 
-    it 'renders news page' do
-      get :news
-      expect(response).to render_template('pages/news')
-    end
-
     it 'renders help page' do
       get :help
       expect(response).to render_template('pages/help')
