@@ -1,9 +1,11 @@
 
 <% provide(:title, 'Noticias') %>
-<% provide(:header,'Noticias') %>
+<h1>Noticias</h1>
 
-<%= link_to 'Escribir noticia', new_news_path, class: 'pull-right' %><br>
+<%= link_to 'Escribir noticia', new_news_path, class: 'pull-right btn btn-primary' %><br>
+<br>
 <% @news.each do |noticia|%>
+
   <ul class="list-group">
     <li class="list-group-item"><strong>Titulo:</strong> <%= link_to noticia.title, news_path(noticia.id)%></li>
     <li class="list-group-item"><strong>Creado por:</strong> <%= noticia.user.name %></li>
