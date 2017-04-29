@@ -5,7 +5,7 @@
 <div class="row">
   <div class="col-md-8">
 
-    <%News.all.each do |noticia|%>
+    <%@news.all.each do |noticia|%>
 
         <div class="square bg img1" >
           <div class="content">
@@ -13,7 +13,8 @@
               <div class="table-cell">
                 "<%= noticia.title %>" <br>
                 by <%= noticia.user.name %> <br>
-                at <%= noticia.created_at %>
+                at <%= noticia.created_at %><br>
+                <%= link_to 'ver', news_path(noticia.id) %>
               </div>
             </div>
           </div>

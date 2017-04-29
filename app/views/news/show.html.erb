@@ -1,19 +1,19 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @news.title %>
-</p>
+<h1><%= @news.title %></h1>
+<h3> <%= @news.user.name %></h3>
+
 
 <p>
-  <strong>Content:</strong>
   <%= @news.content %>
 </p>
+<div class="btn-group">
+<%if current_user.id==@news.user.id%>
 
-<p>
-  <strong>User:</strong>
-  <%= @news.user %>
-</p>
+    <%=link_to 'Editar', edit_news_path(@news) , :class => 'btn btn-primary', :type => 'button'%>
 
-<%= link_to 'Edit', edit_news_path(@news) %> |
-<%= link_to 'Back', news_index_path %>
+<%end%>
+
+  <%=link_to 'Atras', news_index_path, :class => 'btn btn-primary', :type => 'button'%>
+
+</div>
