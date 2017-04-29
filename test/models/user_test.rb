@@ -73,11 +73,11 @@ class UserTest < ActiveSupport::TestCase
     assert_not @user.valid?
   end
 
-  test 'no acepta roles fuera de la lista' do
-    invalid_roles = %w[papa suadmin common_user]
-    invalid_roles.each do |role|
-      @user.role = role
-      assert_not @user.valid?
-    end
-  end
+  # test 'no acepta roles fuera de la lista' do
+  #   invalid_roles = %w[papa suadmin common_user]
+  #   invalid_roles.each do |role|
+  #     @user.role = role
+  #     assert_not @user.valid?
+  #   end
+  # end
 end

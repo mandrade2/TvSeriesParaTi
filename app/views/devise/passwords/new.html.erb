@@ -1,5 +1,5 @@
-<% provide(:title, 'Forgot Paswword?') %>
-<h2>Forgot your password?</h2>
+<% provide(:title, '¿Olvidaste tu contraseña?') %>
+<% provide(:header, '¿Olvidaste tu contraseña?') %>
 
 <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
   <%= devise_error_messages! %>

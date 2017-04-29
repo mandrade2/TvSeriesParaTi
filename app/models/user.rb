@@ -28,12 +28,15 @@
 #
 
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
+  # relations
+  has_many :children, class_name: 'User', foreign_key: :father_id
+  belongs_to :father, class_name: 'User'
+  # scopes
   scope :email_like, (->(email) { where("email like '%#{email}%'") })
-  scope :username_like, (->(username) { where("username like '%#{username}%'") })
+  scope :username_like,
+        (->(username) { where("username like '%#{username}%'") })
   scope :name_like, (->(name) { where("name like '%#{name}%'") })
-  after_initialize :set_defaults
+  after_create :set_defaults
   devise :database_authenticatable, :registerable, :recoverable,
          :rememberable, :trackable, :validatable, :confirmable, :lockable
   validates :username, presence: true, uniqueness: true,
@@ -44,20 +47,26 @@ class User < ApplicationRecord
                                       por letras, espacios, guiones y
                                       apostrofes.' },
                    length: { minimum: 2, maximum: 50 }
-  validates :role, inclusion: { in: ["admin", "user", "child", nil],
-                                message: '%{value} no es un rol valido' }
+
+  def child?
+    role == 'child' && !father_id.nil?
+  end
+
+  def user?
+    role == 'user' && father_id.nil?
+  end
 
   def admin?
     role == 'admin'
   end
 
-  def user?
-    role == 'user'
+  def upgrade_to_admin
+    update_attribute :role, 'admin'
   end
 
   private
 
   def set_defaults
-    self.role = 'user'
+    self.role ||= 'user'
   end
 end

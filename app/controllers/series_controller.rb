@@ -9,8 +9,7 @@ class SeriesController < ApplicationController
 
   # GET /series/1
   # GET /series/1.json
-  def show
-  end
+  def show; end
 
   # GET /series/new
   def new
@@ -18,8 +17,7 @@ class SeriesController < ApplicationController
   end
 
   # GET /series/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /series
   # POST /series.json
@@ -62,13 +60,16 @@ class SeriesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_series
-      @series = Series.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def series_params
-      params.require(:series).permit(:name, :description, :country, :seasons, :chapters_duration, :rating)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_series
+    @series = Series.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet,
+  # only allow the white list through.
+  def series_params
+    params.require(:series).permit(:name, :description, :country,
+                                   :seasons, :chapters_duration, :rating)
+  end
 end
