@@ -3,21 +3,21 @@
   </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
   <p> <strong>Nombre: <%= @series.name %></strong></p>
 <p>
-  <strong>Description:</strong>
+  <strong>Descripción:</strong>
   <%= @series.description %>
 </p>
 <p>
-  <strong>Country:</strong>
+  <strong>Chile:</strong>
   <%= @series.country %>
 </p>
 
 <p>
-  <strong>Seasons:</strong>
+  <strong>Temporadas:</strong>
   <%= @series.seasons %>
 </p>
 
 <p>
-  <strong>Chapters duration:</strong>
+  <strong>Duración de capítulos:</strong>
   <%= @series.chapters_duration %>
 </p>
 
@@ -26,10 +26,10 @@
   <%= @series.rating %>
 </p>
 
-<%= link_to 'Back', series_index_path %>
-<%unless @series.user_id.nil?%>
-<%if current_user.id == @series.user_id%>
-  |<%= link_to 'Destroy', @series, method: :delete, data: { confirm: 'Are you sure?' } %>
-  |<%= link_to 'Edit', edit_series_path(@series) %>
-<% end %>
+<%= link_to 'Atras', series_index_path %>
+<% unless @series.user_id.nil? %>
+  <% if current_user.id == @series.user_id %>
+    |<%= link_to 'Eliminar', @series, method: :delete, data: { confirm: 'Are you sure?' } %>
+    |<%= link_to 'Editar', edit_series_path(@series) %>
+  <% end %>
 <% end %>

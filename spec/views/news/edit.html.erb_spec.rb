@@ -2,11 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "news/edit", type: :view do
   before(:each) do
-    @news = assign(:news, News.create!(
-      :title => "MyString",
-      :content => "MyText",
-      :user => nil
-    ))
+    @news = assign(:news, create(:news))
   end
 
   it "renders the edit news form" do
