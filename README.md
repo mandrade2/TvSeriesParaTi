@@ -17,4 +17,5 @@ ________________________
 
 # Read me
 
-Documento de especificaciones del alumno.
+##ENTREGA 1
+
