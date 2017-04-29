@@ -1,37 +1,18 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Series</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Country</th>
-      <th>Seasons</th>
-      <th>Chapters duration</th>
-      <th>Rating</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @series.each do |series| %>
-      <tr>
-        <td><%= series.name %></td>
-        <td><%= series.description %></td>
-        <td><%= series.country %></td>
-        <td><%= series.seasons %></td>
-        <td><%= series.chapters_duration %></td>
-        <td><%= series.rating %></td>
-        <td><%= link_to 'Show', series %></td>
-        <td><%= link_to 'Edit', edit_series_path(series) %></td>
-        <td><%= link_to 'Destroy', series, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+<% provide(:title, 'Series') %>
+<% provide(:header,'Series') %>
+<div class="row">
+  <div class="col-md-8">
+    <%@series.each do |serie|%>
+        <%= render 'series/preview', series: serie %>
     <% end %>
-  </tbody>
-</table>
+  </div>
+    <div id="bottom">
+      <p>Grega<br/>
+        <a > Escribir noticia </a></p>
+      <a >Home</a>
+    </div>
+  </div>
+</div>
 
-<br>
 
 <%= link_to 'New Series', new_series_path %>
