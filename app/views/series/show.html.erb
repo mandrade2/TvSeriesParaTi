@@ -26,8 +26,10 @@
   <%= @series.rating %>
 </p>
 
-<%= link_to 'Edit', edit_series_path(@series) %> |
 <%= link_to 'Back', series_index_path %>
+<%unless @series.user_id.nil?%>
 <%if current_user.id == @series.user_id%>
   |<%= link_to 'Destroy', @series, method: :delete, data: { confirm: 'Are you sure?' } %>
+  |<%= link_to 'Edit', edit_series_path(@series) %>
+<% end %>
 <% end %>

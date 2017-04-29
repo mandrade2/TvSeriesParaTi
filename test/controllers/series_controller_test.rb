@@ -20,10 +20,7 @@ class SeriesControllerTest < ActionDispatch::IntegrationTest
       post series_index_url, params: { series: {
         chapters_duration: @series.chapters_duration,
         country: @series.country,
-        description: @series.description,
-        name: @series.name,
-        rating: @series.rating,
-        seasons: @series.seasons
+        description: @series.description
       } }
     end
 

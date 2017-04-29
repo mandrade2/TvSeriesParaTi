@@ -47,7 +47,7 @@ class SeriesTest < ActiveSupport::TestCase
       @serie1.description = name
       assert @serie1.valid?
     end
-    descripcion_de_no_series = [nil, '', 'meme' * 51, 'a' * 39]
+    descripcion_de_no_series = [nil, '', 'meme' * 51]
     descripcion_de_no_series.each do |no_name|
       @serie1.description = no_name
       assert_not @serie1.valid?
