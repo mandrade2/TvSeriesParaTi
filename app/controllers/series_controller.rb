@@ -58,7 +58,10 @@ class SeriesController < ApplicationController
       format.json { head :no_content }
     end
   end
-
+  
+  def set_series
+    @series = Series.find(params[:id])
+  end
   private
 
     # Never trust parameters from the scary internet, only allow the white list through.
