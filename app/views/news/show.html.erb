@@ -1,13 +1,13 @@
 <p id="notice"><%= notice %></p>
 
-<h1><%= @news.title %></h1>
-<h3> <%= @news.user.name %></h3>
+<h1 style="text-align: center"><%= @news.title %></h1>
+<h3 style="text-align: center"> <%= @news.user.name %></h3>
 
 
-<p>
+<p style="text-align: center">
   <%= @news.content %>
 </p>
-<div class="btn-group">
+<div class="btn-group" >
 <%if current_user.id==@news.user.id%>
 
     <%=link_to 'Editar', edit_news_path(@news) , :class => 'btn btn-primary', :type => 'button'%>
