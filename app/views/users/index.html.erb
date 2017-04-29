@@ -24,10 +24,10 @@
   </tr>
 
 <% @users.each do |user| %>
-  <% if user.username != current_user.username && user.role != 'admin' %>
+  <% if user.username != current_user.username && user.user? %>
     <tr>
       <td><%= user.name %></td>
-      <td><%= user.username %></td>
+      <td><%= link_to user.username, other_user_profile_path(user) %></td>
       <td><%= user.email %></td>
       <td>
         <%= button_to "Upgrade", users_upgrade_path, method: :patch,

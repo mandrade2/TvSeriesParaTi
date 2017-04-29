@@ -12,7 +12,7 @@
   </div>
 <% end %>
 
-<%= form_for(@child, url: children_new_path(@child)) do |f| %>
+<%= form_for(@child, url: children_new_path(current_user.username)) do |f| %>
   <div class="form-group">
     <%= f.label :nombre %>
     <%= f.text_field :name, class: 'form-control' %>
@@ -44,4 +44,4 @@
   <%= f.submit "Crear cuenta niño", class: 'btn btn-primary' %>
 <% end %>
 
-<%= link_to 'Volver atras', children_path%>
+<%= link_to 'Volver atras', children_path(current_user.username)%>

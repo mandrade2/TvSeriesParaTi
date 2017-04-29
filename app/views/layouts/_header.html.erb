@@ -6,19 +6,23 @@
     </div>
     <nav>
       <ul class="nav navbar-nav">
-        <li><%= link_to 'News', news_path %></li>
-        <li><%= link_to 'Users', users_path if current_user and can? :manage, User %></li>
+        <li><%= link_to 'Noticias', news_path %></li>
+        <li><%= link_to 'Usuarios', users_path if current_user and can? :manage, User %></li>
       </ul>
       <ul class="nav navbar-nav pull-right">
         <% if user_signed_in? %>
             <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <%= current_user.name %>
+                <% if can? :manage, User %>
+                  <%= current_user.name + ' (admin)'%>
+                <% else %>
+                  <%= current_user.name %>
+                <% end %>
                 <span class="caret"></span>
               </a>
               <ul class="dropdown-menu" role="menu">
-                <li><%= link_to 'Ver perfil', profile_path(current_user) %></li>
-                <li><%= link_to 'Administrar cuentas niño', children_path if current_user and can? :manage_children, User %></li>
+                <li><%= link_to 'Ver perfil', profile_path(current_user.username) %></li>
+                <li><%= link_to 'Administrar cuentas niño', children_path(current_user.username) if current_user and can? :manage_children, User %></li>
                 <li><%= link_to 'Salir de la aplicación', destroy_user_session_path, method: :delete %></li>
               </ul>
             </li>

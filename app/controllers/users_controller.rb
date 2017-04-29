@@ -1,7 +1,13 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
+  before_action :verify_user, only: %i[children new_child
+                                       create_child destroy_child]
 
-  def profile; end
+  def user_profile; end
+
+  def other_user_profile
+    @user = User.find(params[:username])
+  end
 
   def index
     return redirect_to root_path unless current_user.admin?
@@ -41,7 +47,7 @@ class UsersController < ApplicationController
     flash[:info] = 'Busqueda sin resultados' if @children.empty?
   end
 
-  def new_children
+  def new_child
     if current_user.children.count >= 5
       flash[:warning] = 'No puede agregar mas cuentas hijo'
       redirect_to children_path
@@ -49,7 +55,7 @@ class UsersController < ApplicationController
     @child = User.new
   end
 
-  def create_children
+  def create_child
     @child = User.new(children_params)
     @child.role = 'child'
     @child.skip_confirmation!
@@ -65,7 +71,7 @@ class UsersController < ApplicationController
     end
   end
 
-  def destroy_children
+  def destroy_child
     @child = User.find(params[:child_id])
     @child.destroy
     flash[:success] = 'Cuenta hijo fue borrada correctamente'
@@ -84,5 +90,9 @@ class UsersController < ApplicationController
   def children_params
     params.require(:user).permit(:name, :username, :email,
                                  :password, :password_confirmation)
+  end
+
+  def verify_user
+    redirect_to root_path unless current_user.user? || current_user.admin?
   end
 end

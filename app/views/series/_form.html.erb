@@ -11,37 +11,37 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :name %>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :description %>
-    <%= f.text_field :description %>
+    <%= f.text_field :description, class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :country %>
-    <%= f.text_field :country %>
+    <%= f.text_field :country, class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :seasons %>
-    <%= f.number_field :seasons %>
+    <%= f.number_field :seasons, class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :chapters_duration %>
-    <%= f.number_field :chapters_duration %>
+    <%= f.number_field :chapters_duration, class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :rating %>
-    <%= f.text_field :rating %>
+    <%= f.text_field :rating, class: 'form-control' %>
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit 'Crear serie', class: 'btn btn-primary' %>
   </div>
 <% end %>

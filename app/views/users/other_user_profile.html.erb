@@ -1,0 +1,28 @@
+<% provide(:title, current_user.name) %>
+<% provide(:header, @user.name) %>
+
+<%= render 'profile', user: @user %>
+
+<% if can? :manage, User %>
+  <h5> Cuentas hijo de <%= @user.name%> </h3>
+  <table class="table">
+    <tr>
+      <th>Nombre</th>
+      <th>Usuario</th>
+      <th>Email</th>
+    </tr>
+    <% @user.children.each do |child| %>
+        <tr>
+          <td><%= child.name %></td>
+          <td><%=child.username %></td>
+          <td><%=child.email %></td>
+          <td>
+            <%= button_to "Destroy", children_destroy_path(current_user.username), method: :delete,
+                                                            params: { child_id: child },
+                                                            data: { confirm:
+                                                            'Estas seguro?'} %>
+          </td>
+        </tr>
+    <% end %>
+  </table>
+<% end %>
