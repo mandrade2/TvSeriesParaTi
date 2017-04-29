@@ -1,0 +1,31 @@
+
+<% provide(:title, 'Noticias') %>
+<% provide(:header,'Noticias') %>
+<%@user=current_user%>
+<div class="row">
+  <div class="col-md-8">
+
+    <%News.all.each do |noticia|%>
+
+        <div class="square bg img1" >
+          <div class="content">
+            <div class="table">
+              <div class="table-cell">
+                "<%= noticia.title %>" <br>
+                by <%= noticia.user.name %> <br>
+                at <%= noticia.created_at %>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    <% end %>
+
+  </div>
+  <div id="bottom">
+    <p>Escribe las noticias y mantente al dia con el mejor cine:<br/>
+      <%= link_to 'Escribir noticia', new_news_path %><br>
+      <a >Home</a>
+  </div>
+</div>
+

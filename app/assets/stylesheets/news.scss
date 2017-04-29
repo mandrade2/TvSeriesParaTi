@@ -1,0 +1,98 @@
+// Place all the styles related to the Noticia controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+@import url(http://fonts.googleapis.com/css?family=Lato:400,900);
+.square {
+  float:left;
+  position: relative;
+  width: 30%;
+  padding-bottom : 30%; /* = width for a 1:1 aspect ratio */
+  margin:1.66%;
+  background-color:#1E1E1E;
+  overflow:hidden;
+}
+
+.content {
+  color:black;
+  position:absolute;
+  height:90%; /* = 100% - 2*5% padding */
+  width:90%; /* = 100% - 2*5% padding */
+  padding: 5%;
+
+}
+.table{
+  display:table;
+  width:100%;
+  height:100%;
+}
+.table-cell {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+
+/*  For responsive images */
+
+.content .rs{
+  width:auto;
+  height:auto;
+  max-height:90%;
+  max-width:100%;
+}
+/*  For responsive images as background */
+
+.bg{
+  background-position:center center;
+  background-repeat:no-repeat;
+  background-size:cover; /* you change this to "contain" if you don't want the images to be cropped */
+  color:#fff;
+}
+
+.img1{
+  background-image: url('http://lorempixel.com/500/500/nature');
+}
+
+body {
+  font-size:20px;
+  font-family: 'Lato',verdana, sans-serif;
+  font-weight: bold;
+  color: #fff;
+  text-align:center;
+  background:#ECECEC;
+}
+p{
+  margin:0;
+  padding:0;
+  text-align:center;
+}
+
+
+#bottom {
+  clear:both;
+  margin:0 1.66%;
+  width:97%;
+  padding: 3.5%;
+  background-color:#1E1E1E;
+  color: #fff;
+}
+#bottom p{
+  text-align:center;
+  line-height:2em;
+}
+#bottom a{
+  color: #000;
+  text-decoration:none;
+  border:1px solid #000;
+  padding:10px 20px 12px;
+  line-height:70px;
+  background:#ccc;
+
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+
+#bottom a:hover{
+  background:#ECECEC;
+  border:1px solid #fff;
+}

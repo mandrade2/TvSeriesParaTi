@@ -6,7 +6,7 @@
     </div>
     <nav>
       <ul class="nav navbar-nav">
-        <li><%= link_to 'Noticias', news_path %></li>
+        <li><%= link_to 'Noticias', news_index_path %></li>
         <li><%= link_to 'Usuarios', users_path if current_user and can? :manage, User %></li>
       </ul>
       <ul class="nav navbar-nav pull-right">

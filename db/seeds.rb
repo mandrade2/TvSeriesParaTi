@@ -1,4 +1,3 @@
-# Usuarios comunes
 
 user_amount = 10
 child_amount = 3
@@ -14,6 +13,12 @@ user_amount.times do |i|
   user.skip_confirmation!
   user.save
 end
+users = User.order(:created_at).take(6)
+10.times do
+  title = Faker::Lorem.sentence(5)
+  content = Faker::Lorem.paragraph(5)
+  users.each { |user| user.news.create!(content: content, title: title) }
+end
 
 main = User.create(
   username: 'jecastro2',
@@ -23,6 +28,17 @@ main = User.create(
   password:  'mypassword',
   confirmed_at: Time.now
 )
+
+title = Faker::Lorem.sentence(5)
+content = Faker::Lorem.paragraph(5)
+main.news.create(content: content, title: title)
+title = Faker::Lorem.sentence(5)
+content = Faker::Lorem.paragraph(5)
+main.news.create(content: content, title: title)
+title = Faker::Lorem.sentence(5)
+content = Faker::Lorem.paragraph(5)
+main.news.create(content: content, title: title)
+
 
 child_amount.times do |j|
   main.children.create(

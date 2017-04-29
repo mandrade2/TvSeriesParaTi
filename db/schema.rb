@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170429022048) do
+ActiveRecord::Schema.define(version: 20170429201642) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,15 @@ ActiveRecord::Schema.define(version: 20170429022048) do
     t.index ["series_id"], name: "index_genders_series_on_series_id", using: :btree
   end
 
+  create_table "news", force: :cascade do |t|
+    t.string   "title"
+    t.text     "content"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_news_on_user_id", using: :btree
+  end
+
   create_table "series", force: :cascade do |t|
     t.string   "name"
     t.string   "description"
@@ -71,8 +80,6 @@ ActiveRecord::Schema.define(version: 20170429022048) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "name"
-    t.string   "role"
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
@@ -83,6 +90,8 @@ ActiveRecord::Schema.define(version: 20170429022048) do
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
+    t.string   "name"
+    t.string   "role"
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
@@ -100,4 +109,5 @@ ActiveRecord::Schema.define(version: 20170429022048) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree
   end
 
+  add_foreign_key "news", "users"
 end
