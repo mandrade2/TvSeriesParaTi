@@ -1,15 +1,11 @@
 <p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @series.name %>
-</p>
-
+  <div class="square bg img1">
+  </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+  <p> <strong>Nombre: <%= @series.name %></strong></p>
 <p>
   <strong>Description:</strong>
   <%= @series.description %>
 </p>
-
 <p>
   <strong>Country:</strong>
   <%= @series.country %>
@@ -32,3 +28,6 @@
 
 <%= link_to 'Edit', edit_series_path(@series) %> |
 <%= link_to 'Back', series_index_path %>
+<%if current_user.id == @series.user_id%>
+  |<%= link_to 'Destroy', @series, method: :delete, data: { confirm: 'Are you sure?' } %>
+<% end %>

@@ -1,6 +1,9 @@
-// Place all the styles related to the Series controller here.
+// Place all the styles related to the Users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import url(http://fonts.googleapis.com/css?family=Lato:400,900);  /* <-- Just for the demo, Yes I like pretty fonts... */
+
 .square {
   float:left;
   position: relative;
@@ -11,7 +14,15 @@
   overflow:hidden;
 }
 
+.content {
+  color:black;
+  position:absolute;
+  height:90%; /* = 100% - 2*5% padding */
+  width:90%; /* = 100% - 2*5% padding */
+  padding: 5%;
+  text-align: center;
 
+}
 .table{
   display:table;
   width:100%;
@@ -42,10 +53,7 @@
 
 .img1{
   background-image: url("http://c8.alamy.com/comp/A659HH/moscow-russia-dzerzhinsky-square-kgb-lubianka-prison-A659HH.jpg");
-  background-size: cover;
-
 }
-
 
 
 body {

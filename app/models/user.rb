@@ -30,6 +30,7 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
+  has_many :series
   scope :email_like, (->(email) { where("email like '%#{email}%'") })
   scope :username_like, (->(username) { where("username like '%#{username}%'") })
   scope :name_like, (->(name) { where("name like '%#{name}%'") })

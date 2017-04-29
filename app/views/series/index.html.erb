@@ -3,14 +3,14 @@
 <div class="row">
   <div class="col-md-8">
     <%@series.each do |serie|%>
-        <%= render 'series/preview', series: serie %>
+      <% unless serie.nil?%>
+        <% unless serie.user.nil?%>
+          <% if serie.user.role == 'admin' || serie.user.id == current_user.id %>
+            <%= render 'series/preview', series: serie %>
+          <% end %>
+        <% end %>
+      <% end %>
     <% end %>
-  </div>
-    <div id="bottom">
-      <p>Grega<br/>
-        <a > Escribir noticia </a></p>
-      <a >Home</a>
-    </div>
   </div>
 </div>
 

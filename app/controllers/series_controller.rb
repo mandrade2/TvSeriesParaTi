@@ -24,7 +24,7 @@ class SeriesController < ApplicationController
   # POST /series
   # POST /series.json
   def create
-    @series = Series.new(series_params)
+    @series = Series.new(series_params.merge(seasons: 0, chapters_duration: 0, rating: 0, user_id: current_user.id))
 
     respond_to do |format|
       if @series.save
@@ -69,6 +69,6 @@ class SeriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def series_params
-      params.require(:series).permit(:name, :description, :country, :seasons, :chapters_duration, :rating)
+      params.require(:series).permit(:name, :description, :country)
     end
 end
