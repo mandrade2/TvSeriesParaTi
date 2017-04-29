@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<h1 style="text-align: center"><%= @news.title %></h1>
+<h3 style="text-align: center"> <%= @news.user.name %></h3>
+
+
+<p style="text-align: center">
+  <%= @news.content %>
+</p>
+<div class="btn-group" >
+<%if current_user.id==@news.user.id%>
+
+    <%=link_to 'Editar', edit_news_path(@news) , :class => 'btn btn-primary', :type => 'button'%>
+      <%= link_to 'Eliminar', @news, method: :delete, data: { confirm: 'Estas seguro?' }, :class => 'btn btn-danger', :type => 'button' %>
+  <%end%>
+
+  <%=link_to 'Atras', news_index_path, :class => 'btn btn-primary', :type => 'button'%>
+
+</div>

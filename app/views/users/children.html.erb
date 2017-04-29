@@ -1,0 +1,29 @@
+<% provide(:title, "Cuentas hijo") %>
+<% provide(:header, "Cuentas hijo") %>
+
+<table class="table">
+  <tr>
+    <th>Nombre</th>
+    <th>Usuario</th>
+    <th>Email</th>
+  </tr>
+  <% @children.each do |child| %>
+      <tr>
+        <td><%= child.name %></td>
+        <td><%=child.username %></td>
+        <td><%=child.email %></td>
+        <td>
+          <%= button_to "Destroy", children_destroy_path(current_user.username), method: :delete,
+                                                          params: { child_id: child },
+                                                          data: { confirm:
+                                                          'Estas seguro?'} %>
+        </td>
+      </tr>
+  <% end %>
+</table>
+
+<div class="row">
+  <div class="col-sm-6">
+    <%= link_to 'Crear nueva cuenta hijo', children_new_path(current_user.username) %>
+  </div>
+</div>
