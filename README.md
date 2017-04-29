@@ -19,7 +19,7 @@ ________________________
 
 ### Sprint 1
 
-Para esta entrega optamos a todos los bonus, tenemos nuestro tablero de kanban en https://trello.com/b/XMYPs2qE/kanban-iic2143, hicimos deploy de nuestra aplicación con heroku en www.tvseriessonparati.herokuapp.com y por último hicimos un buen uso de git, creando distintas branchs para las distintas actividades puestas en el kanban.
+Para esta entrega optamos a todos los bonus menos al de deploy, tenemos nuestro tablero de kanban en https://trello.com/b/XMYPs2qE/kanban-iic2143 y  por último hicimos un buen uso de git, creando distintas branchs para las distintas actividades puestas en el kanban.
 
 Para poblar la base de datos usamos seeds y la gema Faker.
 
