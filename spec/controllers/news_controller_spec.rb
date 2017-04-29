@@ -38,7 +38,7 @@ RSpec.describe NewsController, type: :controller do
 
   describe "GET #index" do
     it "assigns all news as @news" do
-      news = News.create! valid_attributes
+      news = create(:news)
       get :index, params: {}, session: valid_session
       expect(assigns(:news)).to eq([news])
     end
@@ -46,7 +46,7 @@ RSpec.describe NewsController, type: :controller do
 
   describe "GET #show" do
     it "assigns the requested news as @news" do
-      news = News.create! valid_attributes
+      news = create(:news)
       get :show, params: {id: news.to_param}, session: valid_session
       expect(assigns(:news)).to eq(news)
     end
