@@ -17,8 +17,9 @@ class Series < ApplicationRecord
   has_and_belongs_to_many :actors
   has_and_belongs_to_many :directors, uniq: true
   has_and_belongs_to_many :genders
+  belongs_to :user
   validates :name, presence: true, length: {minimum: 1, maximum: 50}
-  validates :description, presence: true, length: {minimum: 40, maximum: 200}
+  validates :description, presence: true, length: {minimum: 10, maximum: 200}
   validates :country, presence: true, length: {minimum: 1, maximum: 30},
                    format: { with: /\A[a-zñ '-]+\z/i,
                              message: 'El país debe estar compuesto solo

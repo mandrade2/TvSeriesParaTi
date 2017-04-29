@@ -28,11 +28,11 @@
 #
 
 class User < ApplicationRecord
-  # relations
+
   has_many :children, class_name: 'User', foreign_key: :father_id
   has_many :news, dependent: :destroy
   belongs_to :father, class_name: 'User'
-  # scopes
+  has_many :series
   scope :email_like, (->(email) { where("email like '%#{email}%'") })
   scope :username_like,
         (->(username) { where("username like '%#{username}%'") })
