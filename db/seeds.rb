@@ -11,31 +11,23 @@ user_amount.times do |i|
     password: Faker::Internet.password
   )
   user.skip_confirmation!
-  if user.save
+  user.save
     5.times do
       title = Faker::Lorem.sentence(5)
       content = Faker::Lorem.paragraph(1)
-      user.news.create!(content: content, title: title)
+      user.news.new(content: content, title: title)
     end
 
     5.times do
       name = Faker::Lorem.word
       description = Faker::Lorem.paragraph(1)
       country = Faker::Lorem.word
-      user.series.create!(name: name, description: description, country: country)
+      user.series.new(name: name, description: description, country: country)
     end
 
-    3.times do |j|
-      user.children.create(
-        username: (j).to_s + Faker::Internet.user_name(6..40),
-        name: Faker::Name.name,
-        role: 'child',
-        email: Faker::Internet.email,
-        password:  Faker::Internet.password
-      )
-    end
+
   end
-end
+
 
 main = User.create(
   username: 'jecastro2',
@@ -59,7 +51,7 @@ end
   country = Faker::Lorem.word
   main.series.create(name: name, description: description, country: country)
 end
-
+main.save
 
 child_amount.times do |j|
   main.children.create(
