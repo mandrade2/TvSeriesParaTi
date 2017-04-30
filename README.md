@@ -23,4 +23,6 @@ Para esta entrega optamos a todos los bonus menos al de deploy, tenemos nuestro 
 
 Para poblar la base de datos usamos seeds y la gema Faker.
 
+Para ingresar como administrador usar el usuario jecastro2@uc.cl, con contraseña mypassword.
+
 
