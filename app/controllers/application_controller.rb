@@ -10,4 +10,8 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:account_update,
                                       keys: %i[name username])
   end
+
+  def logged_in?
+    redirect_to(new_user_session_path, notice: 'inicie sesión primero') unless current_user
+  end
 end

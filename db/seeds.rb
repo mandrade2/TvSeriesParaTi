@@ -22,10 +22,20 @@ user_amount.times do |i|
       name = Faker::Lorem.word
       description = Faker::Lorem.paragraph(1)
       country = Faker::Lorem.word
-      user.series.new(name: name, description: description, country: country)
+      Series.create!(name: name, description: description, country: country,
+                     user_id: user.id
+                     )
     end
 
-
+    0.times do |j|
+      user.children.create(
+        username: (j).to_s + Faker::Internet.user_name(6..40),
+        name: Faker::Name.name,
+        role: 'child',
+        email: Faker::Internet.email,
+        password:  Faker::Internet.password
+      )
+    end
   end
 
 
@@ -38,27 +48,3 @@ main = User.create(
   confirmed_at: Time.now
 )
 main.save
-
-2.times do
-  title = Faker::Lorem.sentence(5)
-  content = Faker::Lorem.paragraph(1)
-  main.news.create(content: content, title: title)
-end
-
-2.times do
-  name = Faker::Lorem.word
-  description = Faker::Lorem.paragraph(1)
-  country = Faker::Lorem.word
-  main.series.create(name: name, description: description, country: country)
-end
-main.save
-
-child_amount.times do |j|
-  main.children.create(
-    username: (j).to_s + Faker::Internet.user_name(6..40),
-    name: Faker::Name.name,
-    role: 'child',
-    email: Faker::Internet.email,
-    password:  Faker::Internet.password
-  )
-end

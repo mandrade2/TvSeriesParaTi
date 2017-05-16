@@ -4,7 +4,7 @@ class SeriesController < ApplicationController
   # GET /series
   # GET /series.json
   def index
-    @series = Series.all
+    @series = Series.all.includes(:user)
   end
 
   # GET /series/1
@@ -64,7 +64,7 @@ class SeriesController < ApplicationController
   def set_series
     @series = Series.find(params[:id])
   end
-  
+
   def series_params
     params.require(:series).permit(:name, :description, :country)
   end
