@@ -58,16 +58,13 @@ class UsersController < ApplicationController
   def create_child
     @child = User.new(children_params)
     @child.role = 'child'
-    @child.skip_confirmation!
-    respond_to do |format|
-      if @child.save
-        current_user.children << @child
-        flash[:success] = 'Cuenta hijo creada con exito'
-        format.html { redirect_to children_path }
-      else
-        flash[:warning] = 'Cuenta no a podido ser creada'
-        format.html { render 'new_children' }
-      end
+    if @child.skip_confirmation! && @child.save
+      current_user.children << @child
+      redirect_to children_path,
+                  flash: { success: 'Cuenta hijo creada con exito' }
+    else
+      flash[:warning] = 'Cuenta no a podido ser creada'
+      render 'new_children'
     end
   end
 

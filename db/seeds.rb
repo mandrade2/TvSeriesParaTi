@@ -36,8 +36,7 @@ user_amount.times do |i|
         password:  Faker::Internet.password
       )
     end
-  end
-
+end
 
 main = User.create(
   username: 'jecastro2',
