@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170429201642) do
+ActiveRecord::Schema.define(version: 20170516020606) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,6 +79,14 @@ ActiveRecord::Schema.define(version: 20170429201642) do
     t.datetime "updated_at",        null: false
     t.integer  "user_id"
     t.index ["user_id"], name: "index_series_on_user_id", using: :btree
+  end
+
+  create_table "series_users", id: false, force: :cascade do |t|
+    t.integer "series_id", null: false
+    t.integer "user_id",   null: false
+    t.index ["series_id", "user_id"], name: "index_series_users_on_series_id_and_user_id", unique: true, using: :btree
+    t.index ["series_id"], name: "index_series_users_on_series_id", using: :btree
+    t.index ["user_id"], name: "index_series_users_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|

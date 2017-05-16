@@ -17,6 +17,7 @@ class Series < ApplicationRecord
   has_and_belongs_to_many :actors
   has_and_belongs_to_many :directors, uniq: true
   has_and_belongs_to_many :genders
+  has_and_belongs_to_many :viewers, class_name: 'User'
   belongs_to :user
   validates :name, presence: true, length: {minimum: 1, maximum: 50}
   validates :description, presence: true, length: {minimum: 10, maximum: 200}

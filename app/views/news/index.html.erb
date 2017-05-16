@@ -1,8 +1,9 @@
 <% provide(:header,'Noticias') %>
 <% provide(:title, 'Noticias') %>
 
-<%= link_to 'Escribir noticia', new_news_path, class: 'pull-right btn btn-primary' %>
-
+<% if current_user %>
+  <%= link_to 'Escribir noticia', new_news_path, class: 'pull-right btn btn-primary' %>
+<% end %>
 <br>
 <br>
 <% @news.each do |noticia|%>
