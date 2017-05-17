@@ -21,3 +21,8 @@
 .DS_Store
 
 /config/local_env.yml
+
+# Ifnore rubocop files
+
+.rubocop_todo.yml
+.rubocop.yml
