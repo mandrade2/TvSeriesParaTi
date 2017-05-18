@@ -12,8 +12,13 @@ class UsersController < ApplicationController
   def index
     return redirect_to root_path unless current_user.admin?
     @users = User.all
+  end
+
+  def search
+    return redirect_to root_path unless current_user.admin?
     return @users unless params[:search_for].present?
     search_text = params[:search_text].strip if params[:search_text]
+    @users = User.all
     @users = if params[:search_for] == 'email'
                @users.email_like(search_text)
              elsif params[:search_for] == 'name'
@@ -22,13 +27,9 @@ class UsersController < ApplicationController
                @users.username_like(search_text)
              end
     if @users.empty?
-      flash[:info] = 'Busqueda sin resultados, recuerda
-                      que las mayúsculas importan'
+      redirect_to users_path, flash: { info: 'Busqueda sin resultados' }
     end
-  end
-
-  def search
-    redirect_to users_path
+    render 'index'
   end
 
   def upgrade
@@ -45,7 +46,7 @@ class UsersController < ApplicationController
 
   def children
     @children = current_user.children
-    flash.now[:info] = 'Busqueda sin resultados' if @children.empty?
+    flash.now[:info] = 'No tiene cuentas hijo aun' if @children.empty?
   end
 
   def new_child

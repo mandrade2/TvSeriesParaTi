@@ -18,7 +18,6 @@ Rails.application.routes.draw do
   get '/:username/children/new', to: 'users#new_child',
                                  as: :children_new
   get '/:username', to: 'users#user_profile', as: :profile
-  post 'users/search', to: 'users#index'
   post '/:username/children/new', to: 'users#create_child',
                                   as: :children_new_path
   patch 'users/upgrade', to: 'users#upgrade'

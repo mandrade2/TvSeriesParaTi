@@ -2,7 +2,7 @@
 <% provide(:header, "Usuarios") %>
 
 <div id="users_search">
-  <%= form_tag users_search_path, class: "form-inline" do %>
+  <%= form_tag users_search_path, class: "form-inline", method: :get do %>
     <div class="form-group">
       <%= select_tag "search_for", options_for_select(%i[username name email],
                                                       :username),
@@ -13,7 +13,7 @@
     </div>
     <%= submit_tag 'Search', class: "btn btn-default" %>
   <% end %>
-  <%= link_to 'List all users', users_path, class: 'pull-right' %>
+  <%= link_to 'List all users', users_path, class: 'pull-right btn btn-primary' %>
 </div>
 
 <table class="table">
@@ -21,6 +21,7 @@
     <th>Nombre</th>
     <th>Usuario</th>
     <th>Email</th>
+    <th colspan="2"></th>
   </tr>
 
 <% @users.each do |user| %>
