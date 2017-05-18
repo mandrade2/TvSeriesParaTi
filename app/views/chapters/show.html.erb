@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @chapter.name %>
+</p>
+
+<p>
+  <strong>Duration:</strong>
+  <%= @chapter.duration %>
+</p>
+
+<p>
+  <strong>Series:</strong>
+  <%= @chapter.series %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @chapter.user %>
+</p>
+
+<p>
+  <strong>Rating:</strong>
+  <%= @chapter.rating %>
+</p>
+
+<%= link_to 'Edit', edit_series_chapter_path(@series, @chapter) %> |
+<%= link_to 'Back', series_chapters_path(@series) %>

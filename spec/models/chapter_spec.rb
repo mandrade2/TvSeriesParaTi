@@ -1,17 +1,19 @@
 # == Schema Information
 #
-# Table name: news
+# Table name: chapters
 #
 #  id         :integer          not null, primary key
-#  title      :string
-#  content    :text
+#  name       :string
+#  duration   :string
+#  series_id  :integer
 #  user_id    :integer
+#  rating     :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
 
 require 'rails_helper'
 
-RSpec.describe News, type: :model do
+RSpec.describe Chapter, type: :model do
   pending "add some examples to (or delete) #{__FILE__}"
 end

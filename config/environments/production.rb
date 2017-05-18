@@ -66,6 +66,7 @@ Rails.application.configure do
     user_name: ENV['GMAIL_USER'],
     password: ENV['GMAIL_PASSWORD']
   }
+
   config.action_mailer.default_url_options = { host: 'tvseriesparati.herokuapp.com' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.raise_delivery_errors = true

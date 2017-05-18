@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
   resources :news
-  resources :series
+  resources :series do
+    resources :chapters
+  end
   devise_for :users
+
   root 'series#index'
   get 'help', to: 'pages#help'
   get 'contact', to: 'pages#contact'

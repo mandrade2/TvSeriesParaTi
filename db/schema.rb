@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170516020606) do
+ActiveRecord::Schema.define(version: 20170517232102) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,17 @@ ActiveRecord::Schema.define(version: 20170516020606) do
     t.index ["actor_id"], name: "index_actors_series_on_actor_id", using: :btree
     t.index ["series_id", "actor_id"], name: "index_actors_series_on_series_id_and_actor_id", unique: true, using: :btree
     t.index ["series_id"], name: "index_actors_series_on_series_id", using: :btree
+  end
+
+  create_table "chapters", force: :cascade do |t|
+    t.string   "name"
+    t.string   "duration"
+    t.integer  "series_id"
+    t.integer  "user_id"
+    t.integer  "rating"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["series_id", "name"], name: "index_chapters_on_series_id_and_name", unique: true, using: :btree
   end
 
   create_table "directors", force: :cascade do |t|
@@ -119,6 +130,8 @@ ActiveRecord::Schema.define(version: 20170516020606) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree
   end
 
+  add_foreign_key "chapters", "series"
+  add_foreign_key "chapters", "users"
   add_foreign_key "news", "users"
   add_foreign_key "series", "users"
 end

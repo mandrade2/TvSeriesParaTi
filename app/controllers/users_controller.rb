@@ -35,22 +35,23 @@ class UsersController < ApplicationController
     user = User.find(params[:user_id])
     user.upgrade_to_admin
     if user.admin?
-      flash[:success] = "Usuario #{user.username} fue ascendido correctamente"
+      flash.now[:success] = "Usuario #{user.username}
+                            fue ascendido correctamente"
     else
-      flash[:warning] = "Usuario #{user.username} no fue ascendido"
+      flash.now[:warning] = "Usuario #{user.username} no fue ascendido"
     end
     redirect_to users_path
   end
 
   def children
     @children = current_user.children
-    flash[:info] = 'Busqueda sin resultados' if @children.empty?
+    flash.now[:info] = 'Busqueda sin resultados' if @children.empty?
   end
 
   def new_child
     if current_user.children.count >= 5
-      flash[:warning] = 'No puede agregar mas cuentas hijo'
-      redirect_to children_path
+      redirect_to children_path,
+                  flash: { warning: 'No puede agregar mas cuentas hijo' }
     end
     @child = User.new
   end
@@ -63,7 +64,7 @@ class UsersController < ApplicationController
       redirect_to children_path,
                   flash: { success: 'Cuenta hijo creada con exito' }
     else
-      flash[:warning] = 'Cuenta no a podido ser creada'
+      flash.now[:warning] = 'Cuenta no a podido ser creada'
       render 'new_children'
     end
   end
@@ -71,15 +72,15 @@ class UsersController < ApplicationController
   def destroy_child
     @child = User.find(params[:child_id])
     @child.destroy
-    flash[:success] = 'Cuenta hijo fue borrada correctamente'
-    redirect_to children_path
+    redirect_to children_path,
+                flash: { success: 'Cuenta hijo fue borrada correctamente' }
   end
 
   def destroy
     @user = User.find(params[:user_id])
     @user.destroy
-    flash[:success] = 'Usuario fue borrado correctamente'
-    redirect_to users_path
+    redirect_to users_path,
+                flash: { success: 'Usuario fue borrado correctamente' }
   end
 
   private

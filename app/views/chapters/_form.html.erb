@@ -1,0 +1,38 @@
+<%= form_for [series, chapter] do |f| %>
+  <% if chapter.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(chapter.errors.count, "error") %> prohibited this series from being saved:</h2>
+
+      <ul>
+      <% chapter.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: "from-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :duration %>
+    <%= f.number_field :duration, class: "from-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :user %>
+    <%= f.number_field :user_id, class: "from-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :rating %>
+    <%= f.number_field :rating, class: "from-control" %>
+  </div>
+
+
+  <div class="actions">
+    <%= f.submit "Crear capitulo", class: "btn btn-primary" %>
+  </div>
+<% end %>
