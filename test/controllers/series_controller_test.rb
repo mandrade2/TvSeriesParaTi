@@ -12,11 +12,11 @@ class SeriesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should get new' do
     get new_series_url
-    assert_response :success
+    assert_response :redirect #:success
   end
 
   test 'should create series' do
-    assert_difference('Series.count') do
+    assert_no_difference('Series.count') do
       post series_index_url, params: { series: {
         chapters_duration: @series.chapters_duration,
         country: @series.country,
@@ -24,7 +24,7 @@ class SeriesControllerTest < ActionDispatch::IntegrationTest
       } }
     end
 
-    assert_redirected_to series_url(Series.last)
+    assert_redirected_to new_user_session_url #series_url(Series.last)
   end
 
   test 'should show series' do
@@ -34,7 +34,7 @@ class SeriesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should get edit' do
     get edit_series_url(@series)
-    assert_response :success
+    assert_response :redirect #:success
   end
 
   test 'should update series' do
@@ -46,14 +46,14 @@ class SeriesControllerTest < ActionDispatch::IntegrationTest
       rating: @series.rating,
       seasons: @series.seasons
     } }
-    assert_redirected_to series_url(@series)
+    assert_redirected_to new_user_session_url #series_url(@series)
   end
 
   test 'should destroy series' do
-    assert_difference('Series.count', -1) do
+    assert_no_difference('Series.count') do
       delete series_url(@series)
     end
 
-    assert_redirected_to series_index_url
+    assert_redirected_to new_user_session_url #series_index_url
   end
 end
