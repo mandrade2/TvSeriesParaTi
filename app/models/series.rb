@@ -20,6 +20,7 @@ class Series < ApplicationRecord
   has_and_belongs_to_many :genders
   has_and_belongs_to_many :viewers, class_name: 'User'
   has_many :chapters
+  has_many :ratings, class_name: 'SeriesRating'
   belongs_to :user
   validates :name, presence: true, length: { minimum: 1, maximum: 50 }
   validates :description, presence: true, length: { minimum: 10, maximum: 200 }
@@ -28,4 +29,7 @@ class Series < ApplicationRecord
                              message: 'El país debe estar compuesto solo
                                            por letras, espacios, guiones y
                                           apostrofes.' }
+  validates :rating, numericality: { grater_than_or_equal_to: 1,
+                                     less_than_or_equal_to: 5,
+                                     message: 'debe ser un numero entre 1 y 5' }
 end

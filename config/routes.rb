@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   get '/:username', to: 'users#user_profile', as: :profile
   post '/:username/children/new', to: 'users#create_child',
                                   as: :children_new_path
+  post 'series/:id', to: 'series#add_rating'
   patch 'users/upgrade', to: 'users#upgrade'
   delete 'users/destroy', to: 'users#destroy'
   delete '/:username/children/destroy', to: 'users#destroy_child',

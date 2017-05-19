@@ -1,16 +1,30 @@
 class SeriesController < ApplicationController
   before_action :set_series, only: %i[show edit update destroy]
-  before_action :authenticate_user!, except: %i[index show]
+  before_action :authenticate_user!, except: %i[index show add_rating]
 
   # GET /series
   # GET /series.json
   def index
-    @series = Series.all.includes(:user)
+    series = Series.includes(:user)
+    @series = []
+    if current_user
+      series.each do |serie|
+        @series << serie if serie.user.role == 'admin' ||
+                            serie.user_id == current_user.id
+      end
+    else
+      series.each do |serie|
+        @series << serie if serie.user.role == 'admin'
+      end
+    end
   end
 
   # GET /series/1
   # GET /series/1.json
-  def show; end
+  def show
+    user = current_user
+    @boole = user && @series.in?.user.series_views
+  end
 
   # GET /series/new
   def new
@@ -74,6 +88,11 @@ class SeriesController < ApplicationController
       end
       format.json { head :no_content }
     end
+  end
+
+  def add_rating
+    p params
+    redirect_to root_path
   end
 
   private
