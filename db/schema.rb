@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 20170519142140) do
     t.string   "duration"
     t.integer  "series_id"
     t.integer  "user_id"
-    t.float    "rating"
+    t.integer  "rating"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["series_id", "name"], name: "index_chapters_on_series_id_and_name", unique: true, using: :btree
@@ -129,8 +129,6 @@ ActiveRecord::Schema.define(version: 20170519142140) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "name"
-    t.string   "role"
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
@@ -141,6 +139,8 @@ ActiveRecord::Schema.define(version: 20170519142140) do
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
+    t.string   "name"
+    t.string   "role"
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"

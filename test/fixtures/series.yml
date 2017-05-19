@@ -21,6 +21,7 @@ one:
   description: MyStringjaskajaskajaskajaksjakajskajaksjdkajh
   country: MyString
   seasons: 1
+  user: one
   chapters_duration: 1
   rating: 1.5
 
@@ -29,5 +30,6 @@ two:
   description: MyStringasdgetwhsrthrwwherhrtehsdfhrtshsthrsrth
   country: MyString
   seasons: 1
+  user: two
   chapters_duration: 1
   rating: 1.5
