@@ -26,7 +26,7 @@ User.all.each do |user|
     description = Faker::Lorem.paragraph(1)
     country = Faker::Lorem.word
     Series.create!(name: name, description: description, country: country,
-                   user_id: user.id)
+                   user_id: user.id, rating: 1)
   end
 end
 
@@ -39,3 +39,11 @@ main = User.create(
   confirmed_at: Time.now
 )
 main.save
+
+2.times do
+  name = Faker::Lorem.word
+  description = Faker::Lorem.paragraph(1)
+  country = Faker::Lorem.word
+  Series.create!(name: name, description: description, country: country,
+                 user_id: main.id, rating: 1)
+end

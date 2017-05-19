@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170517232102) do
+ActiveRecord::Schema.define(version: 20170519142140) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,10 +35,28 @@ ActiveRecord::Schema.define(version: 20170517232102) do
     t.string   "duration"
     t.integer  "series_id"
     t.integer  "user_id"
-    t.integer  "rating"
+    t.float    "rating"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["series_id", "name"], name: "index_chapters_on_series_id_and_name", unique: true, using: :btree
+  end
+
+  create_table "chapters_ratings", force: :cascade do |t|
+    t.integer  "rating"
+    t.integer  "user_id"
+    t.integer  "chapter_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chapter_id"], name: "index_chapters_ratings_on_chapter_id", using: :btree
+    t.index ["user_id"], name: "index_chapters_ratings_on_user_id", using: :btree
+  end
+
+  create_table "chapters_users", id: false, force: :cascade do |t|
+    t.integer "chapter_id", null: false
+    t.integer "user_id",    null: false
+    t.index ["chapter_id", "user_id"], name: "index_chapters_users_on_chapter_id_and_user_id", unique: true, using: :btree
+    t.index ["chapter_id"], name: "index_chapters_users_on_chapter_id", using: :btree
+    t.index ["user_id"], name: "index_chapters_users_on_user_id", using: :btree
   end
 
   create_table "directors", force: :cascade do |t|
@@ -92,6 +110,16 @@ ActiveRecord::Schema.define(version: 20170517232102) do
     t.index ["user_id"], name: "index_series_on_user_id", using: :btree
   end
 
+  create_table "series_ratings", force: :cascade do |t|
+    t.integer  "rating"
+    t.integer  "user_id"
+    t.integer  "series_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["series_id"], name: "index_series_ratings_on_series_id", using: :btree
+    t.index ["user_id"], name: "index_series_ratings_on_user_id", using: :btree
+  end
+
   create_table "series_users", id: false, force: :cascade do |t|
     t.integer "series_id", null: false
     t.integer "user_id",   null: false
@@ -101,6 +129,8 @@ ActiveRecord::Schema.define(version: 20170517232102) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.string   "name"
+    t.string   "role"
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
@@ -111,8 +141,6 @@ ActiveRecord::Schema.define(version: 20170517232102) do
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
-    t.string   "name"
-    t.string   "role"
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
@@ -132,6 +160,10 @@ ActiveRecord::Schema.define(version: 20170517232102) do
 
   add_foreign_key "chapters", "series"
   add_foreign_key "chapters", "users"
+  add_foreign_key "chapters_ratings", "chapters"
+  add_foreign_key "chapters_ratings", "users"
   add_foreign_key "news", "users"
   add_foreign_key "series", "users"
+  add_foreign_key "series_ratings", "series"
+  add_foreign_key "series_ratings", "users"
 end
