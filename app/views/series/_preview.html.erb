@@ -1,11 +1,10 @@
 <a href= "<%= "series/#{series.id}" %>">
-    <div class="noticium">
-          <div class="square bg img1">
-            <div class="content">
-                  <%= "#{series.name}"[0..18] %> <br>
-                  Descripción: <%= "#{series.description}"[0..14] %>... <br>
-                   Rating:<%= "#{series.rating}" %>
-                </div>
+    <div class="series-display">
+        <div class="img-preview img-rounded">
+          <%= image_tag series.image.url(:medium) %>
+          <div class="content">
+              <%= "#{series.name}"[0..18] %>
           </div>
+        </div>
     </div>
   </a>

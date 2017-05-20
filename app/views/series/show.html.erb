@@ -1,6 +1,7 @@
 <p id="notice"> <%notice%></p>
-  <div class="square bg img1">
-  </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+  <div class="img-thumbnail">
+    <%= image_tag @series.image.url(:medium) %>
+  </div>
   <p> <strong>Nombre: <%= @series.name %></strong></p>
 <p>
   <strong>Descripción:</strong>

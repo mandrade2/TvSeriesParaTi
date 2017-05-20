@@ -23,7 +23,7 @@ class SeriesController < ApplicationController
   # GET /series/1.json
   def show
     user = current_user
-    @boole = user && @series.in?.user.series_views
+    @boole = user && @series.in?(user.series_views)
   end
 
   # GET /series/new
@@ -102,7 +102,7 @@ class SeriesController < ApplicationController
   end
 
   def series_params
-    params.require(:series).permit(:name, :description, :country)
+    params.require(:series).permit(:name, :description, :country, :image)
   end
 
 end

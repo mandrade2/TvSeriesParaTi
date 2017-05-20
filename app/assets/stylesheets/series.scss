@@ -15,14 +15,21 @@
   overflow:hidden;
 }
 
-.content {
-  color:black;
-  position:absolute;
-  height:90%; /* = 100% - 2*5% padding */
-  width:90%; /* = 100% - 2*5% padding */
-  padding: 5%;
-  text-align: center;
-
+.img-preview {
+  width: 30%;
+  height: 400px;
+  padding: 10px;
+  img {
+    height: 80%;
+    width:100%;
+  }
+  .content {
+    padding: 10px;
+    height: 10%;
+    font-size: 2em;
+    text-decoration: none;
+    text-align: center;
+  }
 }
 
 
@@ -70,6 +77,7 @@
   color: #ddd;
  float: right;
 }
+
 
 /***** CSS Magic to Highlight Stars on Hover *****/
 

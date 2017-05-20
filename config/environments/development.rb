@@ -30,12 +30,15 @@ Rails.application.configure do
     user_name: ENV['GMAIL_USER'],
     password: ENV['GMAIL_PASSWORD']
   }
-  
+
   config.action_mailer.default_url_options = { host: 'localhost:3000' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.perform_deliveries = true
   config.assets.quiet = true
+
+  # paperclip
+  Paperclip.options[:command_path] = '/usr/local/bin/'
 
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 end

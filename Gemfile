@@ -8,9 +8,10 @@ end
 gem 'annotate'
 gem 'bootstrap-sass'
 gem 'cancancan', '~> 1.16'
-gem 'coffee-rails', '~> 4.2'
 gem 'devise'
+gem 'coffee-script'
 gem 'faker', '~> 1.7.3'
+gem 'paperclip'
 gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails'
 gem 'jquery-turbolinks'
@@ -25,8 +26,6 @@ gem 'uglifier', '>= 1.3.0'
 group :development do
   gem 'better_errors'
   gem 'listen', '~> 3.0.5'
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'web-console', '>= 3.3.0'
 end
 
