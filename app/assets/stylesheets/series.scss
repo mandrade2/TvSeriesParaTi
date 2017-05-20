@@ -2,6 +2,40 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+/*** Series profile ***/
+
+.series-profile {
+  width: 60%;
+  margin: 0px auto;
+  // display: block;
+  // height: 30%;
+
+  .series-profile-img {
+    display: inline-block;
+    vertical-align: top;
+    margin: 10px;
+  }
+
+  .series-info {
+    //padding: 10px;
+    display: inline-block;
+  }
+}
+
+.series-rating {
+  display: block;
+  width: 60%;
+  margin: 0 auto;
+  padding: 30px;
+
+  div {
+    input[type="submit"] {
+      padding: 0px 10px;
+      margin: 5px 10px;
+    }
+  }
+}
+
 @import url(http://fonts.googleapis.com/css?family=Lato:400,900);  /* <-- Just for the demo, Yes I like pretty fonts... */
 @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 

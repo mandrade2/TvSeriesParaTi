@@ -31,6 +31,10 @@ end
 
 group :test do
   gem 'rails-controller-testing'
+  gem 'minitest-reporters',       '1.1.9'
+  gem 'guard',                    '2.13.0'
+  gem 'guard-minitest',           '2.4.4'
+  gem 'minitest', '~> 5.10', '!= 5.10.2'
 end
 
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]

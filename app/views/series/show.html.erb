@@ -1,47 +1,44 @@
-<p id="notice"> <%notice%></p>
-  <div class="img-thumbnail">
+<% provide(:header, "#{@series.name}") %>
+<% provide(:title, "#{@series.name}") %>
+
+
+<div class="btn-group pull-right" >
+  <%= link_to 'Capitulos', series_chapters_path(@series), class: 'btn btn-primary' %>
+  <%= link_to 'Atras', series_index_path, class: "btn btn-primary" %>
+  <% if current_user && current_user.id == @series.user_id %>
+    <%= link_to 'Editar', edit_series_path(@series), class: 'btn btn-primary' %>
+    <%= link_to 'Eliminar', @series, method: :delete, class: "btn btn-danger", data: { confirm: 'Are you sure?' } if can? :destroy, Series %>
+  <% end %>
+</div>
+
+<div class="series-profile">
+  <div class="series-profile-img img-thumbnail">
     <%= image_tag @series.image.url(:medium) %>
   </div>
-  <p> <strong>Nombre: <%= @series.name %></strong></p>
-<p>
-  <strong>Descripción:</strong>
-  <%= @series.description %>
-</p>
-<p>
-  <strong>País:</strong>
-  <%= @series.country %>
-</p>
+  <div class="series-info">
+    <p>
+      <%= @series.country %>, <%= @series.seasons %>
+      <% if @series.seasons == 1 %> temporada <% else %> temporadas <% end %>
+    </p>
+    <p>
+      <%= @series.description %>
+    </p>
+    <p>
+      <%= @series.rating %> puntos de rating
+    </p>
+  </div>
+</div>
 
-<p>
-  <strong>Temporadas:</strong>
-  <%= @series.seasons %>
-</p>
-
-<p>
-  <strong>Duración de capítulos:</strong>
-  <%= @series.chapters_duration %>
-</p>
-
-<p>
-  <strong>Rating:</strong>
-  <%= @series.rating %>
-</p>
-
-<%unless @boole %>
-  <%= form_tag @series, method: "post" %>
-    <fieldset class="rating">
-        <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Genial - 5 estrellas"></label>
-        <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Buena - 5 estrellas"></label>
-        <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Si pero no - 3 estrellas"></label>
-        <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Mala - 2 estrellas"></label>
-        <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Que tragedia - 1 estrella"></label>
-    </fieldset>
-    <div><%= submit_tag 'Entregar rating' , params:{series: @series}%></div>
-<% end %>
-<%= link_to 'Atras', series_index_path %>
-<% unless @series.user_id.nil? %>
-  <% if current_user && current_user.id == @series.user_id %>
-    |<%= link_to 'Eliminar', @series, method: :delete, data: { confirm: 'Are you sure?' } if can? :destroy, Series %>
-    |<%= link_to 'Editar', edit_series_path(@series) %>
+<div class="series-rating">
+  <%unless @boole %>
+    <%= form_tag @series, method: "post" %>
+      <fieldset class="rating">
+          <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Genial - 5 estrellas"></label>
+          <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Buena - 5 estrellas"></label>
+          <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Si pero no - 3 estrellas"></label>
+          <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Mala - 2 estrellas"></label>
+          <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Que tragedia - 1 estrella"></label>
+      </fieldset>
+      <div><%= submit_tag 'Entregar rating' , params:{series: @series}%></div>
   <% end %>
-<% end %>
+</div>

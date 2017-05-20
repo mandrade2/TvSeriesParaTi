@@ -24,7 +24,8 @@ class ChaptersController < ApplicationController
   # POST /chapters
   # POST /chapters.json
   def create
-    @chapter = Chapter.new(chapter_params.merge(series_id: params[:series_id]))
+    @chapter = Chapter.new(chapter_params.merge(series_id: params[:series_id],
+                                                user_id: current_user))
     respond_to do |format|
       if @chapter.save
         format.html do
@@ -84,6 +85,7 @@ class ChaptersController < ApplicationController
   end
 
   def chapter_params
-    params.require(:chapter).permit(:name, :duration, :user_id, :rating)
+    params.require(:chapter).permit(:name, :duration,
+                                    :rating, :chapter_number)
   end
 end

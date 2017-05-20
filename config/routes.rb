@@ -2,10 +2,10 @@ Rails.application.routes.draw do
   devise_for :users
   resources :news
   resources :series do
+    resources :chapters
     collection do
       post '/:id', action: 'add_rating'
     end
-    resources :chapters
   end
 
   root 'series#index'
