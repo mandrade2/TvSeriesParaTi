@@ -1,15 +1,14 @@
-<p id="notice"><%= notice %></p>
+<% provide(:header,"Capítulos de #{@series.name}") %>
+<% provide(:title, "Capítulos") %>
 
-<h1>Capitulos</h1>
-
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Capitulo</th>
       <th>Nombre</th>
       <th>Duracion</th>
       <th>Rating</th>
-      <th colspan="3"></th>
+      <th colspan="2"></th>
     </tr>
   </thead>
 
@@ -17,10 +16,9 @@
     <% @chapters.each do |chapter| %>
       <tr>
         <td><%= chapter.id %></td>
-        <td><%= chapter.name %></td>
+        <td><%= link_to chapter.name, series_chapter_path(@series, chapter) %></td>
         <td><%= chapter.duration %></td>
         <td><%= chapter.rating %></td>
-        <td><%= link_to 'Show', series_chapter_path(@series, chapter) %></td>
         <td><%= link_to 'Edit', edit_series_chapter_path(@series, chapter) %></td>
         <td><%= link_to 'Destroy', series_chapter_path(@series, chapter), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

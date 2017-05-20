@@ -1,6 +1,7 @@
-<h1>Editing Chapter</h1>
+<% provide(:header,'Editar capítulo') %>
+<% provide(:title, 'Editar capítulo') %>
 
-<%= render 'form', chapter: @chapter %>
+<%= render 'form', chapter: @chapter, series: @series %>
 
 <%= link_to 'Show', series_chapter_path(@series, @chapter) %> |
 <%= link_to 'Back', series_chapters_path(@series) %>

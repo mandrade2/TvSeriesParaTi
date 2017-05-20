@@ -25,7 +25,7 @@ class ChaptersController < ApplicationController
   # POST /chapters.json
   def create
     @chapter = Chapter.new(chapter_params.merge(series_id: params[:series_id],
-                                                user_id: current_user))
+                                                user_id: current_user.id))
     respond_to do |format|
       if @chapter.save
         format.html do
