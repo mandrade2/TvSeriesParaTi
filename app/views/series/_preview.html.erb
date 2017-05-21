@@ -1,10 +1,10 @@
-<a href= "<%= "series/#{series.id}" %>">
     <div class="series-display">
-        <div class="img-preview img-rounded">
+      <div class="img-preview img-rounded">
+        <a href= "<%= "series/#{series.id}" %>">
           <%= image_tag series.image.url(:medium) %>
           <div class="content">
               <%= "#{series.name}"[0..18] %>
           </div>
-        </div>
+        </a>
+      </div>
     </div>
-  </a>

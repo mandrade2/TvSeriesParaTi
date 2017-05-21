@@ -14,6 +14,18 @@ user_amount.times do |i|
   user.save
 end
 
+user_amount.times do |i|
+  user = User.new(
+    username: Faker::Internet.user_name(6..40) + i.to_s,
+    name: Faker::Name.name,
+    role: 'admin',
+    email: i.to_s + Faker::Internet.email,
+    password: Faker::Internet.password
+  )
+  user.skip_confirmation!
+  user.save
+end
+
 User.all.each do |user|
   2.times do
     title = Faker::Lorem.sentence(5)
@@ -26,7 +38,7 @@ User.all.each do |user|
     description = Faker::Lorem.paragraph(1)
     country = Faker::Lorem.word
     Series.create!(name: name, description: description, country: country,
-                   user_id: user.id, rating: 1)
+                   user_id: user.id, rating: 1, seasons: 0)
   end
 end
 

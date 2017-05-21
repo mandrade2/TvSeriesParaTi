@@ -2,6 +2,11 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+
+.series-display {
+  display: inline-block;
+  width: 30%;
+}
 /*** Series profile ***/
 
 .series-profile {
@@ -50,7 +55,7 @@
 }
 
 .img-preview {
-  width: 30%;
+  width: 100%;
   height: 400px;
   padding: 10px;
   img {
