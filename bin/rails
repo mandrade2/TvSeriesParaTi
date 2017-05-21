@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby
+#!/usr/bin/env rubyhttps://www.google.com/search?client=ubuntu&channel=fs&q=localhost3000&ie=utf-8&oe=utf-8
 APP_PATH = File.expand_path('../config/application', __dir__)
 require_relative '../config/boot'
 require 'rails/commands'

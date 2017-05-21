@@ -25,4 +25,6 @@ Para poblar la base de datos usamos seeds y la gema Faker.
 
 Para ingresar como administrador usar el usuario jecastro2@uc.cl, con contraseña mypassword.
 
+Se empieza solr con :
+rake sunspot:solr:start
 

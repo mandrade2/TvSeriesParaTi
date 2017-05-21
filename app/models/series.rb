@@ -37,4 +37,7 @@ class Series < ApplicationRecord
   validates :rating, numericality: { grater_than_or_equal_to: 1,
                                      less_than_or_equal_to: 5,
                                      message: 'debe ser un numero entre 1 y 5' }
+  searchable do
+    text :name
+  end
 end

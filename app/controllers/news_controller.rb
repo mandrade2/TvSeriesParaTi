@@ -6,7 +6,15 @@ class NewsController < ApplicationController
   # GET /news
   # GET /news.json
   def index
-    @news = News.all
+    if params[:q]
+      query=params[:q]
+      @search = News.search do
+        keywords query
+      end
+      @news=@search.results
+    else
+      @news=News.all
+    end
   end
 
   # GET /news/1
@@ -76,6 +84,6 @@ class NewsController < ApplicationController
   end
 
   def news_params
-    params.require(:news).permit(:title, :content, :user_id)
+    params.require(:news).permit(:title, :content, :user_id,:q)
   end
 end

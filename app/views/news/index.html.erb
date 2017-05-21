@@ -4,12 +4,31 @@
 <% if current_user %>
   <%= link_to 'Escribir noticia', new_news_path, class: 'pull-right btn btn-primary' %>
 <% end %>
-<br>
-<br>
-<% @news.each do |noticia|%>
-  <ul class="list-group">
-    <li class="list-group-item" style="text-align: center;"><h3><strong> <%= link_to noticia.title, news_path(noticia.id)%></strong></h3></li>
-    <li class="list-group-item" style="text-align: center;"><strong>Creado por:</strong> <%= noticia.user.name %></li>
-    <li class="list-group-item" style="text-align: center;"><strong>Fecha:</strong> <%= noticia.created_at %></li>
-  </ul>
+
+
+<form>
+  <% text_field_tag :q %>
+  <input type="text" value="" name="q" placeholder="Ingrese busqueda...">
+  <input type="submit" value="Search">
+</form>
+
+<% if @search %>
+   <h3> <%= @search.total %> results</h3>
 <% end %>
+
+
+<br>
+<br>
+<div class="row " style=" display: flex;width: 100%;flex-wrap: wrap">
+<% @news.each do |noticia|%>
+      <div class="col-sm-6 ">
+  <ul class="list-group ">
+    <li class="list-group-item " style="text-align: center; "><h3><strong> <%= link_to noticia.title, news_path(noticia.id)%></strong></h3></li>
+    <li class="list-group-item " style="text-align: center;"><strong>Creado por:</strong> <%= noticia.user.name %></li>
+    <li class="list-group-item " style="text-align: center;"><strong>Fecha:</strong> <%= noticia.created_at %></li>
+  </ul>
+      </div>
+<% end %>
+
+</div>
+

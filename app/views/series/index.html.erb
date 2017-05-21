@@ -8,6 +8,18 @@
   </div>
 <% end %>
 
+
+<form>
+  <% text_field_tag :q %>
+  <input type="text" value="" name="q" placeholder="Ingrese busqueda...">
+  <input type="submit" value="Search">
+  <%= link_to 'Busqueda avanzada', series, class: 'btn btn-primary' %>
+</form>
+
+<% if @search %>
+    <h3> <%= @search.total %> results</h3>
+<% end %>
+
 <div class="row">
   <div class="col-md-12">
     <%@series.each do |serie|%>

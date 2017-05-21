@@ -7,6 +7,7 @@ class SeriesController < ApplicationController
   def index
     series = Series.includes(:user)
     @series = []
+
     if current_user
       series.each do |serie|
         @series << serie if serie.user.role == 'admin' ||
@@ -16,6 +17,13 @@ class SeriesController < ApplicationController
       series.each do |serie|
         @series << serie if serie.user.role == 'admin'
       end
+    end
+    if params[:q]
+      query=params[:q]
+      @search = Series.search do
+        fulltext query
+      end
+      @series=@search.results
     end
   end
 
@@ -102,7 +110,7 @@ class SeriesController < ApplicationController
   end
 
   def series_params
-    params.require(:series).permit(:name, :description, :country, :image)
+    params.require(:series).permit(:name, :description, :country, :image,:q)
   end
 
 end

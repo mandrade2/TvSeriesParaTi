@@ -17,6 +17,10 @@ class News < ApplicationRecord
   validates :title, presence: true, length: { maximum: 140 }
 
   def any?
-    :user.news.count()>0
+    :user.news.count>0
+  end
+
+  searchable do
+    text :title
   end
 end

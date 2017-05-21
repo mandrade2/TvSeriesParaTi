@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 20170520201259) do
     t.string   "duration"
     t.integer  "series_id"
     t.integer  "user_id"
-    t.integer  "rating"
+    t.float    "rating"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.integer  "chapter_number"
