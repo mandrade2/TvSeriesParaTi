@@ -13,7 +13,7 @@
   <% text_field_tag :q %>
   <input type="text" value="" name="q" placeholder="Ingrese busqueda...">
   <input type="submit" value="Search">
-  <%= link_to 'Busqueda avanzada', series, class: 'btn btn-primary' %>
+  <%= link_to 'Busqueda avanzada', search_path, class: 'btn btn-primary' %>
 </form>
 
 <% if @search %>

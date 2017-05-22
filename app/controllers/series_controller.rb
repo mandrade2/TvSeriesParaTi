@@ -2,6 +2,7 @@ class SeriesController < ApplicationController
   before_action :set_series, only: %i[show edit update destroy]
   before_action :authenticate_user!, except: %i[index show add_rating]
 
+
   # GET /series
   # GET /series.json
   def index
@@ -11,7 +12,7 @@ class SeriesController < ApplicationController
     if current_user
       series.each do |serie|
         @series << serie if serie.user.role == 'admin' ||
-                            serie.user_id == current_user.id
+            serie.user_id == current_user.id
       end
     else
       series.each do |serie|
@@ -40,7 +41,8 @@ class SeriesController < ApplicationController
   end
 
   # GET /series/1/edit
-  def edit; end
+  def edit;
+  end
 
   # POST /series
   # POST /series.json
@@ -54,11 +56,11 @@ class SeriesController < ApplicationController
       if @series.save
         format.html do
           redirect_to @series,
-                      flash: { success: 'Serie fue creada correctamente' }
+                      flash: {success: 'Serie fue creada correctamente'}
         end
-        format.json { render :show, status: :created, location: @series }
+        format.json {render :show, status: :created, location: @series}
       else
-        format.html { render :new }
+        format.html {render :new}
         format.json do
           render json: @series.errors, status: :unprocessable_entity
         end
@@ -73,11 +75,11 @@ class SeriesController < ApplicationController
       if @series.update(series_params)
         format.html do
           redirect_to @series,
-                      flash: { success: 'Serie fue actualizada correctamente' }
+                      flash: {success: 'Serie fue actualizada correctamente'}
         end
-        format.json { render :show, status: :ok, location: @series }
+        format.json {render :show, status: :ok, location: @series}
       else
-        format.html { render :edit }
+        format.html {render :edit}
         format.json do
           render json: @series.errors, status: :unprocessable_entity
         end
@@ -92,9 +94,9 @@ class SeriesController < ApplicationController
     respond_to do |format|
       format.html do
         redirect_to series_index_url,
-                    flash: { success: 'Serie fue destruida correctamente' }
+                    flash: {success: 'Serie fue destruida correctamente'}
       end
-      format.json { head :no_content }
+      format.json {head :no_content}
     end
   end
 
@@ -110,7 +112,7 @@ class SeriesController < ApplicationController
   end
 
   def series_params
-    params.require(:series).permit(:name, :description, :country, :image,:q)
+    params.require(:series).permit(:name, :description, :country, :image, :q)
   end
 
 end

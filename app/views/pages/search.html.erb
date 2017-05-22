@@ -1,0 +1,49 @@
+
+
+<h1>Busqueda avanzada</h1>
+<br>
+<br>
+<div class="row">
+  <div class="col-md-6" style="border-right: 1px dashed">
+    <h3> Series</h3> <br>
+    <%= form_for :search do |f| %>
+        <% text_field_tag :titulo %>
+        Titulo :<input type="text" value="" name="titulo" placeholder='Breaking bad...'>
+        <% text_field_tag :pais %>
+        Pais :<input type="text" value="" name="pais" placeholder='Chile...'>
+        Puntuacion <br>
+
+        Temporadas <br>
+
+        Duracion capitulos <br>
+
+        <input type="submit" value="Buscar">
+    <% end %>
+
+  </div>
+
+
+  <div class="col-md-6">
+    <h3> Capitulos</h3><br>
+    <%= form_for :search do |f| %>
+
+
+    <% end %>
+
+  </div>
+</div>
+
+<% if @search %>
+    <h3> <%= @search.total %> results</h3>
+<div class="row">
+  <div class="col-md-12">
+    <%@series.each do |serie|%>
+        <% unless serie.nil?%>
+            <% unless serie.user.nil?%>
+                <%= render 'series/preview', series: serie %>
+            <% end %>
+        <% end %>
+    <% end %>
+  </div>
+</div>
+<% end %>

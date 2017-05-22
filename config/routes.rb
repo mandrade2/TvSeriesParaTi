@@ -9,12 +9,13 @@ Rails.application.routes.draw do
   devise_for :users
 
   root 'series#index'
-
   # Pages routes
   get 'help', to: 'pages#help'
   get 'contact', to: 'pages#contact'
   get 'about', to: 'pages#about'
   get '/invite', to: 'pages#invite'
+  get 'search', to: 'pages#search'
+  post 'search', to: 'pages#search'
   post '/invite', to: 'pages#send_invitation_email'
 
   # Users routes

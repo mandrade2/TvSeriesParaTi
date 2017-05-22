@@ -1,4 +1,25 @@
 class PagesController < ApplicationController
+
+
+
+
+  def search
+    if params
+      titulo=params[:titulo]
+      min1=params[:min1]
+      max1=params[:max1]
+
+      @search = Series.search do
+        if titulo
+          fulltext titulo
+        end
+        
+
+      end
+      @series=@search.results
+    end
+  end
+
   def about; end
 
   def contact; end

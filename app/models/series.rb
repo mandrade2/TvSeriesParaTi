@@ -39,5 +39,8 @@ class Series < ApplicationRecord
                                      message: 'debe ser un numero entre 1 y 5' }
   searchable do
     text :name
+    text :country
+    text :rating
+
   end
 end
