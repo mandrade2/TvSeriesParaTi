@@ -13,7 +13,6 @@ Rails.application.routes.draw do
 
   root 'series#index'
 
-  # Series index
 
   # Pages routes
   get 'help', to: 'pages#help'
@@ -24,7 +23,8 @@ Rails.application.routes.draw do
 
   # Users routes
   get 'users', to: 'users#index'
-  get '/:username', to: 'users#profile', as: :profile, constraints: { username: /[^\/]+/ }
+  get '/:username', to: 'users#profile', as: :profile, constraints: {
+                                                       username: /[^\/]+/ }
   get 'users/search', to: 'users#search'
   patch 'users/upgrade', to: 'users#upgrade'
   delete 'users/destroy', to: 'users#destroy'

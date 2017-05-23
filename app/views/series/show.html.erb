@@ -44,9 +44,8 @@
 <% elsif @user %>
   <%= button_to 'Marcar serie como vista', unview_series_path(@series), params: {serie: @series.id, unview: false} %>
 <% end %>
-<%= link_to 'Atras', series_index_path %>
 <% unless @series.user_id.nil? %>
-  <% if current_user && current_user.id == @series.user_id %>
+  <% if @user && @user.id == @series.user_id %>
     |<%= link_to 'Eliminar', @series, method: :delete, data: { confirm: 'Are you sure?' } if can? :destroy, Series %>
     |<%= link_to 'Editar', edit_series_path(@series) %>
   <% end %>

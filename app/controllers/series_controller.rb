@@ -1,6 +1,7 @@
 class SeriesController < ApplicationController
   before_action :set_series, only: %i[show edit update destroy
-                                      recommend_series send_recommendation]
+                                      recommend_series send_recommendation
+                                      unview add_rating]
   before_action :authenticate_user!, except: %i[index show add_rating]
 
   # GET /series
@@ -15,7 +16,6 @@ class SeriesController < ApplicationController
       end
     else
       series.each do |serie|
-        p serie.user
         @series << serie if serie.user.role == 'admin'
       end
     end
@@ -104,31 +104,28 @@ class SeriesController < ApplicationController
 
   def add_rating
     user = current_user
-    serie = Series.find(params[:serie].to_i)
-    if user.series_views.include?(serie)
-      actual = serie.ratings.where(user_id: user.id).first
-      if actual == nil
+    if user.series_views.include?(@series)
+      actual = @series.ratings.where(user_id: user.id).first
+      if actual.nil?
         SeriesRating.create(user_id: user.id,
-         series_id: serie.id, rating: params[:rating].to_i)
+                            series_id: @series.id, rating: params[:rating].to_i)
       else
         actual.rating = params[:rating].to_i
         actual.save
       end
-      recalcular_rating(serie)
+      recalcular_rating(@series)
     end
-    redirect_to serie
+    redirect_to @series
   end
 
   def unview
     user = current_user
-    serie = Series.find(params[:serie].to_i)
-    if user.series_views.include?(serie)
-      user.series_views.delete(serie)
-      redirect_to serie
+    if user.series_views.include?(@series)
+      user.series_views.delete(@series)
     else
-        user.series_views << serie
-        redirect_to serie
+      user.series_views << @series
     end
+    redirect_to @series
   end
 
   private
