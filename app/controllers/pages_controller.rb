@@ -6,18 +6,21 @@ class PagesController < ApplicationController
   def search
     if params
       titulo=params[:titulo]
-      min1=params[:min1]
-      max1=params[:max1]
-
+      pais=params[:pais]
       @search = Series.search do
         if titulo
           fulltext titulo
         end
-        
+        if pais
+          fulltext pais
+        end
 
       end
       @series=@search.results
+    else
+      @series=Series.all
     end
+
   end
 
   def about; end

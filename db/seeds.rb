@@ -41,7 +41,11 @@ User.all.each do |user|
                    user_id: user.id, rating: 1, seasons: 0)
   end
 end
-
+10.times do
+  name = Faker::Name.name
+  country = Faker::Address.country
+  Actor.create!(name: name, nacionality: country)
+end
 main = User.create(
   username: 'jecastro2',
   name: 'Juan Castro',

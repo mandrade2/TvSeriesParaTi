@@ -18,17 +18,17 @@
 
   <div class="form-group">
     <%= f.label :numero_de_capitulo %>
-    <%= f.number_field :chapter_number, class: "from-control" %>
+    <%= f.number_field :chapter_number, min: 1, class: "from-control" %>
   </div>
 
   <div class="form-group">
     <%= f.label :duracion %>
-    <%= f.number_field :duration, class: "from-control" %>
+    <%= f.number_field :duration, min: 1, class: "from-control" %>
   </div>
 
   <div class="form-group">
     <%= f.label :rating %>
-    <%= f.number_field :rating, class: "from-control" %>
+    <%= f.number_field :rating, in:1..5 , class: "from-control" %>
   </div>
 
 

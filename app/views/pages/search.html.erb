@@ -8,9 +8,15 @@
     <h3> Series</h3> <br>
     <%= form_for :search do |f| %>
         <% text_field_tag :titulo %>
-        Titulo :<input type="text" value="" name="titulo" placeholder='Breaking bad...'>
+        Titulo :<input type="text" value="" name="titulo" placeholder='Breaking bad...'><br>
         <% text_field_tag :pais %>
-        Pais :<input type="text" value="" name="pais" placeholder='Chile...'>
+        Pais :<input type="text" value="" name="pais" placeholder='Chile...'><br>
+        <% text_field_tag :director %>
+        Director :<input type="text" value="" name="director" placeholder='Luis jara...'><br>
+        <% text_field_tag :actor %>
+        Actor :<input type="text" value="" name="actor" placeholder='Luis jara...'><br>
+        <% text_field_tag :genero %>
+        Género :<input type="text" value="" name="genero" placeholder='Acción...'><br>
         Puntuacion <br>
 
         Temporadas <br>

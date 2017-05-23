@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 20170520201259) do
 
   create_table "actors", force: :cascade do |t|
     t.string   "name"
-    t.string   "nacionality"
+    t.string   "nacionality" # TODO es nationality
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end

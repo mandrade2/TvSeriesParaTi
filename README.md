@@ -28,3 +28,6 @@ Para ingresar como administrador usar el usuario jecastro2@uc.cl, con contraseñ
 Se empieza solr con :
 rake sunspot:solr:start
 
+pregs arturo:
+que es llave en tabla actores?
+se hace solo el insert a series_actors?
