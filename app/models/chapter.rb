@@ -2,14 +2,15 @@
 #
 # Table name: chapters
 #
-#  id         :integer          not null, primary key
-#  name       :string
-#  duration   :string
-#  series_id  :integer
-#  user_id    :integer
-#  rating     :float
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id             :integer          not null, primary key
+#  name           :string
+#  duration       :string
+#  series_id      :integer
+#  user_id        :integer
+#  rating         :integer
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  chapter_number :integer
 #
 
 class Chapter < ApplicationRecord

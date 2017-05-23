@@ -3,6 +3,7 @@
 
 
 <div class="btn-group pull-right" >
+  <%= link_to 'Recomendar', recommend_series_path(@series), class: 'btn btn-primary' %>
   <%= link_to 'Capitulos', series_chapters_path(@series), class: 'btn btn-primary' %>
   <%= link_to 'Atras', series_index_path, class: "btn btn-primary" %>
   <% if current_user && current_user.id == @series.user_id %>

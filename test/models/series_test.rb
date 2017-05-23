@@ -2,16 +2,20 @@
 #
 # Table name: series
 #
-#  id                :integer          not null, primary key
-#  name              :string
-#  description       :string
-#  country           :string
-#  seasons           :integer
-#  chapters_duration :integer
-#  rating            :float
-#  created_at        :datetime         not null
-#  updated_at        :datetime         not null
-#  user_id           :integer
+#  id                 :integer          not null, primary key
+#  name               :string
+#  description        :string
+#  country            :string
+#  seasons            :integer
+#  chapters_duration  :integer
+#  rating             :float
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  user_id            :integer
+#  image_file_name    :string
+#  image_content_type :string
+#  image_file_size    :integer
+#  image_updated_at   :datetime
 #
 
 require 'test_helper'

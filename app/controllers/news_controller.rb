@@ -2,27 +2,18 @@ class NewsController < ApplicationController
   before_action :set_news, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: %i[index show]
 
-
-  # GET /news
-  # GET /news.json
   def index
     @news = News.all
   end
 
-  # GET /news/1
-  # GET /news/1.json
   def show; end
 
-  # GET /news/new
   def new
     @news = News.new
   end
 
-  # GET /news/1/edit
   def edit; end
 
-  # POST /news
-  # POST /news.json
   def create
     @news = News.new(news_params.merge(user_id: current_user.id))
     respond_to do |format|
@@ -39,8 +30,6 @@ class NewsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /news/1
-  # PATCH/PUT /news/1.json
   def update
     respond_to do |format|
       if @news.update(news_params)
@@ -56,8 +45,6 @@ class NewsController < ApplicationController
     end
   end
 
-  # DELETE /news/1
-  # DELETE /news/1.json
   def destroy
     @news.destroy
     respond_to do |format|

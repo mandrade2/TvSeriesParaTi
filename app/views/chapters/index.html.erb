@@ -1,6 +1,10 @@
 <% provide(:header,"Capítulos de #{@series.name}") %>
 <% provide(:title, "Capítulos") %>
 
+<div class="btn-group pull-right" >
+  <%= link_to 'New Chapter', new_series_chapter_path(@series), class:"btn btn-primary" %></td>
+</div>
+
 <table class="table">
   <thead>
     <tr>
@@ -8,24 +12,19 @@
       <th>Nombre</th>
       <th>Duracion</th>
       <th>Rating</th>
-      <th colspan="2"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @chapters.each do |chapter| %>
       <tr>
-        <td><%= chapter.id %></td>
+        <td><%= chapter.chapter_number %></td>
         <td><%= link_to chapter.name, series_chapter_path(@series, chapter) %></td>
         <td><%= chapter.duration %></td>
         <td><%= chapter.rating %></td>
-        <td><%= link_to 'Edit', edit_series_chapter_path(@series, chapter) %></td>
-        <td><%= link_to 'Destroy', series_chapter_path(@series, chapter), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
-<%= link_to 'New Chapter', new_series_chapter_path(@series) %>

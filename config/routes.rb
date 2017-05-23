@@ -5,6 +5,10 @@ Rails.application.routes.draw do
     collection do
       post '/:id', action: 'add_rating'
     end
+    member do
+      get '/recommend', action: 'recommend_series'
+      post '/recommend', action: 'send_recommendation'
+    end
   end
   devise_for :users
 
@@ -19,20 +23,18 @@ Rails.application.routes.draw do
 
   # Users routes
   get 'users', to: 'users#index'
-  get '/:username', to: 'users#user_profile', as: :profile
+  get '/:username', to: 'users#profile', as: :profile, constraints: { username: /[^\/]+/ }
   get 'users/search', to: 'users#search'
-  get 'users/:username', to: 'users#other_user_profile',
-                         as: 'other_user_profile'
   patch 'users/upgrade', to: 'users#upgrade'
   delete 'users/destroy', to: 'users#destroy'
 
   # Child routes
   get '/:username/children', to: 'users#children',
-                             as: :children
+                             as: :children, constraints: { username: /[^\/]+/ }
   get '/:username/children/new', to: 'users#new_child',
-                                 as: :children_new
+                                 as: :children_new, constraints: { username: /[^\/]+/ }
   post '/:username/children/new', to: 'users#create_child',
-                                  as: :children_new_path
+                                  as: :children_new_path, constraints: { username: /[^\/]+/ }
   delete '/:username/children/destroy', to: 'users#destroy_child',
-                                        as: :children_destroy
+                                        as: :children_destroy, constraints: { username: /[^\/]+/ }
 end

@@ -1,5 +1,6 @@
 class SeriesController < ApplicationController
-  before_action :set_series, only: %i[show edit update destroy]
+  before_action :set_series, only: %i[show edit update destroy
+                                      recommend_series send_recommendation]
   before_action :authenticate_user!, except: %i[index show add_rating]
 
   # GET /series
@@ -14,9 +15,20 @@ class SeriesController < ApplicationController
       end
     else
       series.each do |serie|
+        p serie.user
         @series << serie if serie.user.role == 'admin'
       end
     end
+  end
+
+  def recommend_series; end
+
+  def send_recommendation
+    user = current_user
+    to_user = params[:email]
+    SeriesMailer.send_recommendation(user, to_user, @series).deliver_now
+    redirect_to @series,
+                flash: { success: "Se ha enviado la recomendacion a #{to_user}" }
   end
 
   # GET /series/1

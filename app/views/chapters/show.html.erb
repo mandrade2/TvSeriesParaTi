@@ -1,6 +1,15 @@
 <% provide(:header,"#{@chapter.name}") %>
 <% provide(:title, "#{@chapter.name}") %>
 
+<div class="btn-group pull-right" >
+  <%= link_to 'Back', series_chapters_path(@series), class:"btn btn-primary" %>
+</div>
+
+<div class="btn-group pull-right" >
+  <%= link_to 'Edit', edit_series_chapter_path(@series, @chapter), class:"btn btn-primary" %>
+  <%= link_to 'Destroy', series_chapter_path(@series, @chapter), class:"btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
+</div>
+
 <p>
   <strong>Name:</strong>
   <%= @chapter.name %>

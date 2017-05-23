@@ -7,3 +7,25 @@
   padding-bottom: 20px;
   display: inline;
 }
+
+.table-user-information {
+  tr {
+    img {
+      margin: 30px;
+    }
+  }
+}
+
+#profile-img {
+  text-align: center;
+  border-top: none;
+
+  img {
+    border-radius: 50%;
+    background-color: #fff;
+  }
+}
+
+.child-display {
+  margin-top: 30px;
+}

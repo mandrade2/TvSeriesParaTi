@@ -1,8 +1,0 @@
-<% provide(:title, current_user.name) %>
-<% provide(:header, current_user.name) %>
-
-<%= render 'profile', user: current_user %>
-
-<div class="row">
-  <%= link_to 'Editar perfil', edit_user_registration_path %>
-</div>

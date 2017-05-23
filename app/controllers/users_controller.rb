@@ -3,10 +3,12 @@ class UsersController < ApplicationController
   before_action :verify_user, only: %i[children new_child
                                        create_child destroy_child]
 
-  def user_profile; end
+  def profile
+    @user = User.find_by(username: params[:username])
+  end
 
   def other_user_profile
-    @user = User.find(params[:username])
+    @user = User.find_by(username: params[:username])
   end
 
   def index

@@ -26,6 +26,10 @@
 #  updated_at             :datetime         not null
 #  username               :string
 #  father_id              :integer
+#  avatar_file_name       :string
+#  avatar_content_type    :string
+#  avatar_file_size       :integer
+#  avatar_updated_at      :datetime
 #
 
 class User < ApplicationRecord
@@ -56,9 +60,9 @@ class User < ApplicationRecord
   validates :username, presence: true, uniqueness: true,
                        length: { minimum: 6, maximum: 50 }
   validates :name, presence: true,
-                   format: { with: /\A[a-z '-]+\z/i,
-                             message: 'Nombre debe estar compuesto solo
-                                      por letras, espacios, guiones y
+                   format: { with: /\A[a-z. '-]+\z/i,
+                             message: '%{value} debe estar compuesto solo
+                                      por letras, puntos, espacios, guiones y
                                       apostrofes.' },
                    length: { minimum: 2, maximum: 50 }
 
