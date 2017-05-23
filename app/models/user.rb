@@ -30,14 +30,14 @@
 
 class User < ApplicationRecord
 
-  has_many :children, class_name: 'User', foreign_key: :father_id
+  has_many :children, class_name: 'User', foreign_key: :father_id, dependent: :destroy
   has_many :news, dependent: :destroy
   has_many :chapters, dependent: :destroy
   belongs_to :father, class_name: 'User'
-  has_and_belongs_to_many :series_views, class_name: 'Series'
-  has_and_belongs_to_many :chapters_views, class_name: 'Chapter'
-  has_many :series_ratings, class_name: 'SeriesRating'
-  has_many :chapters_ratings, class_name: 'ChaptersRating'
+  has_and_belongs_to_many :series_views, class_name: 'Series', dependent: :destroy
+  has_and_belongs_to_many :chapters_views, class_name: 'Chapter', dependent: :destroy
+  has_many :series_ratings, class_name: 'SeriesRating', dependent: :destroy
+  has_many :chapters_ratings, class_name: 'ChaptersRating', dependent: :destroy
   has_many :series, dependent: :destroy
   scope :email_like, (->(email) { where("email like '%#{email}%'") })
   scope :username_like,
