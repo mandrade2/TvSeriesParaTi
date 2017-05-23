@@ -59,7 +59,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'no acepta nombre con formato invalido' do
-    invalid_names = %w[rigo.berto pe_dro 123ejemplo]
+    invalid_names = %w[rigo?berto pe_dro 123ejemplo]
     invalid_names.each do |name|
       @user.name = name
       assert_not @user.valid?

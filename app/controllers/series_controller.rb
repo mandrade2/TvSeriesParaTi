@@ -34,8 +34,8 @@ class SeriesController < ApplicationController
   # GET /series/1
   # GET /series/1.json
   def show
-    user = current_user
-    @boole = user && @series.in?(user.series_views)
+    @user = current_user
+    @boole = @user && @user.series_views.include?(@series)
   end
 
   # GET /series/new
@@ -103,8 +103,32 @@ class SeriesController < ApplicationController
   end
 
   def add_rating
-    p params
-    redirect_to root_path
+    user = current_user
+    serie = Series.find(params[:serie].to_i)
+    if user.series_views.include?(serie)
+      actual = serie.ratings.where(user_id: user.id).first
+      if actual == nil
+        SeriesRating.create(user_id: user.id,
+         series_id: serie.id, rating: params[:rating].to_i)
+      else
+        actual.rating = params[:rating].to_i
+        actual.save
+      end
+      recalcular_rating(serie)
+    end
+    redirect_to serie
+  end
+
+  def unview
+    user = current_user
+    serie = Series.find(params[:serie].to_i)
+    if user.series_views.include?(serie)
+      user.series_views.delete(serie)
+      redirect_to serie
+    else
+        user.series_views << serie
+        redirect_to serie
+    end
   end
 
   private
@@ -117,4 +141,8 @@ class SeriesController < ApplicationController
     params.require(:series).permit(:name, :description, :country, :image)
   end
 
+  def recalcular_rating(serie)
+    serie.rating = serie.ratings.average(:rating)
+    serie.save
+  end
 end

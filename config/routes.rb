@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     resources :chapters
     collection do
       post '/:id', action: 'add_rating'
+      post '/:id', action: 'unview'
     end
     member do
       get '/recommend', action: 'recommend_series'
@@ -35,6 +36,4 @@ Rails.application.routes.draw do
                                  as: :children_new, constraints: { username: /[^\/]+/ }
   post '/:username/children/new', to: 'users#create_child',
                                   as: :children_new_path, constraints: { username: /[^\/]+/ }
-  delete '/:username/children/destroy', to: 'users#destroy_child',
-                                        as: :children_destroy, constraints: { username: /[^\/]+/ }
 end
