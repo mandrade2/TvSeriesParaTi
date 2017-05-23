@@ -31,8 +31,8 @@
 </div>
 
 <%if @boole %>
-  <%= button_to 'Marcar serie como no vista', series_unview_path, params: {serie: @series.id, unview: true} %>
-  <%= form_tag series_add_rating_path(serie: @series), method: "post" %>
+  <%= button_to 'Marcar serie como no vista', unview_series_path(@series), params: {serie: @series.id, unview: true} %>
+  <%= form_tag add_rating_series_path(@series), method: "post" %>
     <fieldset class="rating">
         <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Genial - 5 estrellas"></label>
         <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Buena - 4 estrellas"></label>
@@ -42,7 +42,7 @@
     </fieldset>
   <div><%= submit_tag 'Entregar rating' , params:{serie: @series.id}%></div>
 <% elsif @user %>
-  <%= button_to 'Marcar serie como vista', series_unview_path, params: {serie: @series.id, unview: false} %>
+  <%= button_to 'Marcar serie como vista', unview_series_path(@series), params: {serie: @series.id, unview: false} %>
 <% end %>
 <%= link_to 'Atras', series_index_path %>
 <% unless @series.user_id.nil? %>

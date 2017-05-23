@@ -5,6 +5,8 @@ Rails.application.routes.draw do
     member do
       get '/recommend', action: 'recommend_series'
       post '/recommend', action: 'send_recommendation'
+      post '/unview', action: 'unview'
+      post '/add_rating', action: 'add_rating'
     end
   end
   devise_for :users
@@ -12,8 +14,6 @@ Rails.application.routes.draw do
   root 'series#index'
 
   # Series index
-  post 'series/add_rating', to: 'series#add_rating'
-  post 'series/unview', to: 'series#unview'
 
   # Pages routes
   get 'help', to: 'pages#help'
