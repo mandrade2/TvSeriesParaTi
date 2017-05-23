@@ -2,10 +2,6 @@ Rails.application.routes.draw do
   resources :news
   resources :series do
     resources :chapters
-    collection do
-      post '/:id', action: 'add_rating'
-      post '/:id', action: 'unview'
-    end
     member do
       get '/recommend', action: 'recommend_series'
       post '/recommend', action: 'send_recommendation'
@@ -14,6 +10,10 @@ Rails.application.routes.draw do
   devise_for :users
 
   root 'series#index'
+
+  # Series index
+  post 'series/add_rating', to: 'series#add_rating'
+  post 'series/unview', to: 'series#unview'
 
   # Pages routes
   get 'help', to: 'pages#help'
@@ -36,4 +36,6 @@ Rails.application.routes.draw do
                                  as: :children_new, constraints: { username: /[^\/]+/ }
   post '/:username/children/new', to: 'users#create_child',
                                   as: :children_new_path, constraints: { username: /[^\/]+/ }
+  delete '/:username/children/destroy', to: 'users#destroy_child',
+                                        as: :children_destroy, constraints: { username: /[^\/]+/ }
 end
