@@ -31,6 +31,12 @@
     <%= f.number_field :rating, class: "from-control" %>
   </div>
 
+  <% if temporada %>
+    <div class="form-group">
+      <label for="chapter_numero_de_temporada">Numero de temporada</label>
+      <input class="from-control" name="season_number" id="chapter_chapter_number" type="number">
+    </div>
+  <% end %>
 
   <div class="actions">
     <%= f.submit "Crear capitulo", class: "btn btn-primary" %>

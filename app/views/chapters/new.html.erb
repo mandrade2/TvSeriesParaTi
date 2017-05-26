@@ -1,6 +1,6 @@
 <% provide(:header,"Nuevo capítulo de #{@series.name}") %>
 <% provide(:title, 'Nuevo capítulo') %>
 
-<%= render 'form', chapter: @chapter, series: @series %>
+<%= render 'form', chapter: @chapter, series: @series, temporada: true %>
 
 <%= link_to 'Back', series_chapters_path(@series) %>

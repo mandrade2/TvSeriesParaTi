@@ -36,6 +36,17 @@ class SeriesController < ApplicationController
   def show
     @user = current_user
     @boole = @user && @user.series_views.include?(@series)
+    if @user
+      unless @series.user.role == 'admin' || @series.user_id == current_user.id
+        redirect_to root_path,
+         flash: { alert: 'No tiene permisos para acceder a esta serie' }
+      end
+    else
+      unless @series.user.role == 'admin'
+        redirect_to root_path,
+         flash: { alert: 'No tiene permisos para acceder a esta serie' }
+      end
+    end
   end
 
   def new
@@ -114,11 +125,15 @@ class SeriesController < ApplicationController
     user = current_user
     if user.series_views.include?(@series)
       user.series_views.delete(@series)
+      rating = @series.ratings.where(user: user.id).first
+      rating.destroy if rating
     else
       user.series_views << @series
     end
     redirect_to @series
   end
+
+  def new_season; end
 
   private
 
