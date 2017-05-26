@@ -6,34 +6,14 @@
 </div>
 
 <div class="btn-group pull-right" >
-  <%= link_to 'Edit', edit_series_chapter_path(@series, @chapter), class:"btn btn-primary" %>
+  <%= link_to 'Edit', edit_series_chapter_path(@series, @chapter), class:"btn btn-primary" if current_user == @series.user %>
   <%= link_to 'Destroy', series_chapter_path(@series, @chapter), class:"btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } if can? :destroy, Chapter %>
 </div>
 
 <p>
-  <strong>Name:</strong>
-  <%= @chapter.name %>
+  <%= @chapter.duration %> minutes
 </p>
 
 <p>
-  <strong>Duration:</strong>
-  <%= @chapter.duration %>
+  <%= @chapter.rating %> puntos de rating
 </p>
-
-<p>
-  <strong>Series:</strong>
-  <%= @chapter.series %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @chapter.user %>
-</p>
-
-<p>
-  <strong>Rating:</strong>
-  <%= @chapter.rating %>
-</p>
-
-<%= link_to 'Edit', edit_series_chapter_path(@series, @chapter) %> |
-<%= link_to 'Back', series_chapters_path(@series) %>

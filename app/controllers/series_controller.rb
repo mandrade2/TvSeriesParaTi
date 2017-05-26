@@ -28,26 +28,22 @@ class SeriesController < ApplicationController
     to_user = params[:email]
     SeriesMailer.send_recommendation(user, to_user, @series).deliver_now
     redirect_to @series,
-                flash: { success: "Se ha enviado la recomendacion a #{to_user}" }
+                flash: {
+                  success: "Se ha enviado la recomendacion a #{to_user}"
+                }
   end
 
-  # GET /series/1
-  # GET /series/1.json
   def show
     @user = current_user
     @boole = @user && @user.series_views.include?(@series)
   end
 
-  # GET /series/new
   def new
     @series = Series.new
   end
 
-  # GET /series/1/edit
   def edit; end
 
-  # POST /series
-  # POST /series.json
   def create
     @series = Series.new(series_params.merge(seasons: 0,
                                              chapters_duration: 0,
@@ -70,8 +66,6 @@ class SeriesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /series/1
-  # PATCH/PUT /series/1.json
   def update
     respond_to do |format|
       if @series.update(series_params)
@@ -89,8 +83,6 @@ class SeriesController < ApplicationController
     end
   end
 
-  # DELETE /series/1
-  # DELETE /series/1.json
   def destroy
     @series.destroy
     respond_to do |format|

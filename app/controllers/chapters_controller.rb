@@ -10,11 +10,19 @@ class ChaptersController < ApplicationController
   def show; end
 
   def new
-    @chapter = Chapter.new
     @series = Series.find(params[:series_id])
+    unless @series.user == current_user
+      return redirect_to series_chapters_path(@series),
+                         flash: { warning: 'Acceso no autorizado' }
+    end
+    @chapter = Chapter.new
   end
 
-  def edit; end
+  def edit
+    return if @series.user == current_user
+    redirect_to series_chapter_path(@series, @chapter),
+                flash: { warning: 'Acceso no autorizado' }
+  end
 
   def create
     @chapter = Chapter.new(chapter_params.merge(series_id: params[:series_id],
