@@ -8,7 +8,7 @@
 #  reset_password_token   :string
 #  reset_password_sent_at :datetime
 #  remember_created_at    :datetime
-#  sign_in_count          :integer          default("0"), not null
+#  sign_in_count          :integer          default(0), not null
 #  current_sign_in_at     :datetime
 #  last_sign_in_at        :datetime
 #  current_sign_in_ip     :inet
@@ -19,7 +19,7 @@
 #  confirmed_at           :datetime
 #  confirmation_sent_at   :datetime
 #  unconfirmed_email      :string
-#  failed_attempts        :integer          default("0"), not null
+#  failed_attempts        :integer          default(0), not null
 #  unlock_token           :string
 #  locked_at              :datetime
 #  created_at             :datetime         not null
@@ -39,18 +39,18 @@ class User < ApplicationRecord
 
   belongs_to :father, class_name: 'User'
 
-  has_many :children, class_name: 'User', foreign_key: :father_id, dependent: :destroy
+  has_many :children, class_name: 'User', foreign_key: :father_id,
+                                          dependent: :destroy
   has_many :news, dependent: :destroy
   has_many :chapters, dependent: :destroy
   belongs_to :father, class_name: 'User'
-  has_and_belongs_to_many :series_views, class_name: 'Series', dependent: :destroy
-  has_and_belongs_to_many :chapters_views, class_name: 'Chapter', dependent: :destroy
+  has_and_belongs_to_many :series_views, class_name: 'Series',
+                                         dependent: :destroy
+  has_and_belongs_to_many :chapters_views, class_name: 'Chapter',
+                                           dependent: :destroy
   has_many :series_ratings, class_name: 'SeriesRating', dependent: :destroy
   has_many :chapters_ratings, class_name: 'ChaptersRating', dependent: :destroy
   has_many :series, dependent: :destroy
-
-  has_and_belongs_to_many :series_views, class_name: 'Series'
-  has_and_belongs_to_many :chapters_views, class_name: 'Chapter'
 
   scope :email_like, (->(email) { where("email like '%#{email}%'") })
   scope :username_like,

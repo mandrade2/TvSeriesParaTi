@@ -7,6 +7,7 @@ class Ability
       can %i[update manage destroy update_children
              manage_children destroy_children], User
       can %i[manage update destroy], Series
+      can %i[manage update destroy], Chapter
     elsif user.user?
       can :read, :all
       can %i[update_children manage_children destroy_children], User

@@ -7,7 +7,7 @@
 
 <div class="btn-group pull-right" >
   <%= link_to 'Edit', edit_series_chapter_path(@series, @chapter), class:"btn btn-primary" %>
-  <%= link_to 'Destroy', series_chapter_path(@series, @chapter), class:"btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
+  <%= link_to 'Destroy', series_chapter_path(@series, @chapter), class:"btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } if can? :destroy, Chapter %>
 </div>
 
 <p>

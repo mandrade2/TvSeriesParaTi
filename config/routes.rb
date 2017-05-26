@@ -13,7 +13,6 @@ Rails.application.routes.draw do
 
   root 'series#index'
 
-
   # Pages routes
   get 'help', to: 'pages#help'
   get 'contact', to: 'pages#contact'
@@ -23,19 +22,24 @@ Rails.application.routes.draw do
 
   # Users routes
   get 'users', to: 'users#index'
-  get '/:username', to: 'users#profile', as: :profile, constraints: {
-                                                       username: /[^\/]+/ }
+  get '/:username', to: 'users#profile',
+                    as: :profile,
+                    constraints: { username: %r{[^\/]+} }
   get 'users/search', to: 'users#search'
   patch 'users/upgrade', to: 'users#upgrade'
   delete 'users/destroy', to: 'users#destroy'
 
   # Child routes
   get '/:username/children', to: 'users#children',
-                             as: :children, constraints: { username: /[^\/]+/ }
+                             as: :children,
+                             constraints: { username: %r{[^\/]+} }
   get '/:username/children/new', to: 'users#new_child',
-                                 as: :children_new, constraints: { username: /[^\/]+/ }
+                                 as: :children_new,
+                                 constraints: { username: %r{[^\/]+} }
   post '/:username/children/new', to: 'users#create_child',
-                                  as: :children_new_path, constraints: { username: /[^\/]+/ }
+                                  as: :children_new_path,
+                                  constraints: { username: %r{[^\/]+} }
   delete '/:username/children/destroy', to: 'users#destroy_child',
-                                        as: :children_destroy, constraints: { username: /[^\/]+/ }
+                                        as: :children_destroy,
+                                        constraints: { username: %r{[^\/]+} }
 end
