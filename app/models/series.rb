@@ -38,7 +38,7 @@ class Series < ApplicationRecord
                                     less_than_or_equal_to: 5,
                                     message: 'debe ser un numero entre 1 y 5'}
 
-  def self.search(nombre, pais, rating)
+  def self.search(nombre, pais, rating1,rating2)
     @series=Series.all
     if nombre.present?
       @series=@series.where(name: nombre)
@@ -46,9 +46,10 @@ class Series < ApplicationRecord
     if pais.present?
       @series=@series.where(country: pais)
     end
-    if rating.present?
-      @series=@series.where(rating: rating)
+    if rating1.present? and rating2.present?
+      @series=@series.where(rating: rating1..rating2)
     end
+
     @series
   end
 end

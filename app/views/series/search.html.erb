@@ -3,12 +3,30 @@
 
 
     <h3> Series</h3> <br>
-    <%= form_tag(search_path, :method => "get", id: "search-form") do %>
-    Titulo: <%= text_field_tag :nombre, params[:nombre], placeholder: "Search Posts" %><br>
-    País: <%= text_field_tag :pais, params[:pais], placeholder: "Search Posts" %><br>
-    Rating: <%= :rating, params[:rating], placeholder: "Search Posts" %><br>
-    <%= submit_tag "Search" %>
-<% end %>
+<%= form_tag(search_path, :method => "get", id: "search-form") do %>
+
+<div class="row">
+  <div class="col-md-2">Titulo: </div>  <div class="col-md-2">  <%= text_field_tag :nombre, params[:nombre],width: '100%' , placeholder: "Search Posts" %>
+</div>
+
+
+</div>
+    <div class="row">
+      <div class="col-md-2"> País: </div>  <div class="col-md-2"><%= text_field_tag :pais, params[:pais], placeholder: "Search Posts" %></div>
+
+    </div>
+    <div class="row">
+      <div class="col-md-2">Rating: </div>  <div class="col-md-2"><%= number_field_tag :rating1, params[:rating1],class: 'input-mini', placeholder: "Search Posts" ,in: 1..5%><%= number_field_tag :rating2, params[:rating2], placeholder: "Search Posts" ,in: 1..5,class: 'input-small'%></div>
+
+    </div>
+    <div class="row">
+      <div class="col-md-2"><%= submit_tag "Search" %></div>  <div class="col-md-2"></div>
+
+    </div>
+
+
+
+    <% end %>
 
 
 
