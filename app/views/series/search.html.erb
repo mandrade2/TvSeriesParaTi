@@ -1,46 +1,81 @@
 <% provide(:title, 'Búsqueda') %>
 <% provide(:header, 'Búsqueda') %>
 
+<div class="jumbotron" style="background-color: rgb(255,253,250);outline-width: thick;outline-color: #000000;outline-style: inset;-moz-outline-radius: 6px">
+  <%= form_tag(search_path, :method => "get", id: "search-form") do %>
+      <div class="row">
+        <div class="col-md-3">Titulo:</div>
+        <div class="col-md-3">  <%= text_field_tag :nombre, params[:nombre], width: '100%', placeholder: "Breaking Bad ..." %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3"> País:</div>
+        <div class="col-md-3"><%= text_field_tag :pais, params[:pais], placeholder: "Chile ..." %></div>
 
-    <h3> Series</h3> <br>
-<%= form_tag(search_path, :method => "get", id: "search-form") do %>
+      </div>
+      <div class="row">
+        <div class="col-md-3">Rating:</div>
+        <div class="col-md-6"><%= number_field_tag :rating1, params[:rating1], class: 'input-mini', placeholder: "1", in: 1..5 %><%= number_field_tag :rating2, params[:rating2], placeholder: "5", in: 1..5, class: 'input-small' %></div>
 
-<div class="row">
-  <div class="col-md-2">Titulo: </div>  <div class="col-md-2">  <%= text_field_tag :nombre, params[:nombre],width: '100%' , placeholder: "Search Posts" %>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3"> Capitulo:</div>
+        <div class="col-md-3"><%= text_field_tag :capitulo, params[:capitulo], placeholder: "Pilot ..." %></div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-md-3"> Director:</div>
+        <div class="col-md-3"><%= text_field_tag :director, params[:director], placeholder: "stiven spilberg ..." %></div>
+
+      </div>
+      <div class="row">
+        <div class="col-md-3"> Actor:</div>
+        <div class="col-md-3"><%= text_field_tag :actor, params[:actor], placeholder: "Luis jara ..." %></div>
+
+      </div>
+      <div class="row">
+        <div class="col-md-3"> Genero:</div>
+        <div class="col-md-3"><%= text_field_tag :genero, params[:genero], placeholder: "Hombre .........." %></div>
+
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-md-3"><%= submit_tag "Search" ,class: 'pull-left' %></div>
+
+
+      </div>
+
+  <% end %>
+  <% puts @series.inspect%>
+
 </div>
-
-
-</div>
-    <div class="row">
-      <div class="col-md-2"> País: </div>  <div class="col-md-2"><%= text_field_tag :pais, params[:pais], placeholder: "Search Posts" %></div>
-
-    </div>
-    <div class="row">
-      <div class="col-md-2">Rating: </div>  <div class="col-md-2"><%= number_field_tag :rating1, params[:rating1],class: 'input-mini', placeholder: "Search Posts" ,in: 1..5%><%= number_field_tag :rating2, params[:rating2], placeholder: "Search Posts" ,in: 1..5,class: 'input-small'%></div>
-
-    </div>
-    <div class="row">
-      <div class="col-md-2"><%= submit_tag "Search" %></div>  <div class="col-md-2"></div>
-
-    </div>
-
-
-
-    <% end %>
-
-
 
 <% if @series %>
     <h3> <%= @series.count %> resultados</h3>
     <div class="row">
       <div class="col-md-12">
-        <%@series.each do |serie|%>
-            <% unless serie.nil?%>
-                <% unless serie.user.nil?%>
-                    <%= render 'series/preview', series: serie %>
-                <% end %>
-            <% end %>
-        <% end %>
+        <% puts 'EN HTML' %>
+
+        <% @series.each do |serie| %>
+        <% puts serie.inspect %>
+        <% puts 'id abajo' %>
+        <% puts serie.take %>
+        <% puts laserie=serie.take %>
+
+            <div class="series-display">
+              <div class="img-preview img-rounded">
+                <a href= "<%= "series/#{laserie.id}" %>">
+                  <%= image_tag laserie.image.url(:medium) %>
+                  <div class="content">
+                    <%= "#{laserie.name}"[0..18] %>
+                  </div>
+                </a>
+              </div>
+            </div>
+
+      <% end %>
       </div>
     </div>
 <% else %>

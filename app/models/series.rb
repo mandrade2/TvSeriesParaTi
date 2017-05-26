@@ -38,18 +38,39 @@ class Series < ApplicationRecord
                                     less_than_or_equal_to: 5,
                                     message: 'debe ser un numero entre 1 y 5'}
 
-  def self.search(nombre, pais, rating1,rating2)
+  def self.search(nombre, pais, rating1,rating2,capitulo,director,actor,genero)
     @series=Series.all
+    series=[]
     if nombre.present?
-      @series=@series.where(name: nombre)
+      series<<@series.where(name: nombre)
     end
     if pais.present?
-      @series=@series.where(country: pais)
+      series<<@series.where(country: pais)
     end
     if rating1.present? and rating2.present?
-      @series=@series.where(rating: rating1..rating2)
+      series<<@series.where(rating: rating1..rating2)
     end
 
-    @series
+    for serie in @series
+      puts serie.actors
+      puts serie.directors
+      puts serie.genders
+      puts serie.chapters
+      if capitulo.present?
+        series<<serie.actors.where(name: capitulo)
+      end
+      if director.present?
+        series<<@series.where(director: director)
+      end
+      if actor.present?
+        series<<serie.actors.where(name: actor)
+      end
+      if genero.present?
+        series<<@series.where(gender: genero)
+      end
+    end
+
+    @series=series
+
   end
 end
