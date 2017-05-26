@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   get 'help', to: 'pages#help'
   get 'contact', to: 'pages#contact'
   get 'about', to: 'pages#about'
+  get 'search',to: 'series#search'
+  post 'search', to: 'series#search'
   get '/invite', to: 'pages#invite'
   post '/invite', to: 'pages#send_invitation_email'
 
