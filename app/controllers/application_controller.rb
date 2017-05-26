@@ -5,6 +5,18 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  def actualizar_serie(serie)
+    serie.seasons = serie.real_seasons.count
+    chapters_duration = 0
+    total = 0
+    serie.real_seasons.each do |season|
+      chapters_duration += season.chapters.sum(:duration)
+      total += season.chapters.count
+    end
+    serie.chapters_duration = (chapters_duration / total).floor
+    serie.save
+  end
+
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: %i[name username avatar])
     devise_parameter_sanitizer.permit(:account_update,

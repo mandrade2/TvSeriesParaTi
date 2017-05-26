@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170522230916) do
+ActiveRecord::Schema.define(version: 20170526020256) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,14 +32,14 @@ ActiveRecord::Schema.define(version: 20170522230916) do
 
   create_table "chapters", force: :cascade do |t|
     t.string   "name"
-    t.string   "duration"
-    t.integer  "series_id"
-    t.integer  "user_id"
     t.integer  "rating"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.integer  "chapter_number"
-    t.index ["series_id", "name"], name: "index_chapters_on_series_id_and_name", unique: true, using: :btree
+    t.integer  "season_id"
+    t.integer  "duration"
+    t.index ["season_id", "chapter_number"], name: "index_chapters_on_season_id_and_chapter_number", unique: true, using: :btree
+    t.index ["season_id"], name: "index_chapters_on_season_id", using: :btree
   end
 
   create_table "chapters_ratings", force: :cascade do |t|
@@ -96,6 +96,14 @@ ActiveRecord::Schema.define(version: 20170522230916) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_news_on_user_id", using: :btree
+  end
+
+  create_table "seasons", force: :cascade do |t|
+    t.integer  "number"
+    t.integer  "series_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["series_id"], name: "index_seasons_on_series_id", using: :btree
   end
 
   create_table "series", force: :cascade do |t|
@@ -168,11 +176,11 @@ ActiveRecord::Schema.define(version: 20170522230916) do
     t.index ["username"], name: "index_users_on_username", unique: true, using: :btree
   end
 
-  add_foreign_key "chapters", "series"
-  add_foreign_key "chapters", "users"
+  add_foreign_key "chapters", "seasons"
   add_foreign_key "chapters_ratings", "chapters"
   add_foreign_key "chapters_ratings", "users"
   add_foreign_key "news", "users"
+  add_foreign_key "seasons", "series"
   add_foreign_key "series", "users"
   add_foreign_key "series_ratings", "series"
   add_foreign_key "series_ratings", "users"

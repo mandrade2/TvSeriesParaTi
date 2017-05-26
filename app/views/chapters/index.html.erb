@@ -2,29 +2,33 @@
 <% provide(:title, "Capítulos") %>
 
 <div class="btn-group pull-right" >
-  <%= link_to 'New Chapter', new_series_chapter_path(@series), class:"btn btn-primary" %></td>
+  <%= link_to 'Atras', @series, class:"btn btn-primary" %></td>
+  <%= link_to 'Nuevo capitulo', new_series_chapter_path(@series), class:"btn btn-primary" %></td>
 </div>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Capitulo</th>
-      <th>Nombre</th>
-      <th>Duracion</th>
-      <th>Rating</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @chapters.each do |chapter| %>
+<% @seasons.order(:number).each do |season|%>
+  <h3> Temporada <%= season.number %></h3>
+  <table class="table">
+    <thead>
       <tr>
-        <td><%= chapter.chapter_number %></td>
-        <td><%= link_to chapter.name, series_chapter_path(@series, chapter) %></td>
-        <td><%= chapter.duration %></td>
-        <td><%= chapter.rating %></td>
+        <th>Capitulo</th>
+        <th>Nombre</th>
+        <th>Duracion</th>
+        <th>Rating</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+      <% season.chapters.each do |chapter| %>
+        <tr>
+          <td><%= chapter.chapter_number %></td>
+          <td><%= link_to chapter.name, series_chapter_path(@series, chapter) %></td>
+          <td><%= chapter.duration %></td>
+          <td><%= chapter.rating %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
 
 <br>
