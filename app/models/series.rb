@@ -40,8 +40,15 @@ class Series < ApplicationRecord
 
   def self.search(nombre, pais, rating)
     @series=Series.all
-    @series=@series.where(name: nombre) if nombre.present?
-    @series=@series.where(country: pais) if pais.present?
-    @series=@series.where(rating: rating) if rating.present?
+    if nombre.present?
+      @series=@series.where(name: nombre)
+    end
+    if pais.present?
+      @series=@series.where(country: pais)
+    end
+    if rating.present?
+      @series=@series.where(rating: rating)
+    end
+    @series
   end
 end

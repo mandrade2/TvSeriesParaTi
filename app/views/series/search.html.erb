@@ -1,16 +1,14 @@
-<% provide(:title, 'Busqueda') %>
-<% provide(:header, 'Busqueda') %>
+<% provide(:title, 'Búsqueda') %>
+<% provide(:header, 'Búsqueda') %>
 
 
-
-<%= form_tag(search_path, :method => "get", id: "search-form") do %>
-    <%= text_field_tag :nombre, params[:nombre], placeholder: "Search Posts" %>
-    <%= text_field_tag :pais, params[:pais], placeholder: "Search Posts" %>
-    <%= text_field_tag :rating, params[:rating], placeholder: "Search Posts" %>
+    <h3> Series</h3> <br>
+    <%= form_tag(search_path, :method => "get", id: "search-form") do %>
+    Titulo: <%= text_field_tag :nombre, params[:nombre], placeholder: "Search Posts" %><br>
+    País: <%= text_field_tag :pais, params[:pais], placeholder: "Search Posts" %><br>
+    Rating: <%= :rating, params[:rating], placeholder: "Search Posts" %><br>
     <%= submit_tag "Search" %>
 <% end %>
-<% puts('EN VIEW') %>
-<% puts(@series.inspect) %>
 
 
 

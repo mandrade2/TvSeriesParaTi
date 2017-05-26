@@ -25,10 +25,9 @@ class SeriesController < ApplicationController
   def search
     @series = []
     if params[:nombre] or params[:pais] or params[:rating]
-      @series = Series.search(params[:nombre] , params[:pais] , params[:rating]).order("created_at DESC")
-      puts('ENTRA AL IF DE CONT')
-      puts(@series.inspect)
-      puts(params.inspect)
+      @series = Series.search(params[:nombre] , params[:pais] , params[:rating]).order('created_at DESC')
+    else
+      @series=[]
     end
 
   end
