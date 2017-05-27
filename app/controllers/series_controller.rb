@@ -125,8 +125,11 @@ class SeriesController < ApplicationController
     user = current_user
     if user.series_views.include?(@series)
       user.series_views.delete(@series)
-      rating = @series.ratings.where(user: user.id).first
-      rating.destroy if rating
+      rating = @series.ratings.where(user_id: user.id).first
+      unless rating.nil?
+        rating.destroy
+        recalcular_rating(@series)
+      end
     else
       user.series_views << @series
     end
@@ -143,10 +146,5 @@ class SeriesController < ApplicationController
 
   def series_params
     params.require(:series).permit(:name, :description, :country, :image)
-  end
-
-  def recalcular_rating(serie)
-    serie.rating = serie.ratings.average(:rating)
-    serie.save
   end
 end

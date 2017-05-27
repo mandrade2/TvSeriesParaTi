@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
   resources :news
   resources :series do
-    resources :chapters
+    resources :chapters do
+      member do
+        post '/unview', action: 'unview'
+        post '/add_rating', action: 'add_rating'
+      end
+    end
     member do
       get '/recommend', action: 'recommend_series'
       post '/recommend', action: 'send_recommendation'

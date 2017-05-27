@@ -5,6 +5,15 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  def recalcular_rating(serie)
+    if serie.ratings.empty?
+      serie.rating = 1
+    else
+      serie.rating = serie.ratings.average(:rating)
+    end
+    serie.save
+  end
+
   def actualizar_serie(serie)
     serie.seasons = serie.real_seasons.count
     chapters_duration = 0

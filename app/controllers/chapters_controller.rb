@@ -1,5 +1,6 @@
 class ChaptersController < ApplicationController
-  before_action :set_chapter, only: %i[show edit update destroy]
+  before_action :set_chapter, only: %i[show edit update destroy
+                                       unview add_rating]
   before_action :authenticate_user!, except: %i[index show]
 
   def index
@@ -33,8 +34,8 @@ class ChaptersController < ApplicationController
     @series = Series.find(params[:series_id])
     temporada = params[:season_number].to_i
     id_temporada = agregar_season(@series, temporada)
-    p id_temporada
-    @chapter = Chapter.new(chapter_params.merge(season_id: id_temporada))
+    @chapter = Chapter.new(chapter_params.merge(season_id: id_temporada,
+                                                rating: 1.0))
     respond_to do |format|
       if @chapter.save
         actualizar_serie(@series)
@@ -89,30 +90,34 @@ class ChaptersController < ApplicationController
 
   def add_rating
     user = current_user
-    if user.series_views.include?(@series)
-      actual = @series.ratings.where(user_id: user.id).first
+    if user.chapters_views.include?(@chapter)
+      actual = @chapter.ratings.where(user_id: user.id).first
       if actual.nil?
-        SeriesRating.create(user_id: user.id,
-                            series_id: @series.id, rating: params[:rating].to_i)
+        ChaptersRating.create(user_id: user.id,
+                              chapter_id: @chapter.id,
+                              rating: params[:rating].to_i)
       else
         actual.rating = params[:rating].to_i
         actual.save
       end
-      recalcular_rating(@series)
+      recalcular_rating(@chapter)
     end
-    redirect_to @series
+    redirect_to series_chapter_path(@series, @chapter)
   end
 
   def unview
     user = current_user
-    if user.series_views.include?(@series)
-      user.series_views.delete(@series)
-      rating = @series.ratings.where(user: user.id).first
-      rating.destroy if rating
+    if user.chapters_views.include?(@chapter)
+      user.chapters_views.delete(@chapter)
+      rating = @chapter.ratings.where(user_id: user.id).first
+      if rating
+        rating.destroy
+        recalcular_rating @chapter
+      end
     else
-      user.series_views << @series
+      user.chapters_views << @chapter
     end
-    redirect_to @series
+    redirect_to series_chapter_path(@series, @chapter)
   end
 
   private
@@ -129,13 +134,12 @@ class ChaptersController < ApplicationController
   end
 
   def evaluar_temporada(temporada)
-    temporada.destroy unless temporada.nil?
+    temporada.destroy if temporada.chapters.empty?
   end
-
 
   def set_chapter
     @chapter = Chapter.find(params[:id])
-    @series = @chapter.season.series
+    @series = Series.find(params[:series_id])
   end
 
   def chapter_params

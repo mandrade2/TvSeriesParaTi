@@ -12,6 +12,23 @@
   <% end %>
 </div>
 
+<div class="btn-group pull-right" >
+  <%if @boole %>
+    <%= button_to 'Marcar serie como no vista', unview_series_path(@series), class: "btn btn-primary", params: {serie: @series.id, unview: true} %>
+    <%= form_tag add_rating_series_path(@series), method: "post" %>
+      <fieldset class="rating">
+          <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Genial - 5 estrellas"></label>
+          <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Buena - 4 estrellas"></label>
+          <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Si pero no - 3 estrellas"></label>
+          <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Mala - 2 estrellas"></label>
+          <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Que tragedia - 1 estrella"></label>
+      </fieldset>
+    <div><%= submit_tag 'Entregar rating' , params:{serie: @series.id}%></div>
+  <% elsif @user %>
+    <%= button_to 'Marcar serie como vista', unview_series_path(@series), class: "btn btn-primary", params: {serie: @series.id, unview: false} %>
+  <% end %>
+  </div>
+</div>
 <div class="series-profile">
   <div class="series-profile-img img-thumbnail">
     <%= image_tag @series.image.url(:medium) %>
@@ -27,21 +44,10 @@
     <p>
       <%= @series.rating %> puntos de rating
     </p>
+    <p>
+      <%= @series.chapters_duration%> minutos por capítulo
+    </p>
   </div>
 </div>
 
-<%if @boole %>
-  <%= button_to 'Marcar serie como no vista', unview_series_path(@series), params: {serie: @series.id, unview: true} %>
-  <%= form_tag add_rating_series_path(@series), method: "post" %>
-    <fieldset class="rating">
-        <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Genial - 5 estrellas"></label>
-        <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Buena - 4 estrellas"></label>
-        <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Si pero no - 3 estrellas"></label>
-        <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Mala - 2 estrellas"></label>
-        <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Que tragedia - 1 estrella"></label>
-    </fieldset>
-  <div><%= submit_tag 'Entregar rating' , params:{serie: @series.id}%></div>
-<% elsif @user %>
-  <%= button_to 'Marcar serie como vista', unview_series_path(@series), params: {serie: @series.id, unview: false} %>
-<% end %>
 </div>
