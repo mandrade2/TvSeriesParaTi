@@ -10,13 +10,13 @@
   <% @children.each do |child| %>
       <tr>
         <td><%= child.name %></td>
-        <td><%=child.username %></td>
-        <td><%=child.email %></td>
+        <td><%= child.username %></td>
+        <td><%= child.email %></td>
         <td>
           <%= button_to "Destroy", children_destroy_path(current_user.username), method: :delete,
-                                                          params: { child_id: child },
-                                                          data: { confirm:
-                                                          'Estas seguro?'} %>
+                        params: {child_id: child},
+                        data: {confirm:
+                                   'Estas seguro?'} %>
         </td>
       </tr>
   <% end %>

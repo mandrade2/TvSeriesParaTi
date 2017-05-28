@@ -1,10 +1,10 @@
 <% provide(:title, 'Recomendar serie') %>
-<% provide(:header,"Recomendar #{ @series.name }") %>
+<% provide(:header, "Recomendar #{ @series.name }") %>
 
 <%= form_tag(recommend_series_path(@series)) do %>
-  <div class="form-group">
-    <%= label_tag :email %>
-    <%= email_field_tag :email, nil, class: 'form-control' %>
-  </div>
-  <%= submit_tag 'Send invitation', class: 'btn btn-default btn-about pull-right' %>
+    <div class="form-group">
+      <%= label_tag :email %>
+      <%= email_field_tag :email, nil, class: 'form-control' %>
+    </div>
+    <%= submit_tag 'Send invitation', class: 'btn btn-default btn-about pull-right' %>
 <% end %>

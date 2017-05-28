@@ -1,29 +1,29 @@
-<% provide(:header,"#{@chapter.name}") %>
+<% provide(:header, "#{@chapter.name}") %>
 <% provide(:title, "#{@chapter.name}") %>
 
-<div class="btn-group pull-right" >
-  <%= link_to 'Back', series_chapters_path(@series), class:"btn btn-primary" %>
+<div class="btn-group pull-right">
+  <%= link_to 'Back', series_chapters_path(@series), class: "btn btn-primary" %>
 </div>
 
-<div class="btn-group pull-right" >
-  <%= link_to 'Edit', edit_series_chapter_path(@series, @chapter), class:"btn btn-primary" if current_user == @series.user %>
-  <%= link_to 'Destroy', series_chapter_path(@series, @chapter), class:"btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } if can? :destroy, Chapter %>
+<div class="btn-group pull-right">
+  <%= link_to 'Edit', edit_series_chapter_path(@series, @chapter), class: "btn btn-primary" if current_user == @series.user %>
+  <%= link_to 'Destroy', series_chapter_path(@series, @chapter), class: "btn btn-danger", method: :delete, data: {confirm: 'Are you sure?'} if can? :destroy, Chapter %>
 </div>
 
-<div class="btn-group pull-right" >
-  <%if @boole %>
-    <%= button_to 'Marcar capitulo como no visto', unview_series_chapter_path(@series, @chapter), class:"btn btn-primary",  params: { unview: true} %>
-    <%= form_tag add_rating_series_chapter_path(@series, @chapter), method: "post" %>
+<div class="btn-group pull-right">
+  <% if @boole %>
+      <%= button_to 'Marcar capitulo como no visto', unview_series_chapter_path(@series, @chapter), class: "btn btn-primary", params: {unview: true} %>
+      <%= form_tag add_rating_series_chapter_path(@series, @chapter), method: "post" %>
       <fieldset class="rating pull-right">
-          <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Genial - 5 estrellas"></label>
-          <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Buena - 4 estrellas"></label>
-          <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Si pero no - 3 estrellas"></label>
-          <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Mala - 2 estrellas"></label>
-          <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Que tragedia - 1 estrella"></label>
-          <div><%= submit_tag 'Entregar rating'%></div>
+        <input type="radio" id="star5" name="rating" value="5"/><label class="full" for="star5" title="Genial - 5 estrellas"></label>
+        <input type="radio" id="star4" name="rating" value="4"/><label class="full" for="star4" title="Buena - 4 estrellas"></label>
+        <input type="radio" id="star3" name="rating" value="3"/><label class="full" for="star3" title="Si pero no - 3 estrellas"></label>
+        <input type="radio" id="star2" name="rating" value="2"/><label class="full" for="star2" title="Mala - 2 estrellas"></label>
+        <input type="radio" id="star1" name="rating" value="1"/><label class="full" for="star1" title="Que tragedia - 1 estrella"></label>
+        <div><%= submit_tag 'Entregar rating' %></div>
       </fieldset>
   <% elsif @user %>
-    <%= button_to 'Marcar capitulo como visto', unview_series_chapter_path(@series, @chapter), class:"btn btn-primary", params: { unview: false} %>
+      <%= button_to 'Marcar capitulo como visto', unview_series_chapter_path(@series, @chapter), class: "btn btn-primary", params: {unview: false} %>
   <% end %>
 </div>
 
@@ -32,6 +32,6 @@
 </p>
 
 <p>
-  <strong>Descripción del capitulo: <br /></strong>
+  <strong>Descripción del capitulo: <br/></strong>
   <%= @chapter.description %>
 </p>

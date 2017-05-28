@@ -17,11 +17,26 @@ class ChaptersController < ApplicationController
 
   def search
     @chapters = []
+    @seasons=[]
+    @series=[]
+    @users=[]
     if params[:nombre] or params[:pais] or params[:serie] or params[:director] or params[:actor] or params[:genero]
-      @chapters = Chapter.search(params[:nombre] , params[:pais] ,params[:serie],params[:director],params[:actor],params[:genero])
+      @chapters = Chapter.search(params[:nombre], params[:pais], params[:serie], params[:director], params[:actor], params[:genero])
     else
       @chapters=[]
     end
+    for chap in @chapters
+      puts chap.inspect
+      elchap=chap.take
+
+      @seasons<<Season.find(elchap[:season_id])
+      puts @seasons.inspect
+    end
+    for sea in @seasons
+      @series<<Series.find(sea[:series_id])
+    end
+    puts @series.inspect
+
   end
 
 
@@ -29,7 +44,7 @@ class ChaptersController < ApplicationController
     @series = Series.find(params[:series_id])
     unless @series.user == current_user
       return redirect_to series_chapters_path(@series),
-                         flash: { warning: 'Acceso no autorizado' }
+                         flash: {warning: 'Acceso no autorizado'}
     end
     @chapter = Chapter.new
   end
@@ -37,7 +52,7 @@ class ChaptersController < ApplicationController
   def edit
     return if @series.user == current_user
     redirect_to series_chapter_path(@series, @chapter),
-                flash: { warning: 'Acceso no autorizado' }
+                flash: {warning: 'Acceso no autorizado'}
   end
 
   def create
@@ -51,12 +66,12 @@ class ChaptersController < ApplicationController
         actualizar_serie(@series)
         format.html do
           redirect_to series_chapter_path(@series, @chapter),
-                      flash: { success: 'Capitulo fue creado correctamente' }
+                      flash: {success: 'Capitulo fue creado correctamente'}
         end
-        format.json { render :show, status: :created, location: @chapter }
+        format.json {render :show, status: :created, location: @chapter}
       else
         evaluar_temporada(Season.find(id_temporada))
-        format.html { render :new }
+        format.html {render :new}
         format.json do
           render json: @chapter.errors, status: :unprocessable_entity
         end
@@ -71,12 +86,12 @@ class ChaptersController < ApplicationController
         format.html do
           redirect_to series_chapter_path(@series, @chapter),
                       flash: {
-                        success: 'Capitulo fue actualizado correctamente'
+                          success: 'Capitulo fue actualizado correctamente'
                       }
         end
-        format.json { render :show, status: :ok, location: @chapter }
+        format.json {render :show, status: :ok, location: @chapter}
       else
-        format.html { render :edit }
+        format.html {render :edit}
         format.json do
           render json: @chapter.errors, status: :unprocessable_entity
         end
@@ -92,9 +107,9 @@ class ChaptersController < ApplicationController
     respond_to do |format|
       format.html do
         redirect_to series_chapters_path(@series),
-                    flash: { success: 'Capitulo fue destruido correctamente' }
+                    flash: {success: 'Capitulo fue destruido correctamente'}
       end
-      format.json { head :no_content }
+      format.json {head :no_content}
     end
   end
 

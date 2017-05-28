@@ -4,7 +4,7 @@
 #
 #  id             :integer          not null, primary key
 #  name           :string
-#  rating         :integer
+#  rating         :float
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  chapter_number :integer

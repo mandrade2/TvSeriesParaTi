@@ -1,35 +1,35 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= full_title(yield(:title)) %></title>
-    <%= csrf_meta_tags %>
+<head>
+  <title><%= full_title(yield(:title)) %></title>
+  <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%= render 'layouts/shim' %>
-  </head>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <%= render 'layouts/shim' %>
+</head>
 
-  <body>
+<body>
 
-  <%= render 'layouts/header' %>
+<%= render 'layouts/header' %>
 
-  <div class="jumbotron">
-    <div class="container">
-      <div class="row" id="flash-messages">
-        <% flash.each do |message_type, message| %>
+<div class="jumbotron">
+  <div class="container">
+    <div class="row" id="flash-messages">
+      <% flash.each do |message_type, message| %>
           <div class="alert alert-<%= message_type %>"><%= message %></div>
-        <% end %>
-      </div>
-      <div class="row">
-        <div class="page-header" style="text-align: center"><h2><%= yield :header %></h2></div>
-      </div>
-      <div class="row">
-        <%= yield %>
-      </div>
+      <% end %>
+    </div>
+    <div class="row">
+      <div class="page-header" style="text-align: center"><h2><%= yield :header %></h2></div>
+    </div>
+    <div class="row">
+      <%= yield %>
     </div>
   </div>
+</div>
 
-  <%= render 'layouts/footer' %>
+<%= render 'layouts/footer' %>
 
-  </body>
+</body>
 </html>

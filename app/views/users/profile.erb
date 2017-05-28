@@ -2,37 +2,37 @@
 <% provide(:header, @user.name) %>
 
 <% if current_user == @user %>
-  <div class="btn-group pull-right" >
-  <%= link_to 'Editar perfil', edit_user_registration_path, class: 'btn btn-primary' %>
-  </div>
+    <div class="btn-group pull-right">
+      <%= link_to 'Editar perfil', edit_user_registration_path, class: 'btn btn-primary' %>
+    </div>
 <% end %>
 
 <%= render 'profile', user: @user %>
 
 <% if can?(:manage, User) && !(current_user == @user) %>
 
-<div class="child-display">
-  <h5> Cuentas hijo de <%= @user.name%> </h3>
-  <table class="table">
-    <tr>
-      <th>Nombre</th>
-      <th>Usuario</th>
-      <th>Email</th>
-    </tr>
-    <% @user.children.each do |child| %>
-        <tr>
-          <td><%= child.name %></td>
-          <td><%=child.username %></td>
-          <td><%=child.email %></td>
-          <td>
-            <%= button_to "Destroy", children_destroy_path(current_user.username), method: :delete,
-                                                            params: { child_id: child },
-                                                            data: { confirm:
-                                                            'Estas seguro?'} %>
-          </td>
-        </tr>
-    <% end %>
-  </table>
-</div>
+    <div class="child-display">
+      <h5> Cuentas hijo de <%= @user.name %> </h3>
+        <table class="table">
+          <tr>
+            <th>Nombre</th>
+            <th>Usuario</th>
+            <th>Email</th>
+          </tr>
+          <% @user.children.each do |child| %>
+              <tr>
+                <td><%= child.name %></td>
+                <td><%= child.username %></td>
+                <td><%= child.email %></td>
+                <td>
+                  <%= button_to "Destroy", children_destroy_path(current_user.username), method: :delete,
+                                params: {child_id: child},
+                                data: {confirm:
+                                           'Estas seguro?'} %>
+                </td>
+              </tr>
+          <% end %>
+        </table>
+    </div>
 
 <% end %>

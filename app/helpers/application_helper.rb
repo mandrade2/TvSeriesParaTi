@@ -1,6 +1,6 @@
 module ApplicationHelper
   def header(text)
-    content_for(:header) { text.to_s }
+    content_for(:header) {text.to_s}
   end
 
   def full_title(page_title = '')

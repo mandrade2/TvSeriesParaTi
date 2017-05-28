@@ -3,18 +3,19 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .btn-group {
-    margin: 20px 0px;
+  margin: 20px 0px;
 }
 
 .series-comments {
-    //width: 40%;
-    //float: right;
+  //width: 40%;
+  //float: right;
 }
 
 .series-display {
   display: inline-block;
   width: 30%;
 }
+
 /*** Series profile ***/
 
 .series-profile {
@@ -44,17 +45,17 @@
   }
 }
 
-@import url(http://fonts.googleapis.com/css?family=Lato:400,900);  /* <-- Just for the demo, Yes I like pretty fonts... */
+@import url(http://fonts.googleapis.com/css?family=Lato:400,900); /* <-- Just for the demo, Yes I like pretty fonts... */
 @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 
 .square {
-  float:left;
+  float: left;
   position: relative;
   width: 30%;
-  padding-bottom : 30%; /* = width for a 1:1 aspect ratio */
-  margin:1.66%;
-  background-color:#1E1E1E;
-  overflow:hidden;
+  padding-bottom: 30%; /* = width for a 1:1 aspect ratio */
+  margin: 1.66%;
+  background-color: #1E1E1E;
+  overflow: hidden;
 }
 
 .img-preview {
@@ -63,7 +64,7 @@
   padding: 10px;
   img {
     height: 80%;
-    width:100%;
+    width: 100%;
   }
   .content {
     padding: 10px;
@@ -74,34 +75,38 @@
   }
 }
 
-
 /*  For responsive images */
 
-.content .rs{
-  width:auto;
-  height:auto;
-  max-height:90%;
-  max-width:100%;
+.content .rs {
+  width: auto;
+  height: auto;
+  max-height: 90%;
+  max-width: 100%;
 }
+
 /*  For responsive images as background */
 
-.bg{
-  background-position:center center;
-  background-repeat:no-repeat;
-  background-size:cover; /* you change this to "contain" if you don't want the images to be cropped */
-  color:#fff;
+.bg {
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover; /* you change this to "contain" if you don't want the images to be cropped */
+  color: #fff;
 }
 
-.img1{
+.img1 {
   background-image: url("http://c8.alamy.com/comp/A659HH/moscow-russia-dzerzhinsky-square-kgb-lubianka-prison-A659HH.jpg");
 }
+
 /*  Series claramente creadas por mi*/
 .rating {
   border: none;
   float: left;
 }
 
-.rating > input { display: none; }
+.rating > input {
+  display: none;
+}
+
 .rating > label:before {
   margin: 5px;
   font-size: 1.25em;
@@ -117,17 +122,22 @@
 
 .rating > label {
   color: #ddd;
- float: right;
+  float: right;
 }
-
 
 /***** CSS Magic to Highlight Stars on Hover *****/
 
 .rating > input:checked ~ label, /* show gold star when clicked */
 .rating:not(:checked) > label:hover, /* hover current star */
-.rating:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
+.rating:not(:checked) > label:hover ~ label {
+  color: #FFD700;
+}
+
+/* hover previous stars in list */
 
 .rating > input:checked + label:hover, /* hover current star when changing rating */
 .rating > input:checked ~ label:hover,
 .rating > label:hover ~ input:checked ~ label, /* lighten current selection */
-.rating > input:checked ~ label:hover ~ label { color: #FFED85;  }
+.rating > input:checked ~ label:hover ~ label {
+  color: #FFED85;
+}

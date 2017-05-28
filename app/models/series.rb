@@ -19,8 +19,8 @@
 #
 
 class Series < ApplicationRecord
-  has_attached_file :image, styles: { medium: '300x300>', thumb: '100x100>' },
-                             default_url: '/images/:style/default-img.png'
+  has_attached_file :image, styles: {medium: '300x300>', thumb: '100x100>'},
+                    default_url: '/images/:style/default-img.png'
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
 
   has_and_belongs_to_many :actors
@@ -31,15 +31,15 @@ class Series < ApplicationRecord
   has_many :real_seasons, class_name: 'Season', dependent: :destroy
   belongs_to :user
 
-  validates :name, presence: true, length: { minimum: 1, maximum: 50 }
-  validates :description, presence: true, length: { minimum: 10, maximum: 200 }
-  validates :country, presence: true, length: { minimum: 1, maximum: 50 }
-  validates :rating, numericality: { grater_than_or_equal_to: 1,
-                                     less_than_or_equal_to: 5,
-                                     message: 'debe ser un numero entre 1 y 5' }
+  validates :name, presence: true, length: {minimum: 1, maximum: 50}
+  validates :description, presence: true, length: {minimum: 10, maximum: 200}
+  validates :country, presence: true, length: {minimum: 1, maximum: 50}
+  validates :rating, numericality: {grater_than_or_equal_to: 1,
+                                    less_than_or_equal_to: 5,
+                                    message: 'debe ser un numero entre 1 y 5'}
 
   def self.search(nombre, pais, rating1, rating2,
-                  capitulo, director, actor, genero)
+      capitulo, director, actor, genero)
     @series = Series.all
     series = []
     if nombre.present?
@@ -61,7 +61,7 @@ class Series < ApplicationRecord
         series<<serie
       end
     end
-    
+
     for serie in @series
       if capitulo.present?
         serie2=serie.chapters.where(name: capitulo)

@@ -1,38 +1,38 @@
 <%= form_for(series) do |f| %>
-  <% if series.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(series.errors.count, "error") %> prohibited this series from being saved:</h2>
+    <% if series.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(series.errors.count, "error") %> prohibited this series from being saved:</h2>
 
-      <ul>
-      <% series.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+          <ul>
+            <% series.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= f.label :imagen %>
+      <%= f.file_field :image %>
     </div>
-  <% end %>
 
-  <div class="form-group">
-    <%= f.label :imagen %>
-    <%= f.file_field :image %>
-  </div>
+    <div class="form-group">
+      <%= f.label :name %>
+      <%= f.text_field :name, class: "from-control" %>
+    </div>
 
-  <div class="form-group">
-    <%= f.label :name %>
-    <%= f.text_field :name, class: "from-control" %>
-  </div>
+    <div class="form-group">
+      <%= f.label :description %>
+      <%= f.text_field :description, class: "from-control" %>
+    </div>
 
-  <div class="form-group">
-    <%= f.label :description %>
-    <%= f.text_field :description, class: "from-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :country %>
-    <%= f.text_field :country, class: "from-control" %>
-  </div>
+    <div class="form-group">
+      <%= f.label :country %>
+      <%= f.text_field :country, class: "from-control" %>
+    </div>
 
 
-  <div class="actions">
-    <%= f.submit "Crear serie", class: "btn btn-primary" %>
-  </div>
+    <div class="actions">
+      <%= f.submit "Crear serie", class: "btn btn-primary" %>
+    </div>
 <% end %>

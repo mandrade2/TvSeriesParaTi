@@ -14,5 +14,5 @@ class Comment < ApplicationRecord
   belongs_to :user
   belongs_to :series
 
-  validates :content, length: { minimum: 1, maximum: 255 }
+  validates :content, length: {minimum: 1, maximum: 255}
 end

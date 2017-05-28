@@ -1,39 +1,39 @@
 <%= form_for [series, chapter] do |f| %>
-  <% if chapter.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(chapter.errors.count, "error") %> prohibited this series from being saved:</h2>
+    <% if chapter.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(chapter.errors.count, "error") %> prohibited this series from being saved:</h2>
 
-      <ul>
-      <% chapter.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+          <ul>
+            <% chapter.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
 
-  <div class="form-group">
-    <%= f.label :nombre %>
-    <%= f.text_field :name, class: "from-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :numero_de_capitulo %>
-    <%= f.number_field :chapter_number, class: "from-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :duracion %>
-    <%= f.number_field :duration, class: "from-control" %>
-  </div>
-
-  <% if temporada %>
     <div class="form-group">
-      <label for="chapter_numero_de_temporada">Numero de temporada</label>
-      <input class="from-control" name="season_number" id="chapter_chapter_number" type="number">
+      <%= f.label :nombre %>
+      <%= f.text_field :name, class: "from-control" %>
     </div>
-  <% end %>
 
-  <div class="actions">
-    <%= f.submit "Crear capitulo", class: "btn btn-primary" %>
-  </div>
+    <div class="form-group">
+      <%= f.label :numero_de_capitulo %>
+      <%= f.number_field :chapter_number, class: "from-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :duracion %>
+      <%= f.number_field :duration, class: "from-control" %>
+    </div>
+
+    <% if temporada %>
+        <div class="form-group">
+          <label for="chapter_numero_de_temporada">Numero de temporada</label>
+          <input class="from-control" name="season_number" id="chapter_chapter_number" type="number">
+        </div>
+    <% end %>
+
+    <div class="actions">
+      <%= f.submit "Crear capitulo", class: "btn btn-primary" %>
+    </div>
 <% end %>

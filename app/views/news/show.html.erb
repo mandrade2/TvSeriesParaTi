@@ -7,12 +7,12 @@
 <p style="text-align: center">
   <%= @news.content %>
 </p>
-<div class="btn-group" >
-  <%=link_to 'Atras', news_index_path, :class => 'btn btn-primary', :type => 'button'%>
+<div class="btn-group">
+  <%= link_to 'Atras', news_index_path, :class => 'btn btn-primary', :type => 'button' %>
   <% if current_user && current_user.id == @news.user.id %>
-      <%=link_to 'Editar', edit_news_path(@news) , :class => 'btn btn-primary', :type => 'button'%>
-      <%= link_to 'Eliminar', @news, method: :delete, data: { confirm: 'Estas seguro?' }, :class => 'btn btn-danger', :type => 'button' %>
+      <%= link_to 'Editar', edit_news_path(@news), :class => 'btn btn-primary', :type => 'button' %>
+      <%= link_to 'Eliminar', @news, method: :delete, data: {confirm: 'Estas seguro?'}, :class => 'btn btn-danger', :type => 'button' %>
   <% elsif can? :destroy, News %>
-    <%= link_to 'Eliminar', @news, method: :delete, data: { confirm: 'Estas seguro?' }, :class => 'btn btn-danger', :type => 'button' %>
+      <%= link_to 'Eliminar', @news, method: :delete, data: {confirm: 'Estas seguro?'}, :class => 'btn btn-danger', :type => 'button' %>
   <% end %>
 </div>

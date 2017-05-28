@@ -1,22 +1,23 @@
 <% provide(:title, 'Series') %>
-<% provide(:header,'Series') %>
+<% provide(:header, 'Series') %>
 
-<div class="btn-group pull-right" >
+<div class="btn-group pull-right">
   <%= link_to 'Buscar Serie', search_path, class: 'btn btn-primary' %>
-  <% if current_user%>
-    <%= link_to 'Crear Serie', new_series_path, class: 'btn btn-primary' if can? :manage, Series %>
-    <%= link_to 'Mis Series', series_index_path, class: 'btn btn-primary' %>
+  <%= link_to 'Buscar capitulo', search_chapter_path, class: 'btn btn-primary' %>
+  <% if current_user %>
+      <%= link_to 'Crear Serie', new_series_path, class: 'btn btn-primary' if can? :manage, Series %>
+      <%= link_to 'Mis Series', series_index_path, class: 'btn btn-primary' %>
   <% end %>
 </div>
 
 <div class="row">
   <div class="col-md-12">
-    <%@series.each do |serie|%>
-      <% unless serie.nil?%>
-        <% unless serie.user.nil?%>
-            <%= render 'series/preview', series: serie %>
+    <% @series.each do |serie| %>
+        <% unless serie.nil? %>
+            <% unless serie.user.nil? %>
+                <%= render 'series/preview', series: serie %>
+            <% end %>
         <% end %>
-      <% end %>
     <% end %>
   </div>
 </div>

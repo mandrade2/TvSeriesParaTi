@@ -1,37 +1,37 @@
 <% provide(:header, "#{@series.name}") %>
 <% provide(:title, "#{@series.name}") %>
 
-<div class="btn-group pull-left" >
+<div class="btn-group pull-left">
   <%= link_to 'Capitulos', series_chapters_path(@series), class: 'btn btn-primary' %>
 </div>
 
-<div class="btn-group pull-right" >
+<div class="btn-group pull-right">
   <%= link_to 'Recomendar', recommend_series_path(@series), class: 'btn btn-primary' %>
   <%= link_to 'Atras', series_index_path, class: "btn btn-primary" %>
   <% if can?(:destroy, Series) %>
-  <%= link_to 'Eliminar', @series, method: :delete, class: "btn btn-danger", data: { confirm: 'Are you sure?' } %>
+      <%= link_to 'Eliminar', @series, method: :delete, class: "btn btn-danger", data: {confirm: 'Are you sure?'} %>
   <% end %>
   <% if current_user && current_user.id == @series.user_id %>
-    <%= link_to 'Editar', edit_series_path(@series), class: 'btn btn-primary' %>
+      <%= link_to 'Editar', edit_series_path(@series), class: 'btn btn-primary' %>
   <% end %>
 </div>
 
-<div class="btn-group pull-right" >
-  <%if @boole %>
-    <%= button_to 'Marcar serie como no vista', unview_series_path(@series), class: "btn btn-primary", params: {serie: @series.id, unview: true} %>
-    <%= form_tag add_rating_series_path(@series), method: "post" %>
+<div class="btn-group pull-right">
+  <% if @boole %>
+      <%= button_to 'Marcar serie como no vista', unview_series_path(@series), class: "btn btn-primary", params: {serie: @series.id, unview: true} %>
+      <%= form_tag add_rating_series_path(@series), method: "post" %>
       <fieldset class="rating">
-          <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Genial - 5 estrellas"></label>
-          <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Buena - 4 estrellas"></label>
-          <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Si pero no - 3 estrellas"></label>
-          <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Mala - 2 estrellas"></label>
-          <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Que tragedia - 1 estrella"></label>
+        <input type="radio" id="star5" name="rating" value="5"/><label class="full" for="star5" title="Genial - 5 estrellas"></label>
+        <input type="radio" id="star4" name="rating" value="4"/><label class="full" for="star4" title="Buena - 4 estrellas"></label>
+        <input type="radio" id="star3" name="rating" value="3"/><label class="full" for="star3" title="Si pero no - 3 estrellas"></label>
+        <input type="radio" id="star2" name="rating" value="2"/><label class="full" for="star2" title="Mala - 2 estrellas"></label>
+        <input type="radio" id="star1" name="rating" value="1"/><label class="full" for="star1" title="Que tragedia - 1 estrella"></label>
       </fieldset>
-    <div><%= submit_tag 'Entregar rating' , params:{serie: @series.id}%></div>
+      <div><%= submit_tag 'Entregar rating', params: {serie: @series.id} %></div>
   <% elsif @user %>
-    <%= button_to 'Marcar serie como vista', unview_series_path(@series), class: "btn btn-primary", params: {serie: @series.id, unview: false} %>
+      <%= button_to 'Marcar serie como vista', unview_series_path(@series), class: "btn btn-primary", params: {serie: @series.id, unview: false} %>
   <% end %>
-  </div>
+</div>
 </div>
 
 <div class="row">
@@ -42,8 +42,10 @@
     <div class="series-info">
       <p>
         <%= @series.country %>, <%= @series.seasons %>
-        <% if @series.seasons == 1 %> temporada <% else %> temporadas <% end %>,
-        <%= @series.chapters_duration%> minutos por capítulo
+        <% if @series.seasons == 1 %> temporada
+        <% else %> temporadas
+        <% end %>,
+        <%= @series.chapters_duration %> minutos por capítulo
       </p>
       <p>
         <%= @series.description %>
@@ -58,21 +60,21 @@
     <h3> Comentarios </h3>
     <table class="table">
       <thead>
-        <tr>
-          <th>
-            Usuario
-          </th>
-          <th>
-            Comentario
-          </th>
-          <% if can? :destroy, Comment %>
+      <tr>
+        <th>
+          Usuario
+        </th>
+        <th>
+          Comentario
+        </th>
+        <% if can? :destroy, Comment %>
             <th colspan="1">
             </th>
-          <% end %>
-        </tr>
+        <% end %>
+      </tr>
       </thead>
       <tbody>
-        <% @comments.each do |comment| %>
+      <% @comments.each do |comment| %>
           <tr>
             <td>
               <%= comment.user.username %>
@@ -81,18 +83,18 @@
               <%= comment.content %>
             </td>
             <% if can? :destroy, Comment %>
-              <td>
-                <%= link_to 'x', comment_series_path(@series, comment: comment.id), method: :delete, class: "btn btn-danger" %>
-              </td>
+                <td>
+                  <%= link_to 'x', comment_series_path(@series, comment: comment.id), method: :delete, class: "btn btn-danger" %>
+                </td>
             <% end %>
           </tr>
-        <% end %>
+      <% end %>
       </tbody>
     </table>
 
-    <%= form_tag comment_series_path(@series), class: "form-inline" do%>
-      <%= text_field_tag :content, '', class: 'form-control' %>
-      <%= submit_tag 'comentar', class: 'btn btn-default' %>
+    <%= form_tag comment_series_path(@series), class: "form-inline" do %>
+        <%= text_field_tag :content, '', class: 'form-control' %>
+        <%= submit_tag 'comentar', class: 'btn btn-default' %>
     <% end %>
   </div>
 </div>

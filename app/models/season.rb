@@ -13,7 +13,7 @@ class Season < ApplicationRecord
   belongs_to :series
   has_many :chapters, dependent: :destroy
   has_many :comments, dependent: :destroy
-  validates :number, presence: true, numericality: { only_integer: true,
-                                                     grater_than: 0 },
-                     uniqueness: { scope: :series_id }
+  validates :number, presence: true, numericality: {only_integer: true,
+                                                    grater_than: 0},
+            uniqueness: {scope: :series_id}
 end

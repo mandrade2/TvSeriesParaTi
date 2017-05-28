@@ -2,7 +2,7 @@
 <% provide(:header, 'Búsqueda Capitulos ') %>
 
 <div class="jumbotron" style="background-color: rgb(255,253,250);outline-width: thick;outline-color: #000000;outline-style: inset;-moz-outline-radius: 6px">
-  <%= form_tag(search_path, :method => "get", id: "search-form") do %>
+  <%= form_tag(search_chapter_path, :method => "get", id: "search-form") do %>
       <div class="row">
         <div class="col-md-3">Titulo:</div>
         <div class="col-md-3">  <%= text_field_tag :nombre, params[:nombre], width: '100%', placeholder: "Breaking Bad ..." %>
@@ -36,52 +36,45 @@
       </div>
       <br>
       <div class="row">
-        <div class="col-md-3"><%= submit_tag "Search" ,class: 'pull-left' %></div>
+        <div class="col-md-3"><%= submit_tag "Search", class: 'pull-left' %></div>
 
 
       </div>
 
   <% end %>
+  <% puts "inspect de chapters" %>
+  <% puts @chapters.inspect %>
 
 </div>
 
+
 <% if @chapters.any? %>
-    <% @chapters.each do |serie| %>
 
-        <% if @series.count==1 and serie.empty? %>
-            <h3>0 resultados</h3>
-            <p>No hay series que contengan   <%= params[:search] %>.</p>
-        <% else %>
-            <% laserie=serie.take %>
-            <% puts laserie %>
-            <% puts serie.empty? %>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Capitulo</th>
+        <th>Nombre</th>
+        <th>Duracion</th>
+        <th>Rating</th>
+      </tr>
+      </thead>
+      <% capitulos=@chapters[0] %>
+      <tbody>
 
-            <% if laserie %>
+      <% capitulos.each do |chapter| %>
+          <tr>
+            <td><%= chapter.chapter_number %></td>
+            <td><%= chapter.name %></td>
+            <td><%= chapter.duration %></td>
+            <td><%= chapter.rating %></td>
+          </tr>
 
-
-                <h3> <%= @series.count %> resultados</h3>
-                <div class="row">
-                  <div class="col-md-12">
-                    <% puts 'EN HTML' %>
-
-
-                    <div class="series-display">
-                      <div class="img-preview img-rounded">
-                        <a href="<%= "series/#{laserie.id}" %>">
-                          <%= image_tag laserie.image.url(:medium) %>
-                          <div class="content">
-                            <%= "#{laserie.name}"[0..18] %>
-                          </div>
-                        </a>
-                      </div>
-                    </div>
-
-
-            <% end %>
-        <% end %>
-    <% end %>
-    </div>
-    </div>
+      <% end %>
+      </tbody>
+    </table>
+      </div>
+      </div>
 <% else %>
-    <p>No hay series que contengan   <%= params[:search] %>.</p>
+    <p>No hay capitulos que contengan   <%= params %>.</p>
 <% end %>

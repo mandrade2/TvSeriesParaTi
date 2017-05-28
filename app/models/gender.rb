@@ -11,9 +11,9 @@
 class Gender < ApplicationRecord
   has_and_belongs_to_many :series
   validates :name, presence: true, uniqueness: true,
-                   format: { with: /\A[a-z '-]+\z/i,
-                             message: 'Nombre debe estar compuesto solo
+            format: {with: /\A[a-z '-]+\z/i,
+                     message: 'Nombre debe estar compuesto solo
                                       por letras, espacios, guiones y
-                                      apostrofes.' },
-                   length: { minimum: 2, maximum: 50 }
+                                      apostrofes.'},
+            length: {minimum: 2, maximum: 50}
 end

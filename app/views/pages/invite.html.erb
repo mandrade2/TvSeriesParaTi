@@ -2,9 +2,9 @@
 <% provide(:header, 'Invita a un amigo') %>
 
 <%= form_tag(invite_path) do %>
-  <div class="form-group">
-    <%= label_tag :email %>
-    <%= email_field_tag :email, nil, class: 'form-control' %>
-  </div>
-  <%= submit_tag 'Send invitation', class: 'btn btn-default btn-about pull-right' %>
+    <div class="form-group">
+      <%= label_tag :email %>
+      <%= email_field_tag :email, nil, class: 'form-control' %>
+    </div>
+    <%= submit_tag 'Send invitation', class: 'btn btn-default btn-about pull-right' %>
 <% end %>
