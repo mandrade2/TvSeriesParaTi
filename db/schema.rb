@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170526020256) do
+ActiveRecord::Schema.define(version: 20170528010917) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 20170526020256) do
     t.integer  "chapter_number"
     t.integer  "season_id"
     t.integer  "duration"
+    t.string   "description"
     t.index ["season_id", "chapter_number"], name: "index_chapters_on_season_id_and_chapter_number", unique: true, using: :btree
     t.index ["season_id"], name: "index_chapters_on_season_id", using: :btree
   end
@@ -58,6 +59,16 @@ ActiveRecord::Schema.define(version: 20170526020256) do
     t.index ["chapter_id", "user_id"], name: "index_chapters_users_on_chapter_id_and_user_id", unique: true, using: :btree
     t.index ["chapter_id"], name: "index_chapters_users_on_chapter_id", using: :btree
     t.index ["user_id"], name: "index_chapters_users_on_user_id", using: :btree
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "series_id"
+    t.string   "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["series_id"], name: "index_comments_on_series_id", using: :btree
+    t.index ["user_id"], name: "index_comments_on_user_id", using: :btree
   end
 
   create_table "directors", force: :cascade do |t|
@@ -179,6 +190,8 @@ ActiveRecord::Schema.define(version: 20170526020256) do
   add_foreign_key "chapters", "seasons"
   add_foreign_key "chapters_ratings", "chapters"
   add_foreign_key "chapters_ratings", "users"
+  add_foreign_key "comments", "series"
+  add_foreign_key "comments", "users"
   add_foreign_key "news", "users"
   add_foreign_key "seasons", "series"
   add_foreign_key "series", "users"

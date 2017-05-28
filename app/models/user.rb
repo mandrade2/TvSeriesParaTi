@@ -42,7 +42,7 @@ class User < ApplicationRecord
   has_many :children, class_name: 'User', foreign_key: :father_id,
                                           dependent: :destroy
   has_many :news, dependent: :destroy
-  has_many :chapters, dependent: :destroy
+  has_many :comments, dependent: :destroy
   belongs_to :father, class_name: 'User'
   has_and_belongs_to_many :series_views, class_name: 'Series',
                                          dependent: :destroy

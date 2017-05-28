@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     member do
       get '/recommend', action: 'recommend_series'
       post '/recommend', action: 'send_recommendation'
+      post '/comment', action: 'comment'
+      delete '/comment', action: 'delete_comment'
       post '/unview', action: 'unview'
       post '/add_rating', action: 'add_rating'
     end

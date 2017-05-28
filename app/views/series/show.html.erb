@@ -1,14 +1,18 @@
 <% provide(:header, "#{@series.name}") %>
 <% provide(:title, "#{@series.name}") %>
 
+<div class="btn-group pull-left" >
+  <%= link_to 'Capitulos', series_chapters_path(@series), class: 'btn btn-primary' %>
+</div>
 
 <div class="btn-group pull-right" >
   <%= link_to 'Recomendar', recommend_series_path(@series), class: 'btn btn-primary' %>
-  <%= link_to 'Capitulos', series_chapters_path(@series), class: 'btn btn-primary' %>
   <%= link_to 'Atras', series_index_path, class: "btn btn-primary" %>
+  <% if can?(:destroy, Series) %>
+  <%= link_to 'Eliminar', @series, method: :delete, class: "btn btn-danger", data: { confirm: 'Are you sure?' } %>
+  <% end %>
   <% if current_user && current_user.id == @series.user_id %>
     <%= link_to 'Editar', edit_series_path(@series), class: 'btn btn-primary' %>
-    <%= link_to 'Eliminar', @series, method: :delete, class: "btn btn-danger", data: { confirm: 'Are you sure?' } if can? :destroy, Series %>
   <% end %>
 </div>
 
@@ -29,25 +33,66 @@
   <% end %>
   </div>
 </div>
-<div class="series-profile">
-  <div class="series-profile-img img-thumbnail">
-    <%= image_tag @series.image.url(:medium) %>
-  </div>
-  <div class="series-info">
-    <p>
-      <%= @series.country %>, <%= @series.seasons %>
-      <% if @series.seasons == 1 %> temporada <% else %> temporadas <% end %>
-    </p>
-    <p>
-      <%= @series.description %>
-    </p>
-    <p>
-      <%= @series.rating %> puntos de rating
-    </p>
-    <p>
-      <%= @series.chapters_duration%> minutos por capítulo
-    </p>
-  </div>
-</div>
 
+<div class="row">
+  <div class="series-profile col-md-5">
+    <div class="series-profile-img img-thumbnail">
+      <%= image_tag @series.image.url(:medium) %>
+    </div>
+    <div class="series-info">
+      <p>
+        <%= @series.country %>, <%= @series.seasons %>
+        <% if @series.seasons == 1 %> temporada <% else %> temporadas <% end %>,
+        <%= @series.chapters_duration%> minutos por capítulo
+      </p>
+      <p>
+        <%= @series.description %>
+      </p>
+      <p>
+        <%= @series.rating %> puntos de rating
+      </p>
+    </div>
+  </div>
+
+  <div class="series-comments col-md-5">
+    <h3> Comentarios </h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>
+            Usuario
+          </th>
+          <th>
+            Comentario
+          </th>
+          <% if can? :destroy, Comment %>
+            <th colspan="1">
+            </th>
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <% @comments.each do |comment| %>
+          <tr>
+            <td>
+              <%= comment.user.username %>
+            </td>
+            <td>
+              <%= comment.content %>
+            </td>
+            <% if can? :destroy, Comment %>
+              <td>
+                <%= link_to 'x', comment_series_path(@series, comment: comment.id), method: :delete, class: "btn btn-danger" %>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <%= form_tag comment_series_path(@series), class: "form-inline" do%>
+      <%= text_field_tag :content, '', class: 'form-control' %>
+      <%= submit_tag 'comentar', class: 'btn btn-default' %>
+    <% end %>
+  </div>
 </div>

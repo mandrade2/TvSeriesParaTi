@@ -2,6 +2,14 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.btn-group {
+    margin: 20px 0px;
+}
+
+.series-comments {
+    //width: 40%;
+    //float: right;
+}
 
 .series-display {
   display: inline-block;
@@ -10,22 +18,15 @@
 /*** Series profile ***/
 
 .series-profile {
-  width: 60%;
-  margin: 0px auto;
+  width: 50%;
+  //float:left;
+  //margin: 0px auto;
   // display: block;
   // height: 30%;
 
   .series-profile-img {
-    display: inline-block;
     vertical-align: top;
     margin: 10px;
-  }
-
-  .series-info {
-    //padding: 10px;
-    margin-left: 40px;
-    display: inline-block;
-    width: 30%;
   }
 }
 

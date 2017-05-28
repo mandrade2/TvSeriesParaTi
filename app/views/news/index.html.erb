@@ -1,7 +1,7 @@
 <% provide(:header,'Noticias') %>
 <% provide(:title, 'Noticias') %>
 
-<% if current_user %>
+<% if current_user && can?(:manage, News)%>
   <%= link_to 'Escribir noticia', new_news_path, class: 'pull-right btn btn-primary' %>
 <% end %>
 <br>

@@ -29,8 +29,8 @@ end
 
 User.all.each do |user|
   2.times do
-    title = Faker::Lorem.sentence(5)
-    content = Faker::Lorem.paragraph(1)
+    title = Faker::Lorem.sentence(1)
+    content = Faker::Lorem.paragraph(3)
     News.create(content: content, title: title, user_id: user.id)
   end
 
@@ -53,6 +53,7 @@ Series.all.each do |serie|
           name: Faker::Lorem.word,
           chapter_number: e,
           season_id: season.id,
+          description: Faker::Lorem.sentence(4),
           duration: Random.rand(25..45),
           rating: Random.rand(1..5)
         )

@@ -1,7 +1,7 @@
 class SeriesController < ApplicationController
   before_action :set_series, only: %i[show edit update destroy
                                       recommend_series send_recommendation
-                                      unview add_rating]
+                                      unview add_rating comment delete_comment]
   before_action :authenticate_user!, except: %i[index show]
 
   # GET /series
@@ -43,8 +43,24 @@ class SeriesController < ApplicationController
                 }
   end
 
+  def comment
+    content = params[:content]
+    Comment.create(content: content, user_id: current_user.id,
+                  series_id: @series.id)
+    redirect_to @series
+  end
+
+  def delete_comment
+    comment = Comment.find(params[:comment])
+    if comment
+      comment.destroy
+    end
+    redirect_to @series
+  end
+
   def show
     @user = current_user
+    @comments = Comment.where(series_id: @series.id).includes(:user)
     @boole = @user && @user.series_views.include?(@series)
     if @user
       unless @series.user.role == 'admin' || @series.user_id == current_user.id

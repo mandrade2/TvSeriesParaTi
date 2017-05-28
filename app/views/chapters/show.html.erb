@@ -26,15 +26,12 @@
     <%= button_to 'Marcar capitulo como visto', unview_series_chapter_path(@series, @chapter), class:"btn btn-primary", params: { unview: false} %>
   <% end %>
 </div>
+
 <p>
-  <%= @chapter.duration %> minutos
+  <%= @chapter.duration %> minutos, <%= @chapter.rating %> puntos de rating
 </p>
 
 <p>
-  <%= @chapter.rating %> puntos de rating
-</p>
-
-<p>
-  <strong>Serie:</strong>
-  <%= @chapter.season.series.name %>
+  <strong>Descripción del capitulo: <br /></strong>
+  <%= @chapter.description %>
 </p>
