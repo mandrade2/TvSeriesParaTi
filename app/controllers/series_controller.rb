@@ -21,6 +21,16 @@ class SeriesController < ApplicationController
     end
   end
 
+  def search
+    @series = []
+    if params[:nombre] or params[:pais] or params[:rating]
+      @series = Series.search(params[:nombre] , params[:pais] , params[:rating1],params[:rating2],params[:capitulo],params[:director],params[:actor],params[:genero])
+    else
+      @series=[]
+    end
+
+  end
+
   def recommend_series; end
 
   def send_recommendation
