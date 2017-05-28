@@ -48,7 +48,6 @@ class UsersController < ApplicationController
 
   def children
     @children = current_user.children
-    flash.now[:info] = 'No tiene cuentas hijo aun' if @children.empty?
   end
 
   def new_child

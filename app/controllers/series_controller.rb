@@ -2,7 +2,7 @@ class SeriesController < ApplicationController
   before_action :set_series, only: %i[show edit update destroy
                                       recommend_series send_recommendation
                                       unview add_rating comment delete_comment]
-  before_action :authenticate_user!, except: %i[index show]
+  before_action :authenticate_user!, except: %i[index show searc]
 
   # GET /series
   # GET /series.json
@@ -24,11 +24,13 @@ class SeriesController < ApplicationController
   def search
     @series = []
     if params[:nombre] or params[:pais] or params[:rating]
-      @series = Series.search(params[:nombre] , params[:pais] , params[:rating1],params[:rating2],params[:capitulo],params[:director],params[:actor],params[:genero])
+      @series = Series.search(params[:nombre], params[:pais],
+                              params[:rating1], params[:rating2],
+                              params[:capitulo], params[:director],
+                              params[:actor], params[:genero])
     else
-      @series=[]
+      @series = []
     end
-
   end
 
   def recommend_series; end
@@ -45,16 +47,17 @@ class SeriesController < ApplicationController
 
   def comment
     content = params[:content]
-    Comment.create(content: content, user_id: current_user.id,
-                  series_id: @series.id)
+    comment = Comment.new(content: content, user_id: current_user.id,
+                          series_id: @series.id)
+    unless comment.save
+      flash[:warning] = 'No se pudo crear el comentario, debe tener contenido'
+    end
     redirect_to @series
   end
 
   def delete_comment
     comment = Comment.find(params[:comment])
-    if comment
-      comment.destroy
-    end
+    comment.destroy if comment
     redirect_to @series
   end
 

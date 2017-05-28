@@ -57,7 +57,7 @@ class User < ApplicationRecord
         (->(username) { where("username like '%#{username}%'") })
   scope :name_like, (->(name) { where("name like '%#{name}%'") })
 
-  after_create :set_defaults
+  before_create :set_defaults
   devise :database_authenticatable, :registerable, :recoverable,
          :rememberable, :trackable, :validatable, :confirmable, :lockable
   validates :username, presence: true, uniqueness: true,

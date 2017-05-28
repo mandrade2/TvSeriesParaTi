@@ -37,35 +37,36 @@ class Series < ApplicationRecord
   validates :rating, numericality: { grater_than_or_equal_to: 1,
                                      less_than_or_equal_to: 5,
                                      message: 'debe ser un numero entre 1 y 5' }
-  def self.search(nombre, pais, rating1,rating2,capitulo,director,actor,genero)
-    @series=Series.all
-    series=[]
+
+  def self.search(nombre, pais, rating1, rating2,
+                  capitulo, director, actor, genero)
+    @series = Series.all
+    series = []
     if nombre.present?
-      series<<@serie.where(name: nombre)
+      series << @serie.where(name: nombre)
     end
     if pais.present?
-      series<<@series.where(country: pais)
+      series << @series.where(country: pais)
     end
-    if rating1.present? and rating2.present?
-      series<<@series.where(rating: rating1..rating2)
+    if rating1.present? && rating2.present?
+      series << @series.where(rating: rating1..rating2)
     end
 
-    for serie in @series
+    @series.each do |serie|
       if capitulo.present?
-        series<<serie.actors.where(name: capitulo)
+        series << serie.actors.where(name: capitulo)
       end
       if director.present?
-        series<<serie.where(director: director)
+        series << serie.where(director: director)
       end
       if actor.present?
-        series<<serie.actors.where(name: actor)
+        series << serie.actors.where(name: actor)
       end
       if genero.present?
-        series<<serie.where(gender: genero)
+        series << serie.where(gender: genero)
       end
     end
 
-    @series=series
-
+    @series = series
   end
 end
