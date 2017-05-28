@@ -27,29 +27,23 @@ class Chapter < ApplicationRecord
       only_integer: true,
       grater_than_or_equal_to: 1}
 
-  def self.search(nombre, pais, serie, director, actor, genero)
+  def self.search(nombre, pais, serie, director, actor, genero,duracion)
     @chapters=Chapter.all
     chapters=[]
     if nombre.present?
-      cap=@chapters.where(name: nombre)
+      cap=@chapters.where('name ILIKE ?',"%#{nombre}%")
       if cap
         chapters<<cap
       end
     end
-    if pais.present?
-      cap=@chapters.where(name: nombre)
-      if cap
-        chapters<<cap
-      end
-    end
-    if serie.present?
-      cap=@chapters.where(name: nombre)
+    if duracion.present?
+      cap=@chapters.where('duration ILIKE ?',"%#{duracion}%")
       if cap
         chapters<<cap
       end
     end
 
-    for series in Series.all
+    for series in Series.all#por terminar falta aun
       if series.name==serie
         for chap2 in series.chapters
           if chap2.name==nombre
@@ -58,7 +52,6 @@ class Chapter < ApplicationRecord
         end
       end
     end
-
     @chapters=chapters
 
   end

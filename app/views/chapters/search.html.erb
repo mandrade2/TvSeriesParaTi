@@ -26,12 +26,17 @@
       </div>
       <div class="row">
         <div class="col-md-3"> Actor:</div>
-        <div class="col-md-3"><%= text_field_tag :actor, params[:actor], placeholder: "Luis jara ..." %></div>
+        <div class="col-md-3"><%= text_field_tag :actor, params[:actor], placeholder: "Bradd Pitt ..." %></div>
 
       </div>
       <div class="row">
         <div class="col-md-3"> Genero:</div>
-        <div class="col-md-3"><%= text_field_tag :genero, params[:genero], placeholder: "Hombre .........." %></div>
+        <div class="col-md-3"><%= text_field_tag :genero, params[:genero], placeholder: "Comedia ..." %></div>
+
+      </div>
+      <div class="row">
+        <div class="col-md-3">Duracion:</div>
+        <div class="col-md-3"><%= text_field_tag :duracion, params[:duracion], placeholder: "24 min..." %></div>
 
       </div>
       <br>
@@ -42,8 +47,6 @@
       </div>
 
   <% end %>
-  <% puts "inspect de chapters" %>
-  <% puts @chapters.inspect %>
 
 </div>
 
@@ -57,6 +60,9 @@
         <th>Nombre</th>
         <th>Duracion</th>
         <th>Rating</th>
+        <th>Temporada</th>
+        <th>Serie</th>
+        <th>Usuario</th>
       </tr>
       </thead>
       <% capitulos=@chapters[0] %>
@@ -64,10 +70,17 @@
 
       <% capitulos.each do |chapter| %>
           <tr>
+            <% season=Season.all.find(chapter.season_id) %>
+            <% serie2=Series.all.find(season.series_id) %>
+            <% user=User.all.find(serie2.user_id) %>
             <td><%= chapter.chapter_number %></td>
             <td><%= chapter.name %></td>
             <td><%= chapter.duration %></td>
             <td><%= chapter.rating %></td>
+            <td><%=  serie2.name%></td>
+            <td><%= season.number %></td>
+            <td><%=  user.name%></td>
+
           </tr>
 
       <% end %>
@@ -76,5 +89,5 @@
       </div>
       </div>
 <% else %>
-    <p>No hay capitulos que contengan   <%= params %>.</p>
+    <p>No hay capitulos que contengan esos terminos.</p>
 <% end %>

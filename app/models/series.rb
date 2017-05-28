@@ -44,13 +44,14 @@ class Series < ApplicationRecord
     series = []
     if nombre.present?
 
-      serie=@series.where(name: nombre)
+      serie=@series.where('name ILIKE ?',"%#{nombre}%")
+
       if serie
         series<<serie
       end
     end
     if pais.present?
-      serie=@series.where(country: pais)
+      serie=@series.where('country ILIKE ?',"%#{pais}%")
       if serie
         series<<serie
       end
@@ -64,25 +65,25 @@ class Series < ApplicationRecord
 
     for serie in @series
       if capitulo.present?
-        serie2=serie.chapters.where(name: capitulo)
+        serie2=serie.chapters.where('name ILIKE ?',"%#{capitulo}%")
         if serie2
           series<<serie2
         end
       end
       if director.present?
-        serie2=serie.directors.where(name: director)
+        serie2=serie.directors.where('name ILIKE ?',"%#{director}%")
         if serie2
           series<<serie2
         end
       end
       if actor.present?
-        serie2=serie.actors.where(name: actor)
+        serie2=serie.actors.where('name ILIKE ?',"%#{actor}%")
         if serie2
           series<<serie2
         end
       end
       if genero.present?
-        serie2=serie.genders.where(name: genero)
+        serie2=serie.genders.where('name ILIKE ?',"%#{genero}%")
         if serie2
           series<<serie2
         end

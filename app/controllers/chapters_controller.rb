@@ -17,25 +17,13 @@ class ChaptersController < ApplicationController
 
   def search
     @chapters = []
-    @seasons=[]
-    @series=[]
-    @users=[]
-    if params[:nombre] or params[:pais] or params[:serie] or params[:director] or params[:actor] or params[:genero]
-      @chapters = Chapter.search(params[:nombre], params[:pais], params[:serie], params[:director], params[:actor], params[:genero])
+    if params[:nombre] or params[:pais] or params[:serie] or params[:director] or params[:actor] or params[:genero] or params[:duracion]
+      @chapters = Chapter.search(params[:nombre], params[:pais], params[:serie], params[:director], params[:actor], params[:genero],params[:duracion])
     else
       @chapters=[]
     end
-    for chap in @chapters
-      puts chap.inspect
-      elchap=chap.take
 
-      @seasons<<Season.find(elchap[:season_id])
-      puts @seasons.inspect
-    end
-    for sea in @seasons
-      @series<<Series.find(sea[:series_id])
-    end
-    puts @series.inspect
+
 
   end
 
