@@ -1,5 +1,5 @@
-<% provide(:title, 'Búsqueda Series') %>
-<% provide(:header, 'Búsqueda Series') %>
+<% provide(:title, 'Búsqueda Capitulos') %>
+<% provide(:header, 'Búsqueda Capitulos ') %>
 
 <div class="jumbotron" style="background-color: rgb(255,253,250);outline-width: thick;outline-color: #000000;outline-style: inset;-moz-outline-radius: 6px">
   <%= form_tag(search_path, :method => "get", id: "search-form") do %>
@@ -14,14 +14,8 @@
 
       </div>
       <div class="row">
-        <div class="col-md-3">Rating:</div>
-        <div class="col-md-6"><%= number_field_tag :rating1, params[:rating1], class: 'input-mini', placeholder: "1", in: 1..5 %><%= number_field_tag :rating2, params[:rating2], placeholder: "5", in: 1..5, class: 'input-small' %></div>
-
-      </div>
-
-      <div class="row">
-        <div class="col-md-3"> Capitulo:</div>
-        <div class="col-md-3"><%= text_field_tag :capitulo, params[:capitulo], placeholder: "Pilot ..." %></div>
+        <div class="col-md-3"> Serie:</div>
+        <div class="col-md-3"><%= text_field_tag :serie, params[:serie], placeholder: "Rick & Morty ..." %></div>
 
       </div>
 
@@ -42,22 +36,17 @@
       </div>
       <br>
       <div class="row">
-        <div class="col-md-3"><%= submit_tag "Search", class: 'pull-left' %></div>
+        <div class="col-md-3"><%= submit_tag "Search" ,class: 'pull-left' %></div>
 
 
       </div>
 
   <% end %>
-  <% puts 'prints' %>
-
-  <% puts @series.inspect %>
-  <% puts @series.any? %>
-  <% puts @series.empty? %>
 
 </div>
 
-<% if @series.any? %>
-    <% @series.each do |serie| %>
+<% if @chapters.any? %>
+    <% @chapters.each do |serie| %>
 
         <% if @series.count==1 and serie.empty? %>
             <h3>0 resultados</h3>
@@ -90,9 +79,9 @@
 
             <% end %>
         <% end %>
-        <% end %>
-        </div>
-        </div>
-        <% else %>
-        <p>No hay series que contengan   <%= params[:search] %>.</p>
     <% end %>
+    </div>
+    </div>
+<% else %>
+    <p>No hay series que contengan   <%= params[:search] %>.</p>
+<% end %>

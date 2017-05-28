@@ -15,6 +15,16 @@ class ChaptersController < ApplicationController
     @boole = @user && @user.chapters_views.include?(@chapter)
   end
 
+  def search
+    @chapters = []
+    if params[:nombre] or params[:pais] or params[:serie] or params[:director] or params[:actor] or params[:genero]
+      @chapters = Chapter.search(params[:nombre] , params[:pais] ,params[:serie],params[:director],params[:actor],params[:genero])
+    else
+      @chapters=[]
+    end
+  end
+
+
   def new
     @series = Series.find(params[:series_id])
     unless @series.user == current_user

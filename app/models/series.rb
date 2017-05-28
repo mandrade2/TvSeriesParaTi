@@ -43,27 +43,50 @@ class Series < ApplicationRecord
     @series = Series.all
     series = []
     if nombre.present?
-      series << @serie.where(name: nombre)
+
+      serie=@series.where(name: nombre)
+      if serie
+        series<<serie
+      end
     end
     if pais.present?
-      series << @series.where(country: pais)
+      serie=@series.where(country: pais)
+      if serie
+        series<<serie
+      end
     end
-    if rating1.present? && rating2.present?
-      series << @series.where(rating: rating1..rating2)
+    if rating1.present? and rating2.present?
+      serie=@series.where(rating: rating1..rating2)
+      if serie
+        series<<serie
+      end
     end
-
-    @series.each do |serie|
+    
+    for serie in @series
       if capitulo.present?
-        series << serie.actors.where(name: capitulo)
+        serie2=serie.chapters.where(name: capitulo)
+        if serie2
+          series<<serie2
+        end
       end
       if director.present?
-        series << serie.where(director: director)
+        serie2=serie.directors.where(name: director)
+        if serie2
+          series<<serie2
+        end
       end
       if actor.present?
-        series << serie.actors.where(name: actor)
+        serie2=serie.actors.where(name: actor)
+        if serie2
+          series<<serie2
+        end
       end
       if genero.present?
-        series << serie.where(gender: genero)
+        serie2=serie.genders.where(name: genero)
+        if serie2
+          series<<serie2
+        end
+
       end
     end
 
