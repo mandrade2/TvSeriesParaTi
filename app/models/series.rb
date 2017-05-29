@@ -43,7 +43,6 @@ class Series < ApplicationRecord
     @series = Series.all
     series = []
     if nombre.present?
-
       serie=@series.where('name ILIKE ?',"%#{nombre}%")
 
       if serie

@@ -48,51 +48,31 @@
       </div>
 
   <% end %>
-  <% puts 'prints' %>
+  <% series=@series[0] %>
 
-  <% puts @series.inspect %>
-  <% puts @series.any? %>
-  <% puts @series.empty? %>
 
 </div>
 
-<% if @series.any? %>
-    <% @series.each do |serie| %>
+<% if  series %>
+    <h3> <%= series.count %> resultados</h3>
+    <div class="row">
+      <div class="col-md-12">
+          <% series.each do |serie| %>
+            <div class="series-display">
+            <div class="img-preview img-rounded">
+              <a href="<%= "series/#{serie.id}" %>">
+                <%= image_tag serie.image.url(:medium) %>
+                <div class="content">
+                  <%= "#{serie.name}"[0..18] %>
+                </div>
+              </a>
+            </div>
+            </div>
+          <% end %>
 
-        <% if @series.count==1 and serie.empty? %>
-            <h3>0 resultados</h3>
-            <p>No hay series que contengan   <%= params[:search] %>.</p>
-        <% else %>
-            <% laserie=serie.take %>
-            <% puts laserie %>
-            <% puts serie.empty? %>
-
-            <% if laserie %>
-
-
-                <h3> <%= @series.count %> resultados</h3>
-                <div class="row">
-                  <div class="col-md-12">
-                    <% puts 'EN HTML' %>
-
-
-                    <div class="series-display">
-                      <div class="img-preview img-rounded">
-                        <a href="<%= "series/#{laserie.id}" %>">
-                          <%= image_tag laserie.image.url(:medium) %>
-                          <div class="content">
-                            <%= "#{laserie.name}"[0..18] %>
-                          </div>
-                        </a>
-                      </div>
-                    </div>
-
-
-            <% end %>
-        <% end %>
-    <% end %>
-    </div>
+          </div>
     </div>
 <% else %>
-    <p>No hay series que contengan   <%= params[:search] %>.</p>
+    <h3>0 resultados</h3>
+    <p>No hay series que contengan tales palabras.</p>
 <% end %>

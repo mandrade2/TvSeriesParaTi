@@ -2,7 +2,7 @@ class SeriesController < ApplicationController
   before_action :set_series, only: %i[show edit update destroy
                                       recommend_series send_recommendation
                                       unview add_rating comment delete_comment]
-  before_action :authenticate_user!, except: %i[index show searc]
+  before_action :authenticate_user!, except: %i[index show search]
 
   # GET /series
   # GET /series.json
@@ -31,6 +31,7 @@ class SeriesController < ApplicationController
     else
       @series = []
     end
+
   end
 
   def recommend_series;
