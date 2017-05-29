@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 20170528010917) do
 
   create_table "chapters", force: :cascade do |t|
     t.string   "name"
-    t.float    "rating"
+    t.integer  "rating"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.integer  "chapter_number"

@@ -1,7 +1,7 @@
 class ChaptersController < ApplicationController
   before_action :set_chapter, only: %i[show edit update destroy
                                        unview add_rating]
-  before_action :authenticate_user!, except: %i[index show]
+  before_action :authenticate_user!, except: %i[index show search]
 
   def index
     @series = Series.find(params[:series_id])
@@ -17,16 +17,12 @@ class ChaptersController < ApplicationController
 
   def search
     @chapters = []
-    if params[:nombre] or params[:pais] or params[:serie] or params[:director] or params[:actor] or params[:genero] or params[:duracion]
+    if params[:nombre] || params[:pais] || params[:serie] || params[:director] or params[:actor] or params[:genero] or params[:duracion]
       @chapters = Chapter.search(params[:nombre], params[:pais], params[:serie], params[:director], params[:actor], params[:genero],params[:duracion])
     else
-      @chapters=[]
+      @chapters = []
     end
-
-
-
   end
-
 
   def new
     @series = Series.find(params[:series_id])
@@ -89,13 +85,12 @@ class ChaptersController < ApplicationController
 
   def destroy
     temporada = @chapter.season
-    @series = temporada.series
     @chapter.destroy
     evaluar_temporada(temporada)
     respond_to do |format|
       format.html do
         redirect_to series_chapters_path(@series),
-                    flash: {success: 'Capitulo fue destruido correctamente'}
+                    flash: {success: 'Capitulo fue destruido correctamente' }
       end
       format.json {head :no_content}
     end
@@ -147,6 +142,7 @@ class ChaptersController < ApplicationController
   end
 
   def evaluar_temporada(temporada)
+    p temporada
     temporada.destroy if temporada.chapters.empty?
   end
 

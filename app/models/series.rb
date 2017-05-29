@@ -29,9 +29,9 @@ class Series < ApplicationRecord
   has_and_belongs_to_many :viewers, class_name: 'User'
   has_many :ratings, class_name: 'SeriesRating', dependent: :destroy
   has_many :real_seasons, class_name: 'Season', dependent: :destroy
+  has_many :comments, dependent: :destroy
   belongs_to :user
-
-  validates :name, presence: true, length: {minimum: 1, maximum: 50}
+  validates :name, presence: true, length: { minimum: 1, maximum: 50 }
   validates :description, presence: true, length: {minimum: 10, maximum: 200}
   validates :country, presence: true, length: {minimum: 1, maximum: 50}
   validates :rating, numericality: {grater_than_or_equal_to: 1,
@@ -82,9 +82,9 @@ class Series < ApplicationRecord
         end
       end
       if genero.present?
-        serie2=serie.genders.where('name ILIKE ?',"%#{genero}%")
+        serie2 = serie.genders.where('name ILIKE ?', "%#{genero}%")
         if serie2
-          series<<serie2
+          series << serie2
         end
 
       end

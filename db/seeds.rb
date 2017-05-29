@@ -8,7 +8,7 @@ user_amount.times do |i|
     role: 'user',
     email: i.to_s + Faker::Internet.email,
     password: Faker::Internet.password,
-    avatar: Faker::Avatar.image
+    # avatar: Faker::Avatar.image
   )
   user.skip_confirmation!
   user.save
@@ -21,7 +21,7 @@ user_amount.times do |i|
     role: 'admin',
     email: i.to_s + Faker::Internet.email,
     password: Faker::Internet.password,
-    avatar: Faker::Avatar.image
+    # avatar: Faker::Avatar.image
   )
   user.skip_confirmation!
   user.save
@@ -47,19 +47,16 @@ end
 Series.all.each do |serie|
   (1..4).each do |i|
     season = Season.new(series_id: serie.id, number: i)
-    if season.save
-      (1..2).each do |e|
-        Chapter.create(
-          name: Faker::Lorem.word,
-          chapter_number: e,
-          season_id: season.id,
-          description: Faker::Lorem.sentence(4),
-          duration: Random.rand(25..45),
-          rating: Random.rand(1..5)
-        )
-      end
-    else
-      p 'falle'
+    next if season.save
+    (1..2).each do |e|
+      Chapter.create(
+        name: Faker::Lorem.word,
+        chapter_number: e,
+        season_id: season.id,
+        description: Faker::Lorem.sentence(4),
+        duration: Random.rand(25..45),
+        rating: Random.rand(1..5)
+      )
     end
   end
 end

@@ -65,17 +65,17 @@ class SeriesController < ApplicationController
 
   def show
     @user = current_user
-    @comments = Comment.where(series_id: @series.id).includes(:user)
+    @comments = @series.comments
     @boole = @user && @user.series_views.include?(@series)
     if @user
       unless @series.user.role == 'admin' || @series.user_id == current_user.id
         redirect_to root_path,
-                    flash: {alert: 'No tiene permisos para acceder a esta serie'}
+                    flash: { alert: 'No tiene permisos para acceder a esta serie' }
       end
     else
       unless @series.user.role == 'admin'
         redirect_to root_path,
-                    flash: {alert: 'No tiene permisos para acceder a esta serie'}
+                    flash: { alert: 'No tiene permisos para acceder a esta serie' }
       end
     end
   end
@@ -131,9 +131,9 @@ class SeriesController < ApplicationController
     respond_to do |format|
       format.html do
         redirect_to series_index_url,
-                    flash: {success: 'Serie fue destruida correctamente'}
+                    flash: { success: 'Serie fue destruida correctamente' }
       end
-      format.json {head :no_content}
+      format.json { head :no_content }
     end
   end
 
@@ -168,8 +168,7 @@ class SeriesController < ApplicationController
     redirect_to @series
   end
 
-  def new_season;
-  end
+  def new_season; end
 
   private
 
