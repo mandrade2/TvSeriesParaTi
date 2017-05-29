@@ -69,25 +69,29 @@
       <tbody>
 
       <% capitulos.each do |chapter| %>
-          <tr>
-            <% season=Season.all.find(chapter.season_id) %>
-            <% serie2=Series.all.find(season.series_id) %>
-            <% user=User.all.find(serie2.user_id) %>
-            <td><%= chapter.chapter_number %></td>
-            <td><%= chapter.name %></td>
-            <td><%= chapter.duration %></td>
-            <td><%= chapter.rating %></td>
-            <td><%=  serie2.name%></td>
-            <td><%= season.number %></td>
-            <td><%=  user.name%></td>
+          <% season=Season.all.find(chapter.season_id) %>
+          <% serie2=Series.all.find(season.series_id) %>
+          <% user=User.all.find(serie2.user_id) %>
+          <% if user.role == 'admin' || serie2.user_id == current_user.id %>
+              <tr>
 
-          </tr>
+                <td><%= chapter.chapter_number %></td>
+                <td><%= chapter.name %></td>
+                <td><%= chapter.duration %></td>
+                <td><%= chapter.rating %></td>
+                <td><%= serie2.name %></td>
+                <td><%= season.number %></td>
+                <td><%= user.name %></td>
 
+              </tr>
+
+
+          <% end %>
       <% end %>
       </tbody>
     </table>
-      </div>
-      </div>
+    </div>
+    </div>
 <% else %>
     <p>No hay capitulos que contengan esos terminos.</p>
 <% end %>

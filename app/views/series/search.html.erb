@@ -54,10 +54,11 @@
 </div>
 
 <% if  series %>
-    <h3> <%= series.count %> resultados</h3>
+    <h3>resultados : </h3>
     <div class="row">
       <div class="col-md-12">
           <% series.each do |serie| %>
+            <%if serie.user.role == 'admin' || serie.user_id == current_user.id%>
             <div class="series-display">
             <div class="img-preview img-rounded">
               <a href="<%= "series/#{serie.id}" %>">
@@ -68,6 +69,7 @@
               </a>
             </div>
             </div>
+          <% end %>
           <% end %>
 
           </div>

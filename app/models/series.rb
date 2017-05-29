@@ -64,7 +64,7 @@ class Series < ApplicationRecord
 
     for serie in @series
       if capitulo.present?
-        serie2=serie.chapters.where('name ILIKE ?',"%#{capitulo}%")
+        serie2=[]#serie.chapters.where('name ILIKE ?',"%#{capitulo}%")
         if serie2
           series<<serie2
         end
