@@ -24,12 +24,10 @@ class SeriesController < ApplicationController
   def search
     @series = []
     if params[:nombre] or params[:pais] or params[:rating]
-      @series = Series.search(params[:nombre], params[:pais],
+      @series = Series.search(current_user, params[:nombre], params[:pais],
                               params[:rating1], params[:rating2],
                               params[:capitulo], params[:director],
                               params[:actor], params[:genero])
-    else
-      @series = []
     end
 
   end

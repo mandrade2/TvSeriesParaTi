@@ -48,28 +48,24 @@
       </div>
 
   <% end %>
-  <% series=@series[0] %>
-
-
 </div>
 
-<% if  series %>
-    <h3> <%= series.count %> resultados</h3>
+<% if  @series %>
+    <h3> <%= @series.count %> resultados</h3>
     <div class="row">
       <div class="col-md-12">
-          <% series.each do |serie| %>
+          <% @series.each do |series| %>
             <div class="series-display">
             <div class="img-preview img-rounded">
-              <a href="<%= "series/#{serie.id}" %>">
-                <%= image_tag serie.image.url(:medium) %>
+              <a href='<%= "series/#{series.id}" %>'>
+                <%= image_tag series.image.url(:medium) %>
                 <div class="content">
-                  <%= "#{serie.name}"[0..18] %>
+                  <%= series.name %>
                 </div>
               </a>
             </div>
             </div>
           <% end %>
-
           </div>
     </div>
 <% else %>

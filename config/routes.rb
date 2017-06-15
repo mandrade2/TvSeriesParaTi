@@ -26,9 +26,9 @@ Rails.application.routes.draw do
   get 'about', to: 'pages#about'
   get '/invite', to: 'pages#invite'
   post '/invite', to: 'pages#send_invitation_email'
-  get 'search',to: 'series#search'
+  get 'search', to: 'series#search'
   post 'search', to: 'series#search'
-  get 'search_chapter',to: 'chapters#search'
+  get 'search_chapter', to: 'chapters#search'
   post 'search_chapter', to: 'chapters#search'
 
   # Users routes
