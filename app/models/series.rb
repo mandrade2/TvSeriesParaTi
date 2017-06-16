@@ -74,7 +74,7 @@ class Series < ApplicationRecord
       if genero.present?
         gender_search = serie2.genders.where(
           'name ILIKE ?', "%#{genero}%"
-        ).count > 0
+        )
         next unless gender_search.count > 0
       end
       series << serie2
