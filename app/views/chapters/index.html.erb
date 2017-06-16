@@ -2,7 +2,7 @@
 <% provide(:title, "Capítulos") %>
 
 <div class="btn-group pull-right">
-  <%= link_to 'Atras', @series, class: "btn btn-primary" %></td>
+  <%= link_to 'Ver serie', @series, class: "btn btn-primary" %></td>
   <% if current_user == @series.user && can?(:manage, Chapter) %>
       <%= link_to 'Nuevo capitulo', new_series_chapter_path(@series), class: "btn btn-primary" %></td>
   <% end %>

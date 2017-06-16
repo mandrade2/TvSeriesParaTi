@@ -2,9 +2,9 @@
 <% provide(:header, 'Series') %>
 
 <div class="btn-group pull-right">
-  <% if current_user %>
       <%= link_to 'Buscar Serie', search_path, class: 'btn btn-primary' %>
       <%= link_to 'Buscar capitulo', search_chapter_path, class: 'btn btn-primary' %>
+  <% if current_user %>
       <%= link_to 'Crear Serie', new_series_path, class: 'btn btn-primary' if can? :manage, Series %>
       <%= link_to 'Mis Series', series_index_path, class: 'btn btn-primary' %>
   <% end %>

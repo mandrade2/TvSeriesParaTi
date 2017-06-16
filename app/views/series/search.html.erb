@@ -50,37 +50,24 @@
   <% end %>
 </div>
 
-<<<<<<< HEAD
-<% if  series %>
-    <h3>resultados : </h3>
-    <div class="row">
-      <div class="col-md-12">
-          <% series.each do |serie| %>
-            <%if serie.user.role == 'admin' || serie.user_id == current_user.id%>
-=======
+
 <% if  @series %>
     <h3> <%= @series.count %> resultados</h3>
     <div class="row">
       <div class="col-md-12">
           <% @series.each do |series| %>
->>>>>>> arreglar-buscadores
             <div class="series-display">
-            <div class="img-preview img-rounded">
-              <a href='<%= "series/#{series.id}" %>'>
-                <%= image_tag series.image.url(:medium) %>
-                <div class="content">
-                  <%= series.name %>
-                </div>
-              </a>
-            </div>
+              <div class="img-preview img-rounded">
+                <a href='<%= "series/#{series.id}" %>'>
+                  <%= image_tag series.image.url(:medium) %>
+                  <div class="content">
+                    <%= series.name %>
+                  </div>
+                </a>
+              </div>
             </div>
           <% end %>
-<<<<<<< HEAD
-          <% end %>
-
-=======
->>>>>>> arreglar-buscadores
-          </div>
+      </div>
     </div>
 <% else %>
     <h3>0 resultados</h3>

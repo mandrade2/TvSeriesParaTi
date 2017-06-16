@@ -31,7 +31,6 @@ class Chapter < ApplicationRecord
                              }
 
   def self.search(nombre, pais, serie, director, actor, genero, duracion)
-
     @chapters = Chapter.all
     if nombre.present?
       @chapters = @chapters.where('name ILIKE ?', "%#{nombre}%")
@@ -48,7 +47,9 @@ class Chapter < ApplicationRecord
     @chapters.each do |chapter|
       # Busqueda por pais
       if pais.present?
-        next if chapter.season.series.country != pais
+        unless chapter.season.series.country.match?(/#{Regexp.escape pais}/i)
+          next
+        end
       end
       # Busqueda por serie
       if serie.present?

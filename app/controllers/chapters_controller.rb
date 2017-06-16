@@ -94,11 +94,7 @@ class ChaptersController < ApplicationController
     respond_to do |format|
       format.html do
         redirect_to series_chapters_path(@series),
-<<<<<<< HEAD
-                    flash: {success: 'Capitulo fue destruido correctamente' }
-=======
                     flash: { success: 'Capitulo fue destruido correctamente' }
->>>>>>> arreglar-buscadores
       end
       format.json { head :no_content }
     end
