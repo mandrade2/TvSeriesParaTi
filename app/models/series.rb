@@ -38,56 +38,46 @@ class Series < ApplicationRecord
                                     less_than_or_equal_to: 5,
                                     message: 'debe ser un numero entre 1 y 5'}
 
-  def self.search(nombre, pais, rating1, rating2,
-      capitulo, director, actor, genero)
-    @series = Series.all
+  def self.search(user, nombre, pais, rating1, rating2,
+                  capitulo, director, actor, genero)
+    @series = Series.joins(:user).where(users: {role: 'admin'})
+    @series += Series.where(user_id: user.id) if user
     series = []
     if nombre.present?
-      serie=@series.where('name ILIKE ?',"%#{nombre}%")
-
-      if serie
-        series<<serie
-      end
+      @series = @series.where('series.name ILIKE ?', "%#{nombre}%")
     end
-    if pais.present?
-      serie=@series.where('country ILIKE ?',"%#{pais}%")
-      if serie
-        series<<serie
-      end
-    end
-    if rating1.present? and rating2.present?
-      serie=@series.where(rating: rating1..rating2)
-      if serie
-        series<<serie
-      end
+    @series = @series.where('country ILIKE ?', "%#{pais}%") if pais.present?
+    if rating1.present? && rating2.present?
+      @serie = @series.where(rating: rating1..rating2)
     end
 
-    for serie in @series
+    @series.each do |serie2|
       if capitulo.present?
-        serie2=[]#serie.chapters.where('name ILIKE ?',"%#{capitulo}%")
-        if serie2
-          series<<serie2
+        added = false
+        serie2.real_seasons.each do |season|
+          if season.chapters.where('name ILIKE ?', "%#{capitulo}%").count > 0
+            added = true
+            break
+          end
         end
+        next if added == false
       end
       if director.present?
-        serie2=serie.directors.where('name ILIKE ?',"%#{director}%")
-        if serie2
-          series<<serie2
-        end
+        director_search = serie2.directors.where(
+          'name ILIKE ?', "%#{director}%"
+        )
+        next unless director_search.count > 0
       end
       if actor.present?
-        serie2=serie.actors.where('name ILIKE ?',"%#{actor}%")
-        if serie2
-          series<<serie2
-        end
+        next unless serie2.actors.where('name ILIKE ?', "%#{actor}%").count > 0
       end
       if genero.present?
-        serie2 = serie.genders.where('name ILIKE ?', "%#{genero}%")
-        if serie2
-          series << serie2
-        end
-
+        gender_search = serie2.genders.where(
+          'name ILIKE ?', "%#{genero}%"
+        )
+        next unless gender_search.count > 0
       end
+      series << serie2
     end
 
     @series = series

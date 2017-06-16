@@ -60,32 +60,32 @@
         <th>Nombre</th>
         <th>Duracion</th>
         <th>Rating</th>
-        <th>Temporada</th>
         <th>Serie</th>
+        <th>Temporada</th>
         <th>Usuario</th>
       </tr>
       </thead>
-      <% capitulos=@chapters[0] %>
       <tbody>
 
-      <% capitulos.each do |chapter| %>
-          <% season=Season.all.find(chapter.season_id) %>
-          <% serie2=Series.all.find(season.series_id) %>
-          <% user=User.all.find(serie2.user_id) %>
-          <% if user.role == 'admin' || serie2.user_id == current_user.id %>
-              <tr>
-
-                <td><%= chapter.chapter_number %></td>
-                <td><%= chapter.name %></td>
-                <td><%= chapter.duration %></td>
-                <td><%= chapter.rating %></td>
-                <td><%= serie2.name %></td>
-                <td><%= season.number %></td>
-                <td><%= user.name %></td>
-
-              </tr>
-
-
+      <% @chapters.each do |chapter| %>
+          <tr>
+            <td><%= chapter.chapter_number %></td>
+            <td><%= link_to chapter.name, series_chapter_path(chapter.season.series, chapter) %></td>
+            <td><%= chapter.duration %></td>
+            <td><%= chapter.rating %></td>
+            <td><%= chapter.season.series.name %></td>
+            <td><%= chapter.season.number %></td>
+            <td><%= chapter.season.series.user.username %></td>
+          </tr>
+          <tr>
+            <td><%= chapter.chapter_number %></td>
+            <td><%= chapter.name %></td>
+            <td><%= chapter.duration %></td>
+            <td><%= chapter.rating %></td>
+            <td><%= serie2.name %></td>
+            <td><%= season.number %></td>
+            <td><%= user.name %></td>
+          </tr>
           <% end %>
       <% end %>
       </tbody>
