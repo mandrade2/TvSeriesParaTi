@@ -16,7 +16,7 @@
 class Chapter < ApplicationRecord
   belongs_to :season
   has_and_belongs_to_many :viewers, class_name: 'User'
-  has_many :ratings, class_name: 'ChaptersRating'
+  has_many :ratings, class_name: 'ChaptersRating', dependent: :destroy
   validates :name, presence: true, length: { minimum: 3, maximum: 50 }
   validates :duration, presence: true,
                        numericality: { only_integer: true,

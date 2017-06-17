@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  favorable: one
+  favorable_type: MyString
+
+two:
+  user: two
+  favorable: two
+  favorable_type: MyString

@@ -10,10 +10,13 @@
 
 class Gender < ApplicationRecord
   has_and_belongs_to_many :series
+  has_many :favorites, as: :favorable
+  has_many :fans, through: :favorites, source: :user
+
   validates :name, presence: true, uniqueness: true,
-            format: {with: /\A[a-z '-]+\z/i,
-                     message: 'Nombre debe estar compuesto solo
-                                      por letras, espacios, guiones y
-                                      apostrofes.'},
-            length: {minimum: 2, maximum: 50}
+                   format: { with: /\A[a-z '-]+\z/i,
+                             message: 'Nombre debe estar compuesto solo
+                                       por letras, espacios, guiones y
+                                       apostrofes.' },
+                   length: { minimum: 2, maximum: 50 }
 end

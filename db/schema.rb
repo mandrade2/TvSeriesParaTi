@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170528010917) do
+ActiveRecord::Schema.define(version: 20170617163510) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -84,6 +84,17 @@ ActiveRecord::Schema.define(version: 20170528010917) do
     t.index ["director_id"], name: "index_directors_series_on_director_id", using: :btree
     t.index ["series_id", "director_id"], name: "index_directors_series_on_series_id_and_director_id", unique: true, using: :btree
     t.index ["series_id"], name: "index_directors_series_on_series_id", using: :btree
+  end
+
+  create_table "favorites", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "favorable_id"
+    t.string   "favorable_type"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["favorable_id"], name: "index_favorites_on_favorable_id", using: :btree
+    t.index ["user_id", "favorable_id", "favorable_type"], name: "index_favorites_on_user_id_and_favorable_id_and_favorable_type", unique: true, using: :btree
+    t.index ["user_id"], name: "index_favorites_on_user_id", using: :btree
   end
 
   create_table "genders", force: :cascade do |t|
@@ -192,6 +203,7 @@ ActiveRecord::Schema.define(version: 20170528010917) do
   add_foreign_key "chapters_ratings", "users"
   add_foreign_key "comments", "series"
   add_foreign_key "comments", "users"
+  add_foreign_key "favorites", "users"
   add_foreign_key "news", "users"
   add_foreign_key "seasons", "series"
   add_foreign_key "series", "users"
