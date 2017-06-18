@@ -1,0 +1,60 @@
+<% provide(:title, "Favoritos") %>
+<% provide(:header, "Favoritos") %>
+
+<div class="favorites-nav">
+  <ul class="nav nav-tabs tabs-3 red" role="tablist">
+      <li class="nav-item active">
+          <a class="nav-link active" data-toggle="tab" href="#panel1" role="tab">Series favoritas</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#panel2" role="tab">Capitulos favoritos</a>
+      </li>
+  </ul>
+</div>
+
+<!-- Tab panels -->
+<div class="tab-content card">
+
+    <div class="tab-pane active" id="panel1" role="tabpanel">
+      <div class="tab-pane active" id="1a">
+        <div class="col-md-12">
+          <% @series.each do |serie| %>
+              <% unless serie.nil? %>
+                  <% unless serie.user.nil? %>
+                      <%= render 'series/preview', series: serie %>
+                  <% end %>
+              <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-pane" id="panel2" role="tabpanel">
+      <div class="tab-pane" id="2a">
+        <div class="col-md-12">
+          <h3> Capitulos favoritos </h3>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Capitulo</th>
+                <th>Nombre</th>
+                <th>Duracion</th>
+                <th>Rating</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @chapters.each do |chapter| %>
+                <tr>
+                  <td><%= chapter.chapter_number %></td>
+                  <td><%= link_to chapter.name, series_chapter_path(@series, chapter) %></td>
+                  <td><%= chapter.duration %></td>
+                  <td><%= chapter.rating %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+</div>

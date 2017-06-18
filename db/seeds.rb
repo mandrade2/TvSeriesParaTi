@@ -26,6 +26,12 @@ user_amount.times do |i|
   user.skip_confirmation!
   user.save
 end
+ genders = ['action', 'science fiction', 'drama']
+3.times do |i|
+  Actor.create(name: Faker::Name.name, nacionality: Faker::Address.country)
+  Director.create(name: Faker::Name.name, nacionality: Faker::Address.country)
+  Gender.create(name: genders[i])
+end
 
 User.all.each do |user|
   2.times do
@@ -47,9 +53,9 @@ end
 Series.all.each do |serie|
   (1..4).each do |i|
     season = Season.new(series_id: serie.id, number: i)
-    next if season.save
+    next unless season.save
     (1..2).each do |e|
-      Chapter.create(
+      chap = Chapter.create!(
         name: Faker::Lorem.word,
         chapter_number: e,
         season_id: season.id,

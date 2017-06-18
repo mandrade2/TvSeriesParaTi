@@ -30,6 +30,11 @@ class Series < ApplicationRecord
   has_many :ratings, class_name: 'SeriesRating', dependent: :destroy
   has_many :real_seasons, class_name: 'Season', dependent: :destroy
   has_many :comments, dependent: :destroy
+
+  # favorites
+  has_many :favorites, as: :favorable
+  has_many :fans, through: :favorites, source: :user
+
   belongs_to :user
   validates :name, presence: true, length: { minimum: 1, maximum: 50 }
   validates :description, presence: true, length: {minimum: 10, maximum: 200}

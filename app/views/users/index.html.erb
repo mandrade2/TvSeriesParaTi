@@ -2,7 +2,7 @@
 <% provide(:header, "Usuarios") %>
 
 <div id="users_search">
-  <%= form_tag users_search_path, class: "form-inline", method: :get do %>
+  <%= form_tag search_users_path, class: "form-inline", method: :get do %>
       <div class="form-group">
         <%= select_tag "search_for", options_for_select(%i[username name email],
                                                         :username),
@@ -31,13 +31,13 @@
             <td><%= link_to user.username, profile_path(user.username) %></td>
             <td><%= user.email %></td>
             <td>
-              <%= button_to "Upgrade", users_upgrade_path, method: :patch,
+              <%= button_to "Upgrade", upgrade_users_path, method: :patch,
                             params: {user_id: user},
                             data: {confirm:
                                        'Estas seguro?'} %>
             </td>
             <td>
-              <%= button_to "Destroy", users_destroy_path, method: :delete,
+              <%= button_to "Destroy", destroy_users_path, method: :delete,
                             params: {user_id: user},
                             data: {confirm:
                                        'Estas seguro?'} %>

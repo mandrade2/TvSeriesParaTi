@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
+  root 'series#index'
   resources :news
+
   resources :series do
     resources :chapters do
       member do
@@ -16,9 +18,18 @@ Rails.application.routes.draw do
       post '/add_rating', action: 'add_rating'
     end
   end
+
+  resources :favorites, only: %i[index create destroy]
+
   devise_for :users
 
-  root 'series#index'
+  resources :users, only: %i[index] do
+    collection do
+      get 'search'
+      patch 'upgrade'
+      delete 'destroy', as: :destroy
+    end
+  end
 
   # Pages routes
   get 'help', to: 'pages#help'
@@ -32,13 +43,9 @@ Rails.application.routes.draw do
   post 'search_chapter', to: 'chapters#search'
 
   # Users routes
-  get 'users', to: 'users#index'
   get '/:username', to: 'users#profile',
                     as: :profile,
                     constraints: { username: %r{[^\/]+} }
-  get 'users/search', to: 'users#search'
-  patch 'users/upgrade', to: 'users#upgrade'
-  delete 'users/destroy', to: 'users#destroy'
 
   # Child routes
   get '/:username/children', to: 'users#children',

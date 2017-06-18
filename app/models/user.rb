@@ -53,13 +53,17 @@ class User < ApplicationRecord
   has_many :series, dependent: :destroy
 
   # favorites
-  has_many :favorites
+  has_many :favorites, dependent: :destroy
   has_many :favorite_directors, through: :favorites,
                                 source: :favorable, source_type: 'Director'
   has_many :favorite_actors, through: :favorites,
                              source: :favorable, source_type: 'Actor'
   has_many :favorite_genders, through: :favorites,
                               source: :favorable, source_type: 'Gender'
+  has_many :favorite_series, through: :favorites,
+                             source: :favorable, source_type: 'Series'
+  has_many :favorite_chapters, through: :favorites,
+                               source: :favorable, source_type: 'Chapter'
 
   # scopes
 
