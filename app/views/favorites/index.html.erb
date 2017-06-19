@@ -46,7 +46,7 @@
               <% @chapters.each do |chapter| %>
                 <tr>
                   <td><%= chapter.chapter_number %></td>
-                  <td><%= link_to chapter.name, series_chapter_path(@series, chapter) %></td>
+                  <td><%= link_to chapter.name, series_chapter_path(chapter.season.series, chapter) %></td>
                   <td><%= chapter.duration %></td>
                   <td><%= chapter.rating %></td>
                 </tr>

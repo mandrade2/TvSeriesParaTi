@@ -11,8 +11,8 @@ class SeriesController < ApplicationController
     @series = []
     if current_user
       series.each do |serie|
-        @series << serie if serie.user.role == 'admin' ||
-            serie.user_id == current_user.id
+        @series << serie if serie.user.admin? ||
+            serie.user_id == current_user.id || current_user.admin?
       end
     else
       series.each do |serie|
@@ -66,7 +66,7 @@ class SeriesController < ApplicationController
     @comments = @series.comments
     @boole = @user && @user.series_views.include?(@series)
     if @user
-      unless @series.user.role == 'admin' || @series.user_id == current_user.id
+      unless @series.user.admin? || @series.user_id == current_user.id || @user.admin?
         redirect_to root_path,
                     flash: { alert: 'No tiene permisos para acceder a esta serie' }
       end
@@ -82,8 +82,7 @@ class SeriesController < ApplicationController
     @series = Series.new
   end
 
-  def edit;
-  end
+  def edit; end
 
   def create
     @series = Series.new(series_params.merge(seasons: 0,
@@ -95,9 +94,9 @@ class SeriesController < ApplicationController
       if @series.save
         format.html do
           redirect_to @series,
-                      flash: {success: 'Serie fue creada correctamente'}
+                      flash: {success: 'Serie fue creada correctamente' }
         end
-        format.json {render :show, status: :created, location: @series}
+        format.json { render :show, status: :created, location: @series }
       else
         format.html {render :new}
         format.json do
@@ -112,11 +111,11 @@ class SeriesController < ApplicationController
       if @series.update(series_params)
         format.html do
           redirect_to @series,
-                      flash: {success: 'Serie fue actualizada correctamente'}
+                      flash: { success: 'Serie fue actualizada correctamente' }
         end
-        format.json {render :show, status: :ok, location: @series}
+        format.json { render :show, status: :ok, location: @series}
       else
-        format.html {render :edit}
+        format.html { render :edit }
         format.json do
           render json: @series.errors, status: :unprocessable_entity
         end
