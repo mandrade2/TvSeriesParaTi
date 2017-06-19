@@ -2,13 +2,15 @@
 
 <% content_for :header do %>
   <%= @series.name %>
-  <% if @series.fans.find_by_id(current_user.id).nil? %>
-    <%= link_to favorites_path(series_id: @series.id), method: :post do %>
-      <span class="star glyphicon glyphicon-star-empty" ></span>
-    <% end %>
-  <% else %>
-    <%= link_to favorite_path(series_id: @series.id), method: :delete do %>
-      <span class="star glyphicon glyphicon-star" ></span>
+  <% if current_user %>
+    <% if @series.fans.find_by_id(current_user.id).nil? %>
+      <%= link_to favorites_path(series_id: @series.id), method: :post do %>
+        <span class="star glyphicon glyphicon-star-empty" ></span>
+      <% end %>
+    <% else %>
+      <%= link_to favorite_path(series_id: @series.id), method: :delete do %>
+        <span class="star glyphicon glyphicon-star" ></span>
+      <% end %>
     <% end %>
   <% end %>
 <% end %>

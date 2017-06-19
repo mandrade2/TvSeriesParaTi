@@ -7,33 +7,28 @@ class SeriesController < ApplicationController
   # GET /series
   # GET /series.json
   def index
-    series = Series.includes(:user)
-    @series = []
-    if current_user
-      series.each do |serie|
-        @series << serie if serie.user.admin? ||
-            serie.user_id == current_user.id || current_user.admin?
-      end
-    else
-      series.each do |serie|
-        @series << serie if serie.user.role == 'admin'
-      end
-    end
+    @series = Series.get_series_by_role(current_user).includes(:user)
   end
 
   def search
     @series = []
-    if params[:nombre] or params[:pais] or params[:rating]
+    if params[:nombre] || params[:pais] || params[:rating1] ||
+       params[:rating2] || params[:capitulo] || params[:director] ||
+       params[:actor] || params[:genero]
       @series = Series.search(current_user, params[:nombre], params[:pais],
                               params[:rating1], params[:rating2],
                               params[:capitulo], params[:director],
                               params[:actor], params[:genero])
     end
-
+    return if params[:rating_order].blank?
+    if params[:rating_order] == '1'
+      @series.sort! { |a, b| a.rating <=> b.rating }.reverse!
+    elsif params[:rating_order] == '2'
+      @series.sort! { |a, b| a.rating <=> b.rating }
+    end
   end
 
-  def recommend_series;
-  end
+  def recommend_series; end
 
   def send_recommendation
     user = current_user
@@ -41,7 +36,7 @@ class SeriesController < ApplicationController
     SeriesMailer.send_recommendation(user, to_user, @series).deliver_now
     redirect_to @series,
                 flash: {
-                    success: "Se ha enviado la recomendacion a #{to_user}"
+                  success: "Se ha enviado la recomendacion a #{to_user}"
                 }
   end
 
@@ -66,14 +61,18 @@ class SeriesController < ApplicationController
     @comments = @series.comments
     @boole = @user && @user.series_views.include?(@series)
     if @user
-      unless @series.user.admin? || @series.user_id == current_user.id || @user.admin?
+      unless @series.user.admin? || @series.user_id == @user.id || @user.admin?
         redirect_to root_path,
-                    flash: { alert: 'No tiene permisos para acceder a esta serie' }
+                    flash: {
+                      alert: 'No tiene permisos para acceder a esta serie'
+                    }
       end
     else
       unless @series.user.role == 'admin'
         redirect_to root_path,
-                    flash: { alert: 'No tiene permisos para acceder a esta serie' }
+                    flash: {
+                      alert: 'No tiene permisos para acceder a esta serie'
+                    }
       end
     end
   end
@@ -94,11 +93,11 @@ class SeriesController < ApplicationController
       if @series.save
         format.html do
           redirect_to @series,
-                      flash: {success: 'Serie fue creada correctamente' }
+                      flash: { success: 'Serie fue creada correctamente' }
         end
         format.json { render :show, status: :created, location: @series }
       else
-        format.html {render :new}
+        format.html { render :new }
         format.json do
           render json: @series.errors, status: :unprocessable_entity
         end
@@ -113,7 +112,7 @@ class SeriesController < ApplicationController
           redirect_to @series,
                       flash: { success: 'Serie fue actualizada correctamente' }
         end
-        format.json { render :show, status: :ok, location: @series}
+        format.json { render :show, status: :ok, location: @series }
       else
         format.html { render :edit }
         format.json do

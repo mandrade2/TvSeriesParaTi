@@ -8,8 +8,6 @@ class ChaptersController < ApplicationController
     @seasons = @series.real_seasons
   end
 
-  # GET /chapters/1
-  # GET /chapters/1.json
   def show
     @user = current_user
     @boole = @user && @user.chapters_views.include?(@chapter)
@@ -20,11 +18,16 @@ class ChaptersController < ApplicationController
     if params[:nombre] || params[:pais] || params[:serie] ||
        params[:director] || params[:actor] || params[:genero] ||
        params[:duracion]
-      @chapters = Chapter.search(params[:nombre], params[:pais], params[:serie],
-                                 params[:director], params[:actor],
-                                 params[:genero], params[:duracion])
-    else
-      @chapters = []
+      @chapters = Chapter.search(current_user, params[:nombre], params[:pais],
+                                 params[:serie], params[:director],
+                                 params[:actor], params[:genero],
+                                 params[:duracion])
+    end
+    return if params[:rating_order].blank?
+    if params[:rating_order] == '1'
+      @chapters.sort! { |a, b| a.rating <=> b.rating }.reverse!
+    elsif params[:rating_order] == '2'
+      @chapters.sort! { |a, b| a.rating <=> b.rating }
     end
   end
 

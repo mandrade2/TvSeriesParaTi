@@ -1,49 +1,62 @@
 <% provide(:title, 'Búsqueda Capitulos') %>
 <% provide(:header, 'Búsqueda Capitulos ') %>
 
-<div class="jumbotron" style="background-color: rgb(255,253,250);outline-width: thick;outline-color: #000000;outline-style: inset;-moz-outline-radius: 6px">
+<div class="jumbotron search">
   <%= form_tag(search_chapter_path, :method => "get", id: "search-form") do %>
+
       <div class="row">
         <div class="col-md-3">Titulo:</div>
-        <div class="col-md-3">  <%= text_field_tag :nombre, params[:nombre], width: '100%', placeholder: "Breaking Bad ..." %>
+        <div class="col-md-3">  <%= text_field_tag :nombre, params[:nombre], class: "form-control", placeholder: "Breaking Bad ..." %>
         </div>
       </div>
+
       <div class="row">
         <div class="col-md-3"> País:</div>
-        <div class="col-md-3"><%= text_field_tag :pais, params[:pais], placeholder: "Chile ..." %></div>
-
+        <div class="col-md-3"><%= text_field_tag :pais, params[:pais], class: "form-control", placeholder: "Chile ..." %>
+        </div>
       </div>
+
       <div class="row">
         <div class="col-md-3"> Serie:</div>
-        <div class="col-md-3"><%= text_field_tag :serie, params[:serie], placeholder: "Rick & Morty ..." %></div>
-
+        <div class="col-md-3"><%= text_field_tag :serie, params[:serie], class: "form-control", placeholder: "Rick & Morty ..." %>
+        </div>
       </div>
 
       <div class="row">
         <div class="col-md-3"> Director:</div>
-        <div class="col-md-3"><%= text_field_tag :director, params[:director], placeholder: "stiven spilberg ..." %></div>
-
+        <div class="col-md-3"><%= text_field_tag :director, params[:director], class: "form-control", placeholder: "stiven spilberg ..." %>
+        </div>
       </div>
+
       <div class="row">
         <div class="col-md-3"> Actor:</div>
-        <div class="col-md-3"><%= text_field_tag :actor, params[:actor], placeholder: "Bradd Pitt ..." %></div>
-
+        <div class="col-md-3"><%= text_field_tag :actor, params[:actor], class: "form-control", placeholder: "Bradd Pitt ..." %>
+        </div>
       </div>
+
       <div class="row">
         <div class="col-md-3"> Genero:</div>
-        <div class="col-md-3"><%= text_field_tag :genero, params[:genero], placeholder: "Comedia ..." %></div>
-
+        <div class="col-md-3"><%= text_field_tag :genero, params[:genero], class: "form-control", placeholder: "Comedia ..." %>
+        </div>
       </div>
+
       <div class="row">
         <div class="col-md-3">Duracion:</div>
-        <div class="col-md-3"><%= text_field_tag :duracion, params[:duracion], placeholder: "24 min..." %></div>
-
+        <div class="col-md-3"><%= text_field_tag :duracion, params[:duracion], class: "form-control", placeholder: "24 min..." %>
+        </div>
       </div>
-      <br>
+
       <div class="row">
-        <div class="col-md-3"><%= submit_tag "Search", class: 'pull-left' %></div>
+        <div class="col-md-3"> Ordenar por rating:</div>
+        <div class="col-md-3">
+          <%= select_tag :rating_order, options_for_select([['Mayor a menor', 1], ['Menor a mayor', 2]]), class: "form-control", include_blank: true %>
+        </div>
+      </div>
 
+      <br>
 
+      <div class="row">
+        <div class="col-md-3"><%= submit_tag "Search", class: 'btn btn-primary pull-left' %></div>
       </div>
 
   <% end %>

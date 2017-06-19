@@ -21,6 +21,7 @@
 class Series < ApplicationRecord
   has_attached_file :image, styles: {medium: '300x300>', thumb: '100x100>'},
                     default_url: '/images/:style/default-img.png'
+
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
 
   has_and_belongs_to_many :actors
@@ -43,17 +44,34 @@ class Series < ApplicationRecord
                                     less_than_or_equal_to: 5,
                                     message: 'debe ser un numero entre 1 y 5'}
 
+  def self.get_series_by_role(user)
+    if user
+      if user.admin?
+        @series = Series.all
+      elsif user.child?
+        @series = Series.joins(:user).where(users: { role: 'admin' }).or(
+          Series.joins(:user).where(users: { id: user.father_id })
+        )
+      else
+        @series = Series.joins(:user).where(users: { role: 'admin' }).or(
+          Series.joins(:user).where(users: { id: user.id })
+        )
+      end
+    else
+      @series = Series.joins(:user).where(users: { role: 'admin' })
+    end
+  end
+
   def self.search(user, nombre, pais, rating1, rating2,
                   capitulo, director, actor, genero)
-    @series = Series.joins(:user).where(users: {role: 'admin'})
-    @series += Series.where(user_id: user.id) if user
+    @series = get_series_by_role(user)
     series = []
     if nombre.present?
       @series = @series.where('series.name ILIKE ?', "%#{nombre}%")
     end
     @series = @series.where('country ILIKE ?', "%#{pais}%") if pais.present?
     if rating1.present? && rating2.present?
-      @serie = @series.where(rating: rating1..rating2)
+      @series = @series.where(rating: rating1..rating2)
     end
 
     @series.each do |serie2|

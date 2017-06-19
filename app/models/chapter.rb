@@ -35,10 +35,34 @@ class Chapter < ApplicationRecord
                                grater_than_or_equal_to: 1
                              }
 
-  def self.search(nombre, pais, serie, director, actor, genero, duracion)
-    @chapters = Chapter.all
+  def self.get_chapters_by_role(user)
+    if user
+      if user.admin?
+        @chapters = Chapter.all
+      elsif user.child?
+        @chapters = Chapter.joins(season: { series: :user }).where(
+          users: { role: 'admin' }
+        ).or(Chapter.all.joins(season: { series: :user }).where(
+               users: { id: user.father_id }
+        ))
+      else
+        @chapters = Chapter.joins(season: { series: :user }).where(
+          users: { role: 'admin' }
+        ).or(Chapter.all.joins(season: { series: :user }).where(
+               users: { id: user.id }
+        ))
+      end
+    else
+      @chapters = Chapter.joins(season: { series: :user }).where(
+        users: { role: 'admin' }
+      )
+    end
+  end
+
+  def self.search(user, nombre, pais, serie, director, actor, genero, duracion)
+    @chapters = get_chapters_by_role(user)
     if nombre.present?
-      @chapters = @chapters.where('name ILIKE ?', "%#{nombre}%")
+      @chapters = @chapters.where('chapters.name ILIKE ?', "%#{nombre}%")
     end
     @chapters = @chapters.where(duration: duracion.to_i) if duracion.present?
     @chapters = @chapters.includes(
