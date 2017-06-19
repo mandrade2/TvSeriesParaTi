@@ -6,6 +6,18 @@
   margin: 20px 0px;
 }
 
+.star {
+  color: #cccc00;
+
+  &:hover {
+    color: #ffff00;
+  }
+
+  &:active {
+    color: #e6e600;
+  }
+}
+
 .series-comments {
   //width: 40%;
   //float: right;

@@ -1,5 +1,17 @@
-<% provide(:header, "#{@series.name}") %>
 <% provide(:title, "#{@series.name}") %>
+
+<% content_for :header do %>
+  <%= @series.name %>
+  <% if @series.fans.find_by_id(current_user.id).nil? %>
+    <%= link_to favorites_path(series_id: @series.id), method: :post do %>
+      <span class="star glyphicon glyphicon-star-empty" ></span>
+    <% end %>
+  <% else %>
+    <%= link_to favorite_path(series_id: @series.id), method: :delete do %>
+      <span class="star glyphicon glyphicon-star" ></span>
+    <% end %>
+  <% end %>
+<% end %>
 
 <div class="btn-group pull-left">
   <%= link_to 'Capitulos', series_chapters_path(@series), class: 'btn btn-primary' %>

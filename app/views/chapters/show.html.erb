@@ -1,5 +1,17 @@
-<% provide(:header, "#{@chapter.name}") %>
 <% provide(:title, "#{@chapter.name}") %>
+
+<% content_for :header do %>
+  <%= @chapter.name %>
+  <% if @chapter.fans.find_by_id(current_user.id).nil? %>
+    <%= link_to favorites_path(chapter_id: @chapter.id), method: :post do %>
+      <span class="star glyphicon glyphicon-star-empty" ></span>
+    <% end %>
+  <% else %>
+    <%= link_to favorite_path(chapter_id: @chapter.id), method: :delete do %>
+      <span class="star glyphicon glyphicon-star" ></span>
+    <% end %>
+  <% end %>
+<% end %>
 
 <div class="btn-group pull-right">
   <%= link_to 'Ver temporadas', series_chapters_path(@series), class: "btn btn-primary" %>
