@@ -35,10 +35,14 @@ Rails.application.routes.draw do
   get 'help', to: 'pages#help'
   get 'contact', to: 'pages#contact'
   get 'about', to: 'pages#about'
+  get 'myseries', to: 'pages#myseries'
+
   get '/invite', to: 'pages#invite'
   post '/invite', to: 'pages#send_invitation_email'
+
   get 'search', to: 'series#search'
   post 'search', to: 'series#search'
+
   get 'search_chapter', to: 'chapters#search'
   post 'search_chapter', to: 'chapters#search'
 

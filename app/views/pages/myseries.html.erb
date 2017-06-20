@@ -8,7 +8,7 @@
 <% if current_user %>
   <div class="btn-group pull-right">
     <%= link_to 'Crear Serie', new_series_path, class: 'btn btn-primary' if can? :manage, Series %>
-    <%= link_to 'Mis Series', myseries_path, class: 'btn btn-primary' %>
+    <%= link_to 'Mis Series', series_index_path, class: 'btn btn-primary' %>
   </div>
 <% end %>
 
@@ -22,4 +22,3 @@
         <% end %>
     <% end %>
   </div>
-</div>
