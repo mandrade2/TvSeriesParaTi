@@ -1,6 +1,6 @@
 <% provide(:title, 'Series') %>
 <% provide(:header, 'Series') %>
-
+<%= debug request.env["omniauth.auth"] %>
 <div class="btn-group pull-right">
       <%= link_to 'Buscar Serie', search_path, class: 'btn btn-primary' %>
       <%= link_to 'Buscar capitulo', search_chapter_path, class: 'btn btn-primary' %>
