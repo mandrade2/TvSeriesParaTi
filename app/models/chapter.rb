@@ -22,7 +22,8 @@ class Chapter < ApplicationRecord
   has_many :favorites, as: :favorable
   has_many :fans, through: :favorites, source: :user
 
-  validates :name, presence: true, length: { minimum: 1, maximum: 50 }
+  validates :name, presence: true, length: { minimum: 1, maximum: 50 },
+                   uniqueness: { scope: season_id }
   validates :duration, presence: true,
                        numericality: { only_integer: true,
                                        grater_than_or_equal_to: 1 }
