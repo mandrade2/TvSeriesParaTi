@@ -251,8 +251,8 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
-  config.omniauth :facebook, '437146823325434', '608e603a6a75a906f071b4c544b7abc4',  callback_url: "https://tvseriesparati.herokuapp.comusers/auth/facebook/callback"
-  config.omniauth :google, '213692161748-l60v1k0b7krc2t5njdtqsa69rjmodn5r.apps.googleusercontent.com', 'cPkZm6GjhNPm7qH4D_qBq2p2',  callback_url: "https://tvseriesparati.herokuapp.comusers/auth/google/callback"
+  config.omniauth :facebook, '437146823325434', '608e603a6a75a906f071b4c544b7abc4',  callback_url: "https://tvseriesparati.herokuapp.com/users/auth/facebook/callback"
+  config.omniauth :google, '213692161748-l60v1k0b7krc2t5njdtqsa69rjmodn5r.apps.googleusercontent.com', 'cPkZm6GjhNPm7qH4D_qBq2p2',  callback_url: "https://tvseriesparati.herokuapp.com/users/auth/google/callback"
   config.omniauth :twitter, ' hfPb9oaAPtH1jJ5rbebxk4REY', 'hPwpVXiwDA7ZMtrPD07mL8DUZHyIqvwiZQYSNZ3V5njRMdIPa7',  callback_url: "https://tvseriesparati.herokuapp.com/users/auth/twitter/callback"
   #TODO cambiar localhost!
   # ==> Warden configuration
