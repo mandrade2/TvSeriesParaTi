@@ -43,6 +43,7 @@ class Series < ApplicationRecord
   validates :rating, numericality: {grater_than_or_equal_to: 1,
                                     less_than_or_equal_to: 5,
                                     message: 'debe ser un numero entre 1 y 5'}
+  validates :release_date, presence: true
 
   def self.get_series_by_role(user)
     if user

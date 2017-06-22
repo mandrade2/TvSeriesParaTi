@@ -1,6 +1,6 @@
 <% provide(:title, 'Nueva serie') %>
 <% provide(:header, 'Nueva serie') %>
 
-<%= render 'form', series: @series %>
+<%= render 'form', series: @series, edit: false %>
 
 <%= link_to 'Back', series_index_path %>

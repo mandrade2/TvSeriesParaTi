@@ -23,11 +23,18 @@ class ChaptersController < ApplicationController
                                  params[:actor], params[:genero],
                                  params[:duracion])
     end
-    return if params[:rating_order].blank?
-    if params[:rating_order] == '1'
-      @chapters.sort! { |a, b| a.rating <=> b.rating }.reverse!
-    elsif params[:rating_order] == '2'
-      @chapters.sort! { |a, b| a.rating <=> b.rating }
+    unless params[:rating_order].blank?
+      if params[:rating_order] == '1'
+        @chapters.sort! { |a, b| a.rating <=> b.rating }.reverse!
+      elsif params[:rating_order] == '2'
+        @chapters.sort! { |a, b| a.rating <=> b.rating }
+      end
+    end
+    return if params[:release_date_order].blank?
+    if params[:release_date_order] == '1'
+      @chapters.sort! { |a, b| a.release_date <=> b.release_date }.reverse!
+    elsif params[:release_date_order] == '2'
+      @chapters.sort! { |a, b| a.release_date <=> b.release_date }
     end
   end
 
@@ -159,7 +166,7 @@ class ChaptersController < ApplicationController
   end
 
   def chapter_params
-    params.require(:chapter).permit(:name, :duration,
+    params.require(:chapter).permit(:name, :duration, :release_date,
                                     :rating, :chapter_number)
   end
 end

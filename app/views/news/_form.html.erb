@@ -1,7 +1,7 @@
 <%= form_for(news) do |f| %>
     <% if news.errors.any? %>
         <div id="error_explanation">
-          <h2><%= pluralize(news.errors.count, "error") %> prohibited this series from being saved:</h2>
+          <h3><%= pluralize(series.errors.count, "error") %> no dejaron que la noticia se guarde </h2>
           <ul>
             <% news.errors.full_messages.each do |message| %>
                 <li><%= message %></li>

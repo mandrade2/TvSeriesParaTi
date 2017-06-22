@@ -2,13 +2,15 @@
 
 <% content_for :header do %>
   <%= @chapter.name %>
-  <% if @chapter.fans.find_by_id(current_user.id).nil? %>
-    <%= link_to favorites_path(chapter_id: @chapter.id), method: :post do %>
-      <span class="star glyphicon glyphicon-star-empty" ></span>
-    <% end %>
-  <% else %>
-    <%= link_to favorite_path(chapter_id: @chapter.id), method: :delete do %>
-      <span class="star glyphicon glyphicon-star" ></span>
+  <% if current_user %>
+    <% if @chapter.fans.find_by_id(current_user.id).nil? %>
+      <%= link_to favorites_path(chapter_id: @chapter.id), method: :post do %>
+        <span class="star glyphicon glyphicon-star-empty" ></span>
+      <% end %>
+    <% else %>
+      <%= link_to favorite_path(chapter_id: @chapter.id), method: :delete do %>
+        <span class="star glyphicon glyphicon-star" ></span>
+      <% end %>
     <% end %>
   <% end %>
 <% end %>
@@ -44,6 +46,6 @@
 </p>
 
 <p>
-  <strong>Descripción del capitulo: <br/></strong>
+  <strong>Fecha de estreno:</strong> <%= @chapter.release_date %><br/>
   <%= @chapter.description %>
 </p>

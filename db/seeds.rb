@@ -46,23 +46,25 @@ User.all.each do |user|
     country = Faker::Address.country
     Series.create(name: name, description: description, country: country,
                   user_id: user.id, rating: Random.rand(1..5),
-                  seasons: 0, image: Faker::LoremPixel.image)
+                  seasons: 0, image: Faker::LoremPixel.image,
+                  release_date: rand(Date.civil(1980, 1, 1)..Date.civil(2016, 12, 31)))
   end
 end
 
 Series.all.each do |serie|
+  chapters = ['primeraprueba', 'segundaprueba']
   (1..4).each do |i|
     season = Season.new(series_id: serie.id, number: i)
     next unless season.save
-    (1..2).each do |e|
+    (0..1).each do |e|
       chap = Chapter.create!(
-        name: Faker::Lorem.word,
+        name: chapters[e], # Faker::Lorem.word.unique,
         chapter_number: e,
         season_id: season.id,
         description: Faker::Lorem.sentence(4),
         duration: Random.rand(25..45),
-        rating: Random.rand(1..5)
-      )
+        rating: Random.rand(1..5),
+        release_date: rand(Date.civil(1980, 1, 1)..Date.civil(2016, 12, 31)))
     end
   end
 end

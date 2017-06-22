@@ -20,11 +20,18 @@ class SeriesController < ApplicationController
                               params[:capitulo], params[:director],
                               params[:actor], params[:genero])
     end
-    return if params[:rating_order].blank?
-    if params[:rating_order] == '1'
-      @series.sort! { |a, b| a.rating <=> b.rating }.reverse!
-    elsif params[:rating_order] == '2'
-      @series.sort! { |a, b| a.rating <=> b.rating }
+    unless params[:rating_order].blank?
+      if params[:rating_order] == '1'
+        @series.sort! { |a, b| a.rating <=> b.rating }.reverse!
+      elsif params[:rating_order] == '2'
+        @series.sort! { |a, b| a.rating <=> b.rating }
+      end
+    end
+    return if params[:release_date_order].blank?
+    if params[:release_date_order] == '1'
+      @series.sort! { |a, b| a.release_date <=> b.release_date }.reverse!
+    elsif params[:release_date_order] == '2'
+      @series.sort! { |a, b| a.release_date <=> b.release_date }
     end
   end
 
@@ -173,6 +180,7 @@ class SeriesController < ApplicationController
   end
 
   def series_params
-    params.require(:series).permit(:name, :description, :country, :image)
+    params.require(:series).permit(:name, :description, :country,
+                                   :release_date, :image)
   end
 end

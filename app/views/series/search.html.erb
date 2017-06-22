@@ -48,6 +48,13 @@
         </div>
       </div>
 
+      <div class="row">
+        <div class="col-md-3"> Ordenar por fecha de estreno:</div>
+        <div class="col-md-3">
+          <%= select_tag :release_date_order, options_for_select([['Mas reciente a mas antigua', 1], ['Mas antigua a mas reciente', 2]]), class: "form-control", include_blank: true %>
+        </div>
+      </div>
+
       <br>
 
       <div class="row">
