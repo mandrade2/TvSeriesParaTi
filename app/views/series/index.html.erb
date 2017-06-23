@@ -1,6 +1,6 @@
 <% provide(:title, 'Series') %>
 <% provide(:header, 'Series') %>
-<%= debug request.env["omniauth.auth"] %>
+<%= debug request.env["omniauth.auth"].inspect %>
 <div class="btn-group pull-right">
       <%= link_to 'Buscar Serie', search_path, class: 'btn btn-primary' %>
       <%= link_to 'Buscar capitulo', search_chapter_path, class: 'btn btn-primary' %>
@@ -21,4 +21,3 @@
     <% end %>
   </div>
 </div>
-https://tvseriesparati.herokuapp.com/users/auth/facebook/callback?code=AQCfPBztM0oP9-QoW2CO_wmN_5PMLPQA8DY2hijTHbtXFbLVBK8AHXxDEdOlvykjVs5GQMZefWQFnIZnf6fasMWK33mfS7XJfRUyCavEkQJWtm5w8nDZYn5ywvbBp7qMuCfiZq365pbKHMnPSLKfVk8-coYv5sWUq7isr90QoxEQ8GkX1By-gb8c3CcFsV6s4JjCOQiQOhmEuk8dFSIkJS0pVxCdPm9G0E2O9qOFEDJyVSWyI-4LYv4UuEf-OGfPxHxTOZ-Zql88v7KBWFmZECVZVe-7zMVQIlQef7Os_IyUlzcNVcBugTlA9UEoodV3a6C2l_T3ByMuEwa_j3IUK2Sy&state=0237f1fcdaf8e1e618fd7013b7719737dfecaf34985e1e64#_=_
