@@ -103,6 +103,18 @@
             </td>
             <% if current_user %>
               <td>
+                <% if !current_user.likes.find_by_id(comment.id).nil? %>
+                  <%= link_to comment_like_series_path(@series, comment: comment.id, like: false), method: :post do %>
+                    <span class="glyphicon glyphicon-thumbs-down" ></span>
+                  <% end %>
+                <% else %>
+                  <%= link_to comment_like_series_path(@series, comment: comment.id, like: true), method: :post do %>
+                    <span class="glyphicon glyphicon-thumbs-up" ></span>
+                  <% end %>
+                <% end%>
+                <br /> <strong><%= comment.likes.count %></strong> likes
+              </td>
+              <td>
                 <% if can?(:destroy, Comment) || comment.user_id == current_user.id %>
                   <%= link_to 'x', comment_series_path(@series, comment: comment.id), method: :delete, class: "btn btn-danger" %>
                 <% end %>
@@ -112,6 +124,10 @@
                 <% if can?(:manage, Comment) && comment.spoiler %>
                   <%= link_to 'Unspoiler', comment_series_path(@series, comment: comment.id, is_spoiler: false), method: :patch, class: "btn btn-primary" %>
                 <% end %>
+              </td>
+            <% else %>
+              <td>
+                <strong><%= comment.likes.count %></strong> likes
               </td>
             <% end %>
           </tr>

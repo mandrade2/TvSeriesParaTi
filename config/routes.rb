@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       get '/recommend', action: 'recommend_series'
       post '/recommend', action: 'send_recommendation'
       post '/comment', action: 'comment'
+      post '/comment/like', action: 'like_comment'
       patch '/comment', action: 'toggle_spoiler'
       delete '/comment', action: 'delete_comment'
       post '/unview', action: 'unview'

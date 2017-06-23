@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170623015824) do
+ActiveRecord::Schema.define(version: 20170623030106) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,6 +71,14 @@ ActiveRecord::Schema.define(version: 20170623015824) do
     t.boolean  "spoiler",    default: false
     t.index ["series_id"], name: "index_comments_on_series_id", using: :btree
     t.index ["user_id"], name: "index_comments_on_user_id", using: :btree
+  end
+
+  create_table "comments_users", id: false, force: :cascade do |t|
+    t.integer "comment_id"
+    t.integer "user_id"
+    t.index ["comment_id", "user_id"], name: "index_comments_users_on_comment_id_and_user_id", unique: true, using: :btree
+    t.index ["comment_id"], name: "index_comments_users_on_comment_id", using: :btree
+    t.index ["user_id"], name: "index_comments_users_on_user_id", using: :btree
   end
 
   create_table "directors", force: :cascade do |t|

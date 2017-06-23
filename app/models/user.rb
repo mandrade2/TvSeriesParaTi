@@ -48,6 +48,8 @@ class User < ApplicationRecord
                                          dependent: :destroy
   has_and_belongs_to_many :chapters_views, class_name: 'Chapter',
                                            dependent: :destroy
+  has_and_belongs_to_many :likes, class_name: 'Comment',
+                                  join_table: 'comments_users'
   has_many :series_ratings, class_name: 'SeriesRating', dependent: :destroy
   has_many :chapters_ratings, class_name: 'ChaptersRating', dependent: :destroy
   has_many :series, dependent: :destroy

@@ -2,7 +2,8 @@ class SeriesController < ApplicationController
   before_action :set_series, only: %i[show edit update destroy
                                       recommend_series send_recommendation
                                       unview add_rating comment
-                                      delete_comment toggle_spoiler ]
+                                      delete_comment toggle_spoiler
+                                      like_comment]
   before_action :authenticate_user!, except: %i[index show search]
 
   # GET /series
@@ -62,6 +63,18 @@ class SeriesController < ApplicationController
     comment = Comment.find(params[:comment])
     comment.spoiler = params[:is_spoiler]
     comment.save
+    redirect_to @series
+  end
+
+  def like_comment
+    comment = Comment.find(params[:comment])
+    if params[:like] == 'true'
+      unless current_user.likes.find_by_id(comment.id)
+        current_user.likes << comment
+      end
+    elsif current_user.likes.find_by_id(comment.id)
+      current_user.likes.delete(comment)
+    end
     redirect_to @series
   end
 
