@@ -59,7 +59,7 @@ Series.all.each do |serie|
     (0..1).each do |e|
       chap = Chapter.create!(
         name: chapters[e], # Faker::Lorem.word.unique,
-        chapter_number: e,
+        chapter_number: e+1,
         season_id: season.id,
         description: Faker::Lorem.sentence(4),
         duration: Random.rand(25..45),
