@@ -95,12 +95,24 @@
               <%= comment.user.username %>
             </td>
             <td>
-              <%= comment.content %>
+              <% if comment.spoiler %>
+                <button class="spoiler_button" data-toggle="spoiler<%= comment.id %>">Spoiler</button> <span id="spoiler<%= comment.id %>" class="spoiler"><%= comment.content %></span>
+              <% else %>
+                <%= comment.content %>
+              <% end %>
             </td>
-            <% if can? :destroy, Comment %>
-                <td>
+            <% if current_user %>
+              <td>
+                <% if can?(:destroy, Comment) || comment.user_id == current_user.id %>
                   <%= link_to 'x', comment_series_path(@series, comment: comment.id), method: :delete, class: "btn btn-danger" %>
-                </td>
+                <% end %>
+                <% if can?(:manage, Comment) && !comment.spoiler %>
+                  <%= link_to 'Spoiler', comment_series_path(@series, comment: comment.id, is_spoiler: true), method: :patch, class: "btn btn-primary" %>
+                <% end %>
+                <% if can?(:manage, Comment) && comment.spoiler %>
+                  <%= link_to 'Unspoiler', comment_series_path(@series, comment: comment.id, is_spoiler: false), method: :patch, class: "btn btn-primary" %>
+                <% end %>
+              </td>
             <% end %>
           </tr>
       <% end %>

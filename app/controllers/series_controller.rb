@@ -1,7 +1,8 @@
 class SeriesController < ApplicationController
   before_action :set_series, only: %i[show edit update destroy
                                       recommend_series send_recommendation
-                                      unview add_rating comment delete_comment]
+                                      unview add_rating comment
+                                      delete_comment toggle_spoiler ]
   before_action :authenticate_user!, except: %i[index show search]
 
   # GET /series
@@ -54,6 +55,13 @@ class SeriesController < ApplicationController
     unless comment.save
       flash[:warning] = 'No se pudo crear el comentario, debe tener contenido'
     end
+    redirect_to @series
+  end
+
+  def toggle_spoiler
+    comment = Comment.find(params[:comment])
+    comment.spoiler = params[:is_spoiler]
+    comment.save
     redirect_to @series
   end
 

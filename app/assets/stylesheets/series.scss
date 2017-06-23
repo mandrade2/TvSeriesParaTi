@@ -153,3 +153,9 @@
 .rating > input:checked ~ label:hover ~ label {
   color: #FFED85;
 }
+
+/* Spoilers */
+
+.spoiler {
+  display: none;
+}
