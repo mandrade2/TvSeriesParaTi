@@ -1,0 +1,17 @@
+.news-index {
+  width: 45%;
+  display: inline-block;
+  margin: 10px;
+  box-shadow: 5px 5px 5px #888888;
+
+  ul {
+    margin: 0;
+
+    #title {
+      text-align: center;
+      background-color: #ddd;
+      height: 100px;
+      overflow: auto;
+    }
+  }
+}
