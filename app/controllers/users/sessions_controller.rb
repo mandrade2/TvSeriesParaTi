@@ -12,7 +12,7 @@ class Users::SessionsController < Devise::SessionsController
   # end
 
   def create_facebook
-    user = User.from_omniauth(env["omniauth.auth"])
+    user = User.from_omniauth(session["devise.facebook_data"])
     debug user.inspect
     log_in user
     redirect_back_or user
@@ -25,7 +25,7 @@ class Users::SessionsController < Devise::SessionsController
   # protected
 
   # If you have extra params to permit, append them to the sanitizer.
-  # def configure_sign_in_params
-  #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
-  # end
+   #def configure_sign_in_params
+   #  devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute, :info,:uid,:extra,:credentials])
+   #end
 end
