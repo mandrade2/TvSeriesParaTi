@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   end
 
   resources :favorites, only: %i[index create destroy]
-  devise_for :users , :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+  devise_for :users , controllers: { sessions: "users/sessions", omniauth_callbacks: "users/omniauth_callbacks" }
   #get 'users/auth/facebook/callback', to: 'series#index'
   #get '/auth/:facebook/callback', to: 'sessions#create'
 
