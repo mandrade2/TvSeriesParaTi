@@ -11,6 +11,11 @@ class Users::SessionsController < Devise::SessionsController
   #   super
   # end
 
+  def create_facebook
+    user = User.from_omniauth(env["omniauth.auth"])
+    log_in user
+    redirect_back_or user
+  end
   # DELETE /resource/sign_out
   # def destroy
   #   super
