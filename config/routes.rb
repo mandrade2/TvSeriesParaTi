@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   resources :favorites, only: %i[index create destroy]
   devise_for :users , controllers: { sessions: "users/sessions", omniauth_callbacks: "users/omniauth_callbacks" }
   #get 'users/auth/facebook/callback', to: 'series#index'
-  get 'auth/facebook/callback' => 'sessions#create_facebook'
+  #get 'auth/facebook/callback' => 'sessions#create_facebook'
   #get '/auth/:facebook/callback', to: 'sessions#create'
 
   resources :users, only: %i[index] do
