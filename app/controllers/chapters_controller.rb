@@ -58,9 +58,9 @@ class ChaptersController < ApplicationController
     temporada = params[:season_number].to_i
     id_temporada = agregar_season(@series, temporada)
     @chapter = Chapter.new(chapter_params.merge(season_id: id_temporada,
-                                                rating: 1.0))
+                                                  rating: 1.0))
     respond_to do |format|
-      if @chapter.save
+      if !id_temporada.nil? && @chapter.save
         actualizar_serie(@series)
         format.html do
           redirect_to series_chapter_path(@series, @chapter),
@@ -68,7 +68,7 @@ class ChaptersController < ApplicationController
         end
         format.json { render :show, status: :created, location: @chapter }
       else
-        evaluar_temporada(Season.find(id_temporada))
+        evaluar_temporada(Season.find(id_temporada)) unless id_temporada.nil?
         format.html { render :new }
         format.json do
           render json: @chapter.errors, status: :unprocessable_entity
@@ -100,7 +100,9 @@ class ChaptersController < ApplicationController
   def destroy
     temporada = @chapter.season
     @chapter.destroy
+    series = temporada.series
     evaluar_temporada(temporada)
+    actualizar_serie(series)
     respond_to do |format|
       format.html do
         redirect_to series_chapters_path(@series),
@@ -145,6 +147,7 @@ class ChaptersController < ApplicationController
   private
 
   def agregar_season(serie, numero_temporada)
+    return nil if numero_temporada < 1
     temporada = serie.real_seasons.where(number: numero_temporada)
     if temporada.empty?
       temporada = Season.new(series_id: serie.id, number: numero_temporada)
@@ -156,7 +159,6 @@ class ChaptersController < ApplicationController
   end
 
   def evaluar_temporada(temporada)
-    p temporada
     temporada.destroy if temporada.chapters.empty?
   end
 

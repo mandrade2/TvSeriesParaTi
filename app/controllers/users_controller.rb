@@ -87,7 +87,41 @@ class UsersController < ApplicationController
                 flash: { success: 'Usuario fue borrado correctamente' }
   end
 
+  def get_stats
+    user = current_user
+    @minuts_series = get_chapters_per_season(user)
+    @total_minuts = get_total_minuts(user)
+    @list_of_views = get_list_of_views(user)
+  end
+
   private
+
+  def get_chapters_per_season(user)
+    minuts_series = {}
+    chapters_series = {}
+    chapters = user.chapters_views
+    chapters.each do |chapter|
+      serie = chapter.season.series
+      if minuts_series.key?(serie.id)
+        minuts_series[serie.id][1] += chapter.duration
+        chapters_series[serie.id][1] += 1
+      else
+        minuts_series[serie.id] = [serie.name, chapter.duration]
+        chapters_series[serie.id] = [serie.name, 1]
+      end
+    end
+    [minuts_series.values, chapters_series.values, chapters.length]
+  end
+
+  def get_total_minuts(user)
+    user.chapters_views.sum(:duration)
+  end
+
+  def get_list_of_views(user)
+    series = user.series_views.select(:name)
+    chapters = user.chapters_views.select(:name)
+    [series, chapters]
+  end
 
   def children_params
     params.require(:user).permit(:name, :username, :email,
@@ -96,5 +130,9 @@ class UsersController < ApplicationController
 
   def verify_user
     redirect_to root_path unless current_user.user? || current_user.admin?
+  end
+
+  def random_color
+    "##{SecureRandom.hex(3)}"
   end
 end

@@ -49,6 +49,7 @@ Rails.application.routes.draw do
   post 'search_chapter', to: 'chapters#search'
 
   # Users routes
+  get '/stats', to: 'users#get_stats'
   get '/:username', to: 'users#profile',
                     as: :profile,
                     constraints: { username: %r{[^\/]+} }

@@ -12,8 +12,18 @@
 #  duration       :integer
 #  description    :string
 #
+class ReleasValidator < ActiveModel::Validator
+  def validate(record)
+  return record.errors[:season_id] << 'No puede ser nulo' if record.season_id.nil?
+  record.errors[:release_date] << 'mayor a la fecha de estreno de la serie' if
+      record.release_date.nil? || record.release_date <
+      Season.find(record.season_id).series.release_date ||
+      record.release_date > DateTime.current
+  end
+end
 
 class Chapter < ApplicationRecord
+
   belongs_to :season
   has_and_belongs_to_many :viewers, class_name: 'User'
   has_many :ratings, class_name: 'ChaptersRating', dependent: :destroy
@@ -36,6 +46,7 @@ class Chapter < ApplicationRecord
                                grater_than_or_equal_to: 1
                              }
   validates :release_date, presence: true
+  validates_with ReleasValidator
 
   def self.get_chapters_by_role(user)
     if user

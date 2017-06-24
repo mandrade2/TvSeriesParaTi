@@ -114,7 +114,7 @@ class SeriesController < ApplicationController
   def create
     @series = Series.new(series_params.merge(seasons: 0,
                                              chapters_duration: 0,
-                                             rating: 0,
+                                             rating: 1,
                                              user_id: current_user.id))
 
     respond_to do |format|
