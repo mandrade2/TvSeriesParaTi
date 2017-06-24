@@ -1,4 +1,5 @@
 class SeriesController < ApplicationController
+  include SeriesHelper
   before_action :set_series, only: %i[show edit update destroy
                                       recommend_series send_recommendation
                                       unview add_rating comment
@@ -34,6 +35,40 @@ class SeriesController < ApplicationController
       @series.sort! { |a, b| a.release_date <=> b.release_date }.reverse!
     elsif params[:release_date_order] == '2'
       @series.sort! { |a, b| a.release_date <=> b.release_date }
+    end
+  end
+
+  def search_series_on_api
+    @search = Tmdb::Search.new
+    @search.resource('tv')
+    @search.query(params[:name])
+    @search = @search.fetch.to_a
+    @search = @search[0..4]
+    @series = Series.new
+    render 'new'
+  end
+
+  def create_series_from_api
+    series = Tmdb::TV.detail(params[:series_id])
+    unless series
+      redirect_to new_series_path,
+                  flash: { warning: 'No se pudo crear la serie' }
+    end
+    @series = Series.new(name: series['name'],
+                         description: series['overview'],
+                         country: series['origin_country'][0],
+                         release_date: series['first_air_date'],
+                         seasons: 0,
+                         chapters_duration: 0,
+                         rating: 0,
+                         user_id: current_user.id)
+    @series.image_from_url(get_api_poster(series['poster_path']))
+    if @series.save
+      redirect_to @series
+    else
+      p @series.errors.full_messages
+      redirect_to new_series_path,
+                  flash: { warning: 'No se pudo crear la serie' }
     end
   end
 
@@ -107,6 +142,7 @@ class SeriesController < ApplicationController
 
   def new
     @series = Series.new
+    @search = []
   end
 
   def edit; end

@@ -9,6 +9,10 @@ Rails.application.routes.draw do
         post '/add_rating', action: 'add_rating'
       end
     end
+    collection do
+      get '/new/search', action: 'search_series_on_api'
+      post '/new/search', action: 'create_series_from_api'
+    end
     member do
       get '/recommend', action: 'recommend_series'
       post '/recommend', action: 'send_recommendation'

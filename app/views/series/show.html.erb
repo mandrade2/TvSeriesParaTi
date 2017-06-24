@@ -49,7 +49,7 @@
 </div>
 
 <div class="row">
-  <div class="series-profile col-md-5">
+  <div class="series-profile col-md-8">
     <div class="series-profile-img img-thumbnail">
       <%= image_tag @series.image.url(:medium) %>
     </div>
@@ -59,19 +59,17 @@
         <% if @series.seasons == 1 %> temporada
         <% else %> temporadas
         <% end %>,
-        <%= @series.chapters_duration %> minutos por capítulo
+        <%= @series.chapters_duration %> minutos por capítulo <br />
+        <strong>Rating: </strong><%= @series.rating %> <br />
+        <strong>Fecha de estreno: </strong> <%= @series.release_date %>
       </p>
       <p>
         <%= @series.description %>
       </p>
-      <p>
-        <strong>Fecha de estreno: </strong> <%= @series.release_date %> <br />
-        <%= @series.rating %> puntos de rating
-      </p>
     </div>
   </div>
 
-  <div class="series-comments col-md-5">
+  <div class="series-comments col-md-4">
     <h3> Comentarios </h3>
     <table class="table">
       <thead>
