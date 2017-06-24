@@ -38,12 +38,16 @@ class Series < ApplicationRecord
 
   belongs_to :user
   validates :name, presence: true, length: { minimum: 1, maximum: 50 }
-  validates :description, presence: true, length: {minimum: 10, maximum: 200}
+  validates :description, presence: true, length: {minimum: 10, maximum: 1000}
   validates :country, presence: true, length: {minimum: 1, maximum: 50}
   validates :rating, numericality: {grater_than_or_equal_to: 1,
                                     less_than_or_equal_to: 5,
                                     message: 'debe ser un numero entre 1 y 5'}
   validates :release_date, presence: true
+
+  def image_from_url(url)
+    self.image = URI.parse(url)
+  end
 
   def self.get_series_by_role(user)
     if user
