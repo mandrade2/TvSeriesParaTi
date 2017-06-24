@@ -13,6 +13,7 @@ class Users::SessionsController < Devise::SessionsController
 
   def create_facebook
     user = User.from_omniauth(env["omniauth.auth"])
+    debug user.inspect
     log_in user
     redirect_back_or user
   end
