@@ -114,10 +114,12 @@ class User < ApplicationRecord
     super.tap do |user|
       puts params
       puts session
+      puts user.inspect
       puts params == session["devise.facebook_data"]
       puts session["devise.facebook_data"]["extra"]["raw_info"]
       if session["devise.facebook_data"]
-        user.email = data["email"] if user.email.blank?
+        user.email = session["devise.facebook_data"]["extra"]["raw_info"]["email"] if user.email.blank?
+        user.name=session["devise.facebook_data"]["extra"]["raw_info"]["name"] if user.name.blank?
       end
     end
   end
