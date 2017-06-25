@@ -112,7 +112,7 @@ class User < ApplicationRecord
   end
   def self.new_with_session(params, session)
     super.tap do |user|
-      if data == session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
+      if params == session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
         user.email = data["email"] if user.email.blank?
       end
     end
