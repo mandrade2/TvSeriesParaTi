@@ -74,7 +74,7 @@ class User < ApplicationRecord
 
   before_create :set_defaults
   devise :database_authenticatable, :registerable, :recoverable,
-         :rememberable, :trackable, :validatable, :confirmable, :lockable, :omniauthable, :omniauth_providers => [:facebook]#,:google,:twitter]
+         :rememberable, :trackable, :validatable, :confirmable, :lockable, :omniauthable, :omniauth_providers => [:facebook,:google,:twitter]
   validates :username, presence: true, uniqueness: true,
                        length: { minimum: 6, maximum: 50 }
   validates :name, presence: true,
@@ -120,7 +120,7 @@ class User < ApplicationRecord
       if session["devise.facebook_data"]
         user.email = session["devise.facebook_data"]["extra"]["raw_info"]["email"] if user.email.blank?
         user.name=session["devise.facebook_data"]["extra"]["raw_info"]["name"] if user.name.blank?
-
+        user.avatar_file_name=open(session["devise.facebook_data"]["info"]["image"]) if user.avatar_file_name.blank?
       end
     end
   end

@@ -1,18 +1,7 @@
 <% provide(:title, 'Log In') %>
 <% provide(:header, 'Log In') %>
 
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" />
 
-<a class="btn btn-block btn-social btn-facebook" href= <%= user_facebook_omniauth_authorize_path %> >
-  <span class="fa fa-facebook"></span> Sign in with Twitter
-</a>
-<a class="btn btn-block btn-social btn-twitter"  >
-  <span class="fa fa-twitter"></span> Sign in with Twitter
-</a>
-
-<a class="btn btn-block btn-social btn-google"  >
-  <span class="fa fa-google"></span> Sign in with Twitter
-</a>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
     <div class="form-group">

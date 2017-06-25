@@ -279,6 +279,7 @@ DEPENDENCIES
   minitest-reporters (= 1.1.9)
   omniauth-facebook
   omniauth-google
+  omniauth-oauth
   omniauth-twitter
   paperclip
   pg (~> 0.18)
