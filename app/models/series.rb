@@ -63,9 +63,10 @@ class Series < ApplicationRecord
       if user.admin?
         @series = Series.all
       elsif user.child?
-        @series = Series.joins(:user).where(users: { role: 'admin' }).or(
+        series = Series.joins(:user).where(users: { role: 'admin' }).or(
           Series.joins(:user).where(users: { id: user.father_id })
         )
+        @series = series.where(for_children: true)
       else
         @series = Series.joins(:user).where(users: { role: 'admin' }).or(
           Series.joins(:user).where(users: { id: user.id })

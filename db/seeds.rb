@@ -26,8 +26,9 @@ user_amount.times do |i|
   user.skip_confirmation!
   user.save
 end
- genders = ['action', 'science fiction', 'drama']
-3.times do |i|
+genders = ['Action', 'Science Fiction', 'Drama', 'Horror', 'Comedy', 'Musical',
+           'Anime', 'Documentaries', 'Romance', 'Thrillers']
+10.times do |i|
   Actor.create(name: Faker::Name.name, nacionality: Faker::Address.country)
   Director.create(name: Faker::Name.name, nacionality: Faker::Address.country)
   Gender.create(name: genders[i])
@@ -47,7 +48,9 @@ User.all.each do |user|
     Series.create(name: name, description: description, country: country,
                   user_id: user.id, rating: Random.rand(1..5),
                   seasons: 0, image: Faker::LoremPixel.image,
-                  release_date: rand(Date.civil(1980, 1, 1)..Date.civil(2016, 12, 31)))
+                  for_children: true,
+                  release_date: rand(Date.civil(1980, 1, 1)..Date.civil(2016,
+                                                                        12, 31)))
   end
 end
 
@@ -57,14 +60,14 @@ Series.all.each do |serie|
     season = Season.new(series_id: serie.id, number: i)
     next unless season.save
     (0..1).each do |e|
-      chap = Chapter.create!(
+      Chapter.create(
         name: chapters[e], # Faker::Lorem.word.unique,
         chapter_number: e+1,
         season_id: season.id,
         description: Faker::Lorem.sentence(4),
         duration: Random.rand(25..45),
         rating: Random.rand(1..5),
-        release_date: rand(Date.civil(1980, 1, 1)..Date.civil(2016, 12, 31)))
+        release_date: rand(Date.civil(1999, 1, 1)..Date.civil(2016, 12, 31)))
     end
   end
 end
@@ -86,7 +89,8 @@ main.save
   country = Faker::Address.country
   Series.create(name: name, description: description, country: country,
                 user_id: main.id, image: Faker::LoremPixel.image,
-                rating: Random.rand(1..5))
+                rating: Random.rand(1..5), for_children: false,
+                release_date: rand(Date.civil(1980, 1, 1)..Date.civil(2016, 12, 31)))
 end
 
 Series.all.each do |serie|

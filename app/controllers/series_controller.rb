@@ -4,7 +4,8 @@ class SeriesController < ApplicationController
                                       recommend_series send_recommendation
                                       unview add_rating comment
                                       delete_comment toggle_spoiler
-                                      like_comment]
+                                      like_comment add_actor add_gender
+                                      add_director]
   before_action :authenticate_user!, except: %i[index show search]
 
   # GET /series
@@ -123,6 +124,24 @@ class SeriesController < ApplicationController
     @user = current_user
     @comments = @series.comments
     @boole = @user && @user.series_views.include?(@series)
+    actors = @series.actors.select(:name).limit(3)
+    if actors.length.zero?
+      @actors = 'No hay actores asociados'
+    else
+      @actors = actors.map {|x| x.name}.compact.join(', ')
+    end
+    directors = @series.directors.select(:name).limit(3)
+    if directors.length.zero?
+      @directors = 'No hay directores asociados'
+    else
+      @directors = directors.map {|x| x.name}.compact.join(', ')
+    end
+    genders = @series.genders.select(:name).limit(3)
+    if genders.length.zero?
+      @genders = 'No hay generos asociados'
+    else
+      @genders = genders.map {|x| x.name}.compact.join(', ')
+    end
     if @user
       unless @series.user.admin? || @series.user_id == @user.id || @user.admin?
         redirect_to root_path,
@@ -140,6 +159,24 @@ class SeriesController < ApplicationController
     end
   end
 
+  def add_actor
+    actor = Actor.find(params[:actor].to_i)
+    @series.actors << actor unless @series.actors.include?(actor)
+    redirect_to @series
+  end
+
+  def add_director
+    director = Director.find(params[:director].to_i)
+    @series.directors << director unless @series.directors.include?(director)
+    redirect_to @series
+  end
+
+  def add_gender
+    gender = Gender.find(params[:gender].to_i)
+    @series.genders << gender unless @series.genders.include?(gender)
+    redirect_to @series
+  end
+
   def new
     @series = Series.new
     @search = []
@@ -148,10 +185,13 @@ class SeriesController < ApplicationController
   def edit; end
 
   def create
+    to_children = true
+    to_children = false if series_params[:for_children] == '0'
     @series = Series.new(series_params.merge(seasons: 0,
                                              chapters_duration: 0,
-                                             rating: 1,
-                                             user_id: current_user.id))
+                                             rating: 1.0,
+                                             user_id: current_user.id,
+                                             for_children: to_children))
 
     respond_to do |format|
       if @series.save
@@ -161,6 +201,7 @@ class SeriesController < ApplicationController
         end
         format.json { render :show, status: :created, location: @series }
       else
+        @search = []
         format.html { render :new }
         format.json do
           render json: @series.errors, status: :unprocessable_entity
@@ -238,6 +279,6 @@ class SeriesController < ApplicationController
 
   def series_params
     params.require(:series).permit(:name, :description, :country,
-                                   :release_date, :image)
+                                   :release_date, :image, :for_children)
   end
 end

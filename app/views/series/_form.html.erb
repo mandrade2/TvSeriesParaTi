@@ -31,6 +31,11 @@
       <%= f.text_field :country, class: "form-control" %>
     </div>
 
+    <div class="check-box">
+      <%= f.label :para_niños %>
+      <%= f.check_box :for_children %>
+    </div>
+
     <% unless edit %>
       <div class="form-group">
         <%= f.label :release_date %>

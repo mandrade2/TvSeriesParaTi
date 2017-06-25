@@ -22,6 +22,9 @@ Rails.application.routes.draw do
       delete '/comment', action: 'delete_comment'
       post '/unview', action: 'unview'
       post '/add_rating', action: 'add_rating'
+      post '/add_actor', action: 'add_actor'
+      post '/add_director', action: 'add_director'
+      post '/add_gender', action: 'add_gender'
     end
   end
 
