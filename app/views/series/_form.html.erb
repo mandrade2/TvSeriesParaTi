@@ -1,13 +1,13 @@
 <%= form_for(series) do |f| %>
     <% if series.errors.any? %>
         <div id="error_explanation">
-          <h3><%= pluralize(series.errors.count, "error") %> no dejaron que la serie se guarde </h2>
+          <div class="alert alert-danger"><h4><%= pluralize(series.errors.count, "error") %> no dejaron que la serie se guarde </h4></div>
 
-          <ul>
+          <ol>
             <% series.errors.full_messages.each do |message| %>
                 <li><%= message %></li>
             <% end %>
-          </ul>
+          </ol>
         </div>
     <% end %>
 

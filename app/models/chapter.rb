@@ -23,7 +23,6 @@ class ReleasValidator < ActiveModel::Validator
 end
 
 class Chapter < ApplicationRecord
-
   belongs_to :season
   has_and_belongs_to_many :viewers, class_name: 'User'
   has_many :ratings, class_name: 'ChaptersRating', dependent: :destroy

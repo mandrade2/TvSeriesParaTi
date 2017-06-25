@@ -1,6 +1,7 @@
 class NewsController < ApplicationController
-  before_action :set_news, only: [:show, :edit, :update, :destroy]
+  before_action :set_news, only: %i[show edit update destroy]
   before_action :authenticate_user!, except: %i[index show]
+  before_action :authenticate_not_child, except: %i[index show]
 
   def index
     @news = News.all.includes(:user)
@@ -12,7 +13,10 @@ class NewsController < ApplicationController
     @news = News.new
   end
 
-  def edit; end
+  def edit
+    return if @news.user == current_user
+    redirect_to root_path, flash: { danger: 'Acceso no autorizado' }
+  end
 
   def create
     @news = News.new(news_params.merge(user_id: current_user.id))

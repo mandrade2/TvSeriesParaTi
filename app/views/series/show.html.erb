@@ -14,40 +14,64 @@
     <% end %>
   <% end %>
 <% end %>
+<div class="row">
+  <div class="btn-group pull-left">
+    <%= link_to 'Capitulos', series_chapters_path(@series), class: 'btn btn-primary' %>
+    <% if @boole %>
+      <a class='btn btn-primary' type="button" data-toggle="modal" data-target="#rating-modal">Rating</a>
+      <%= link_to 'Marcar serie como no vista', unview_series_path(@series), method: :post, class: "btn btn-primary", params: {serie: @series.id, unview: true} %>
+    <% elsif @user %>
+      <%= link_to 'Marcar serie como vista', unview_series_path(@series), method: :post, class: "btn btn-primary", params: {serie: @series.id, unview: false} %>
+    <% end %>
+  </div>
 
-<div class="btn-group pull-left">
-  <%= link_to 'Capitulos', series_chapters_path(@series), class: 'btn btn-primary' %>
+  <div class="btn-group pull-right">
+    <div class="dropdown undiv">
+      <a class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Menu<span class="caret"></span></a>
+      <ul class="dropdown-menu">
+        <li><%= link_to 'Recomendar', recommend_series_path(@series) %></li>
+        <% if can?(:destroy, Series) %>
+            <li>
+              <%= link_to 'Eliminar', @series, method: :delete, data: {confirm: 'Are you sure?'} %>
+            </li>
+        <% end %>
+        <% if current_user && current_user.id == @series.user_id %>
+            <li>
+              <%= link_to 'Editar', edit_series_path(@series) %>
+            </li>
+            <li>
+              <a type="button" data-toggle="modal" data-target="#myModal">Agregar información</a>
+            </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
 </div>
 
-<div class="btn-group pull-right">
-  <%= link_to 'Recomendar', recommend_series_path(@series), class: 'btn btn-primary' %>
-  <%= link_to 'Atras', series_index_path, class: "btn btn-primary" %>
-  <% if can?(:destroy, Series) %>
-      <%= link_to 'Eliminar', @series, method: :delete, class: "btn btn-danger", data: {confirm: 'Are you sure?'} %>
-  <% end %>
-  <% if current_user && current_user.id == @series.user_id %>
-      <%= link_to 'Editar', edit_series_path(@series), class: 'btn btn-primary' %>
-      <a type="button" class='btn btn-primary' data-toggle="modal" data-target="#myModal">Agregar información</a>
-  <% end %>
-</div>
-
-<div class="btn-group pull-right">
-  <% if @boole %>
-      <%= button_to 'Marcar serie como no vista', unview_series_path(@series), class: "btn btn-primary", params: {serie: @series.id, unview: true} %>
-      <%= form_tag add_rating_series_path(@series), method: "post" %>
-      <fieldset class="rating">
-        <input type="radio" id="star5" name="rating" value="5"/><label class="full" for="star5" title="Genial - 5 estrellas"></label>
-        <input type="radio" id="star4" name="rating" value="4"/><label class="full" for="star4" title="Buena - 4 estrellas"></label>
-        <input type="radio" id="star3" name="rating" value="3"/><label class="full" for="star3" title="Si pero no - 3 estrellas"></label>
-        <input type="radio" id="star2" name="rating" value="2"/><label class="full" for="star2" title="Mala - 2 estrellas"></label>
-        <input type="radio" id="star1" name="rating" value="1"/><label class="full" for="star1" title="Que tragedia - 1 estrella"></label>
-      </fieldset>
-      <div><%= submit_tag 'Entregar rating', params: {serie: @series.id} %></div>
-  <% elsif @user %>
-      <%= button_to 'Marcar serie como vista', unview_series_path(@series), class: "btn btn-primary", params: {serie: @series.id, unview: false} %>
-  <% end %>
-</div>
-</div>
+<% if @boole %>
+  <div class="modal fade" id="rating-modal" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Otorgar rating a <%= @series.name %></h4>
+        </div>
+        <div class="modal-body">
+          <%= form_tag add_rating_series_path(@series), method: "post" do %>
+            <fieldset class="rating">
+              <input type="radio" id="star5" name="rating" value="5"/><label class="full" for="star5" title="Genial - 5 estrellas"></label>
+              <input type="radio" id="star4" name="rating" value="4"/><label class="full" for="star4" title="Buena - 4 estrellas"></label>
+              <input type="radio" id="star3" name="rating" value="3"/><label class="full" for="star3" title="Si pero no - 3 estrellas"></label>
+              <input type="radio" id="star2" name="rating" value="2"/><label class="full" for="star2" title="Mala - 2 estrellas"></label>
+              <input type="radio" id="star1" name="rating" value="1"/><label class="full" for="star1" title="Que tragedia - 1 estrella"></label>
+            </fieldset>
+            <div><%= submit_tag 'Entregar rating', class: "btn btn-primary", params: {serie: @series.id} %></div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
 
 <div class="row">
   <div class="series-profile col-md-8">
@@ -75,30 +99,30 @@
 
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Agregar actores/directores/géneros</h4>
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Agregar actores/directores/géneros</h4>
+        </div>
+        <div class="modal-body">
+          <%= form_tag(add_actor_series_path(@series)) do %>
+            Actores:
+            <%= select_tag 'actor', options_from_collection_for_select(Actor.all, 'id', 'name') %>
+            <%= submit_tag 'Agregar', class: 'btn btn-primary' %>
+          <% end %>
+          <%= form_tag(add_director_series_path(@series)) do %>
+            Directores:
+            <%= select_tag 'director', options_from_collection_for_select(Director.all, 'id', 'name') %>
+            <%= submit_tag 'Agregar', class: 'btn btn-primary' %>
+          <% end %>
+          <%= form_tag(add_gender_series_path(@series)) do %>
+            Generos:
+            <%= select_tag 'gender', options_from_collection_for_select(Gender.all, 'id', 'name') %>
+            <%= submit_tag 'Agregar', class: 'btn btn-primary' %>
+          <% end %>
+        </div>
       </div>
-      <div class="modal-body">
-    <%= form_tag(add_actor_series_path(@series)) do %>
-      Actores:
-      <%= select_tag 'actor', options_from_collection_for_select(Actor.all, 'id', 'name') %>
-      <%= submit_tag 'Agregar', class: 'btn btn-primary' %>
-    <% end %>
-    <%= form_tag(add_director_series_path(@series)) do %>
-      Directores:
-      <%= select_tag 'director', options_from_collection_for_select(Director.all, 'id', 'name') %>
-      <%= submit_tag 'Agregar', class: 'btn btn-primary' %>
-    <% end %>
-    <%= form_tag(add_gender_series_path(@series)) do %>
-      Generos:
-      <%= select_tag 'gender', options_from_collection_for_select(Gender.all, 'id', 'name') %>
-      <%= submit_tag 'Agregar', class: 'btn btn-primary' %>
-    <% end %>
     </div>
-  </div>
-  </div>
   </div>
 
   <div class="series-comments col-md-4">

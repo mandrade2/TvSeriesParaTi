@@ -29,7 +29,7 @@ class UsersController < ApplicationController
                @users.username_like(search_text)
              end
     if @users.empty?
-      redirect_to users_path, flash: {info: 'Busqueda sin resultados'}
+      redirect_to users_path, flash: { info: 'Busqueda sin resultados' }
     end
     render 'index'
   end

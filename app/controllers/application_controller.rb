@@ -22,6 +22,7 @@ class ApplicationController < ActionController::Base
       chapters_duration += season.chapters.sum(:duration)
       total += season.chapters.count
     end
+    total = 1 if total.zero?
     serie.chapters_duration = (chapters_duration / total).floor
     serie.save
   end
@@ -30,5 +31,10 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:sign_up, keys: %i[name username avatar])
     devise_parameter_sanitizer.permit(:account_update,
                                       keys: %i[name username avatar])
+  end
+
+  def authenticate_not_child
+    return unless current_user.child?
+    redirect_to root_path, flash: { danger: 'Acceso no autorizado' }
   end
 end

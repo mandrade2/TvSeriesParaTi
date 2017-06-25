@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     collection do
       get '/new/search', action: 'search_series_on_api'
       post '/new/search', action: 'create_series_from_api'
+      get '/new/recent_series', action: 'recent_series_on_api'
+      post '/new/recent_series', action: 'create_series_from_recent'
     end
     member do
       get '/recommend', action: 'recommend_series'

@@ -1,26 +1,27 @@
 <%= form_for(news) do |f| %>
-    <% if news.errors.any? %>
-        <div id="error_explanation">
-          <h3><%= pluralize(series.errors.count, "error") %> no dejaron que la noticia se guarde </h2>
-          <ul>
-            <% news.errors.full_messages.each do |message| %>
-                <li><%= message %></li>
-            <% end %>
-          </ul>
-        </div>
-    <% end %>
+  <% if news.errors.any? %>
+      <div id="error_explanation">
+        <div class="alert alert-danger"><h4><%= pluralize(news.errors.count, "error") %> no dejaron que la noticia se guarde </h4></div>
 
-    <div class="form-group">
-      <%= f.label :titulo %>
-      <%= f.text_field :title, class: 'form-control' %>
-    </div>
+        <ol>
+          <% news.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+          <% end %>
+        </ol>
+      </div>
+  <% end %>
 
-    <div class="form-group">
-      <%= f.label :contenido %>
-      <%= f.text_field :content, class: 'form-control' %>
-    </div>
+  <div class="form-group">
+    <%= f.label :titulo %>
+    <%= f.text_field :title, class: 'form-control' %>
+  </div>
 
-    <div class="actions">
-      <%= f.submit 'Crear noticia', class: 'btn btn-primary' %>
-    </div>
+  <div class="form-group">
+    <%= f.label :contenido %>
+    <%= f.text_field :content, class: 'form-control' %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit 'Crear noticia', class: 'btn btn-primary' %>
+  </div>
 <% end %>

@@ -7,6 +7,10 @@ class SeriesController < ApplicationController
                                       like_comment add_actor add_gender
                                       add_director]
   before_action :authenticate_user!, except: %i[index show search]
+  before_action :authenticate_not_child,
+                except: %i[index search recommend_series send_recommendation
+                           show comment like_comment delete_comment add_rating
+                           unview]
 
   # GET /series
   # GET /series.json
@@ -39,6 +43,22 @@ class SeriesController < ApplicationController
     end
   end
 
+  def recent_series_on_api
+    search = Tmdb::TV.popular
+    search = search[0..9]
+    @search = []
+    search.each do |obj|
+      hash_obj = {}
+      hash_obj['poster_path'] = obj.poster_path
+      hash_obj['name'] = obj.name
+      hash_obj['first_air_date'] = obj.first_air_date
+      hash_obj['id'] = obj.id
+      @search << hash_obj
+    end
+    @series = Series.new
+    render 'new'
+  end
+
   def search_series_on_api
     @search = Tmdb::Search.new
     @search.resource('tv')
@@ -67,7 +87,6 @@ class SeriesController < ApplicationController
     if @series.save
       redirect_to @series
     else
-      p @series.errors.full_messages
       redirect_to new_series_path,
                   flash: { warning: 'No se pudo crear la serie' }
     end
@@ -182,7 +201,10 @@ class SeriesController < ApplicationController
     @search = []
   end
 
-  def edit; end
+  def edit
+    return if @series.user == current_user
+    redirect_to root_path, flash: { danger: 'Acceso no autorizado' }
+  end
 
   def create
     to_children = true

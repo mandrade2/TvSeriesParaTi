@@ -12,7 +12,9 @@ class PagesController < ApplicationController
   def myseries
     @user = current_user
     if @user.child?
-      @series = Series.joins(:user).where(users: { id: @user.father_id })
+      @series = Series.get_series_by_role(current_user).joins(:user).where(
+        users: { id: @user.father_id }
+      )
     else
       @series = Series.where(user_id: @user.id)
     end

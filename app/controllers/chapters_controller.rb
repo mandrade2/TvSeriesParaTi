@@ -2,6 +2,8 @@ class ChaptersController < ApplicationController
   before_action :set_chapter, only: %i[show edit update destroy
                                        unview add_rating]
   before_action :authenticate_user!, except: %i[index show search]
+  before_action :authenticate_not_child, except: %i[index show search
+                                                    add_rating unview]
 
   def index
     @series = Series.find(params[:series_id])
@@ -69,6 +71,9 @@ class ChaptersController < ApplicationController
         format.json { render :show, status: :created, location: @chapter }
       else
         evaluar_temporada(Season.find(id_temporada)) unless id_temporada.nil?
+        if id_temporada.nil?
+          flash.now['warning'] = 'Numero de temporada no puede estar vacio'
+        end
         format.html { render :new }
         format.json do
           render json: @chapter.errors, status: :unprocessable_entity

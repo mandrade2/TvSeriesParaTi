@@ -1,5 +1,5 @@
 .news-index {
-  width: 45%;
+  width: 30%;
   display: inline-block;
   margin: 10px;
   box-shadow: 5px 5px 5px #888888;
@@ -10,8 +10,12 @@
     #title {
       text-align: center;
       background-color: #ddd;
-      height: 100px;
+      height: 200px;
       overflow: auto;
+
+      h3 {
+        vertical-align: text-bottom;
+      }
     }
   }
 }
