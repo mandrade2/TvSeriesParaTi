@@ -74,7 +74,7 @@ class User < ApplicationRecord
 
   before_create :set_defaults
   devise :database_authenticatable, :registerable, :recoverable,
-         :rememberable, :trackable, :validatable, :confirmable, :lockable, :omniauthable, :omniauth_providers => [:facebook,:google,:twitter]
+         :rememberable, :trackable, :validatable, :confirmable, :lockable, :omniauthable, :omniauth_providers => [:facebook]#,:google,:twitter]
   validates :username, presence: true, uniqueness: true,
                        length: { minimum: 6, maximum: 50 }
   validates :name, presence: true,
