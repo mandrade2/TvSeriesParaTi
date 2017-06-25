@@ -18,7 +18,15 @@
 #  image_updated_at   :datetime
 #
 
+class ReleaseValidator < ActiveModel::Validator
+  def validate(record)
+    record.errors[:release_date] << 'es mayor a la fecha actual' if
+        record.release_date.nil? || record.release_date > DateTime.current
+  end
+end
+
 class Series < ApplicationRecord
+
   has_attached_file :image, styles: {medium: '300x300>', thumb: '100x100>'},
                     default_url: '/images/:style/default-img.png'
 
@@ -38,20 +46,27 @@ class Series < ApplicationRecord
 
   belongs_to :user
   validates :name, presence: true, length: { minimum: 1, maximum: 50 }
-  validates :description, presence: true, length: {minimum: 10, maximum: 200}
+  validates :description, presence: true, length: {minimum: 10, maximum: 1000}
   validates :country, presence: true, length: {minimum: 1, maximum: 50}
   validates :rating, numericality: {grater_than_or_equal_to: 1,
                                     less_than_or_equal_to: 5,
                                     message: 'debe ser un numero entre 1 y 5'}
+  validates :release_date, presence: true
+  validates_with ReleaseValidator
+
+  def image_from_url(url)
+    self.image = URI.parse(url)
+  end
 
   def self.get_series_by_role(user)
     if user
       if user.admin?
         @series = Series.all
       elsif user.child?
-        @series = Series.joins(:user).where(users: { role: 'admin' }).or(
+        series = Series.joins(:user).where(users: { role: 'admin' }).or(
           Series.joins(:user).where(users: { id: user.father_id })
         )
+        @series = series.where(for_children: true)
       else
         @series = Series.joins(:user).where(users: { role: 'admin' }).or(
           Series.joins(:user).where(users: { id: user.id })

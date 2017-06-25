@@ -25,7 +25,7 @@
 
 .series-display {
   display: inline-block;
-  width: 30%;
+  width: 33%;
 }
 
 /*** Series profile ***/
@@ -137,6 +137,11 @@
   float: right;
 }
 
+
+.center {
+  align-items: center;
+  align-content: center;
+}
 /***** CSS Magic to Highlight Stars on Hover *****/
 
 .rating > input:checked ~ label, /* show gold star when clicked */
@@ -152,4 +157,22 @@
 .rating > label:hover ~ input:checked ~ label, /* lighten current selection */
 .rating > input:checked ~ label:hover ~ label {
   color: #FFED85;
+}
+
+/* Spoilers */
+
+.spoiler {
+  display: none;
+}
+
+/* Api */
+
+.api-series {
+  padding: 10px;
+  margin: 10px;
+}
+
+.new-series-form {
+  padding: 10px 0px;
+  margin: 30px 0px;
 }

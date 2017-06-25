@@ -13,6 +13,8 @@
 class Comment < ApplicationRecord
   belongs_to :user
   belongs_to :series
+  has_and_belongs_to_many :likes, class_name: 'User',
+                                  join_table: 'comments_users'
 
   validates :content, length: {minimum: 1, maximum: 255}
 end

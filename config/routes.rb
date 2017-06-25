@@ -9,13 +9,22 @@ Rails.application.routes.draw do
         post '/add_rating', action: 'add_rating'
       end
     end
+    collection do
+      get '/new/search', action: 'search_series_on_api'
+      post '/new/search', action: 'create_series_from_api'
+    end
     member do
       get '/recommend', action: 'recommend_series'
       post '/recommend', action: 'send_recommendation'
       post '/comment', action: 'comment'
+      post '/comment/like', action: 'like_comment'
+      patch '/comment', action: 'toggle_spoiler'
       delete '/comment', action: 'delete_comment'
       post '/unview', action: 'unview'
       post '/add_rating', action: 'add_rating'
+      post '/add_actor', action: 'add_actor'
+      post '/add_director', action: 'add_director'
+      post '/add_gender', action: 'add_gender'
     end
   end
 
@@ -37,14 +46,19 @@ Rails.application.routes.draw do
   get 'help', to: 'pages#help'
   get 'contact', to: 'pages#contact'
   get 'about', to: 'pages#about'
+  get 'myseries', to: 'pages#myseries'
+
   get '/invite', to: 'pages#invite'
   post '/invite', to: 'pages#send_invitation_email'
+
   get 'search', to: 'series#search'
   post 'search', to: 'series#search'
+
   get 'search_chapter', to: 'chapters#search'
   post 'search_chapter', to: 'chapters#search'
 
   # Users routes
+  get '/stats', to: 'users#get_stats'
   get '/:username', to: 'users#profile',
                     as: :profile,
                     constraints: { username: %r{[^\/]+} }

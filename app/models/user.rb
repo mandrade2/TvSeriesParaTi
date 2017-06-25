@@ -48,6 +48,8 @@ class User < ApplicationRecord
                                          dependent: :destroy
   has_and_belongs_to_many :chapters_views, class_name: 'Chapter',
                                            dependent: :destroy
+  has_and_belongs_to_many :likes, class_name: 'Comment',
+                                  join_table: 'comments_users'
   has_many :series_ratings, class_name: 'SeriesRating', dependent: :destroy
   has_many :chapters_ratings, class_name: 'ChaptersRating', dependent: :destroy
   has_many :series, dependent: :destroy
@@ -75,6 +77,7 @@ class User < ApplicationRecord
   before_create :set_defaults
   devise :database_authenticatable, :registerable, :recoverable,
          :rememberable, :trackable, :validatable, :confirmable, :lockable, :omniauthable, :omniauth_providers => [:facebook,:google,:twitter]
+
   validates :username, presence: true, uniqueness: true,
                        length: { minimum: 6, maximum: 50 }
   validates :name, presence: true,
@@ -82,7 +85,10 @@ class User < ApplicationRecord
                              message: '%{value} debe estar compuesto solo
                                       por letras, puntos, espacios,
                                       guiones y apostrofes.' },
-                   length: { minimum: 2, maximum: 50 }
+                   length: { minimum: 2, maximum: 50 },
+                   exclusion: { in: %w[series news favorites help contact about
+                                       myseries invite search search_chapter],
+                                message: '%{value} is reserved.' }
 
   def child?
     role == 'child' && !father_id.nil?

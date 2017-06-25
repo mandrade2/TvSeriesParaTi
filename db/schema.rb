@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170617163510) do
+ActiveRecord::Schema.define(version: 20170624053041) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20170617163510) do
     t.integer  "season_id"
     t.integer  "duration"
     t.string   "description"
+    t.date     "release_date"
     t.index ["season_id", "chapter_number"], name: "index_chapters_on_season_id_and_chapter_number", unique: true, using: :btree
     t.index ["season_id"], name: "index_chapters_on_season_id", using: :btree
   end
@@ -65,10 +66,19 @@ ActiveRecord::Schema.define(version: 20170617163510) do
     t.integer  "user_id"
     t.integer  "series_id"
     t.string   "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.boolean  "spoiler",    default: false
     t.index ["series_id"], name: "index_comments_on_series_id", using: :btree
     t.index ["user_id"], name: "index_comments_on_user_id", using: :btree
+  end
+
+  create_table "comments_users", id: false, force: :cascade do |t|
+    t.integer "comment_id"
+    t.integer "user_id"
+    t.index ["comment_id", "user_id"], name: "index_comments_users_on_comment_id_and_user_id", unique: true, using: :btree
+    t.index ["comment_id"], name: "index_comments_users_on_comment_id", using: :btree
+    t.index ["user_id"], name: "index_comments_users_on_user_id", using: :btree
   end
 
   create_table "directors", force: :cascade do |t|
@@ -142,6 +152,8 @@ ActiveRecord::Schema.define(version: 20170617163510) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.date     "release_date"
+    t.boolean  "for_children"
     t.index ["user_id"], name: "index_series_on_user_id", using: :btree
   end
 

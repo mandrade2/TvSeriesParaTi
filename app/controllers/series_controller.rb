@@ -1,7 +1,11 @@
 class SeriesController < ApplicationController
+  include SeriesHelper
   before_action :set_series, only: %i[show edit update destroy
                                       recommend_series send_recommendation
-                                      unview add_rating comment delete_comment]
+                                      unview add_rating comment
+                                      delete_comment toggle_spoiler
+                                      like_comment add_actor add_gender
+                                      add_director]
   before_action :authenticate_user!, except: %i[index show search]
 
   # GET /series
@@ -20,11 +24,52 @@ class SeriesController < ApplicationController
                               params[:capitulo], params[:director],
                               params[:actor], params[:genero])
     end
-    return if params[:rating_order].blank?
-    if params[:rating_order] == '1'
-      @series.sort! { |a, b| a.rating <=> b.rating }.reverse!
-    elsif params[:rating_order] == '2'
-      @series.sort! { |a, b| a.rating <=> b.rating }
+    unless params[:rating_order].blank?
+      if params[:rating_order] == '1'
+        @series.sort! { |a, b| a.rating <=> b.rating }.reverse!
+      elsif params[:rating_order] == '2'
+        @series.sort! { |a, b| a.rating <=> b.rating }
+      end
+    end
+    return if params[:release_date_order].blank?
+    if params[:release_date_order] == '1'
+      @series.sort! { |a, b| a.release_date <=> b.release_date }.reverse!
+    elsif params[:release_date_order] == '2'
+      @series.sort! { |a, b| a.release_date <=> b.release_date }
+    end
+  end
+
+  def search_series_on_api
+    @search = Tmdb::Search.new
+    @search.resource('tv')
+    @search.query(params[:name])
+    @search = @search.fetch.to_a
+    @search = @search[0..4]
+    @series = Series.new
+    render 'new'
+  end
+
+  def create_series_from_api
+    series = Tmdb::TV.detail(params[:series_id])
+    unless series
+      redirect_to new_series_path,
+                  flash: { warning: 'No se pudo crear la serie' }
+    end
+    @series = Series.new(name: series['name'],
+                         description: series['overview'],
+                         country: series['origin_country'][0],
+                         release_date: series['first_air_date'],
+                         seasons: 0,
+                         chapters_duration: 0,
+                         rating: 0,
+                         user_id: current_user.id)
+    @series.image_from_url(get_api_poster(series['poster_path']))
+    if @series.save
+      redirect_to @series
+    else
+      p @series.errors.full_messages
+      redirect_to new_series_path,
+                  flash: { warning: 'No se pudo crear la serie' }
     end
   end
 
@@ -50,6 +95,25 @@ class SeriesController < ApplicationController
     redirect_to @series
   end
 
+  def toggle_spoiler
+    comment = Comment.find(params[:comment])
+    comment.spoiler = params[:is_spoiler]
+    comment.save
+    redirect_to @series
+  end
+
+  def like_comment
+    comment = Comment.find(params[:comment])
+    if params[:like] == 'true'
+      unless current_user.likes.find_by_id(comment.id)
+        current_user.likes << comment
+      end
+    elsif current_user.likes.find_by_id(comment.id)
+      current_user.likes.delete(comment)
+    end
+    redirect_to @series
+  end
+
   def delete_comment
     comment = Comment.find(params[:comment])
     comment.destroy if comment
@@ -60,6 +124,24 @@ class SeriesController < ApplicationController
     @user = current_user
     @comments = @series.comments
     @boole = @user && @user.series_views.include?(@series)
+    actors = @series.actors.select(:name).limit(3)
+    if actors.length.zero?
+      @actors = 'No hay actores asociados'
+    else
+      @actors = actors.map {|x| x.name}.compact.join(', ')
+    end
+    directors = @series.directors.select(:name).limit(3)
+    if directors.length.zero?
+      @directors = 'No hay directores asociados'
+    else
+      @directors = directors.map {|x| x.name}.compact.join(', ')
+    end
+    genders = @series.genders.select(:name).limit(3)
+    if genders.length.zero?
+      @genders = 'No hay generos asociados'
+    else
+      @genders = genders.map {|x| x.name}.compact.join(', ')
+    end
     if @user
       unless @series.user.admin? || @series.user_id == @user.id || @user.admin?
         redirect_to root_path,
@@ -77,17 +159,39 @@ class SeriesController < ApplicationController
     end
   end
 
+  def add_actor
+    actor = Actor.find(params[:actor].to_i)
+    @series.actors << actor unless @series.actors.include?(actor)
+    redirect_to @series
+  end
+
+  def add_director
+    director = Director.find(params[:director].to_i)
+    @series.directors << director unless @series.directors.include?(director)
+    redirect_to @series
+  end
+
+  def add_gender
+    gender = Gender.find(params[:gender].to_i)
+    @series.genders << gender unless @series.genders.include?(gender)
+    redirect_to @series
+  end
+
   def new
     @series = Series.new
+    @search = []
   end
 
   def edit; end
 
   def create
+    to_children = true
+    to_children = false if series_params[:for_children] == '0'
     @series = Series.new(series_params.merge(seasons: 0,
                                              chapters_duration: 0,
-                                             rating: 0,
-                                             user_id: current_user.id))
+                                             rating: 1.0,
+                                             user_id: current_user.id,
+                                             for_children: to_children))
 
     respond_to do |format|
       if @series.save
@@ -97,6 +201,7 @@ class SeriesController < ApplicationController
         end
         format.json { render :show, status: :created, location: @series }
       else
+        @search = []
         format.html { render :new }
         format.json do
           render json: @series.errors, status: :unprocessable_entity
@@ -173,6 +278,7 @@ class SeriesController < ApplicationController
   end
 
   def series_params
-    params.require(:series).permit(:name, :description, :country, :image)
+    params.require(:series).permit(:name, :description, :country,
+                                   :release_date, :image, :for_children)
   end
 end
