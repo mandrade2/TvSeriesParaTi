@@ -54,6 +54,8 @@ GEM
     bootstrap-sass (3.3.6)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
+    bootstrap-social-rails (4.12.0)
+      railties (>= 3.1)
     builder (3.2.3)
     cancancan (1.16.0)
     climate_control (0.2.0)
@@ -78,6 +80,8 @@ GEM
     faraday (0.12.1)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.18)
+    font-awesome-rails (4.7.0.2)
+      railties (>= 3.2, < 5.2)
     formatador (0.2.5)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
@@ -259,10 +263,12 @@ DEPENDENCIES
   annotate
   better_errors
   bootstrap-sass
+  bootstrap-social-rails
   cancancan (~> 1.16)
   coffee-script
   devise
   faker (~> 1.7.3)
+  font-awesome-rails
   guard (= 2.13.0)
   guard-minitest (= 2.4.4)
   jbuilder (~> 2.5)

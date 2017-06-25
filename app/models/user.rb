@@ -120,6 +120,7 @@ class User < ApplicationRecord
       if session["devise.facebook_data"]
         user.email = session["devise.facebook_data"]["extra"]["raw_info"]["email"] if user.email.blank?
         user.name=session["devise.facebook_data"]["extra"]["raw_info"]["name"] if user.name.blank?
+
       end
     end
   end

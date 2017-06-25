@@ -1,7 +1,18 @@
 <% provide(:title, 'Registrarse') %>
 <% provide(:header, "Registrarse") %>
 
-<%= link_to "Sign in with Facebook", user_facebook_omniauth_authorize_path %>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<a class="btn btn-block btn-social btn-facebook" href= <%= user_facebook_omniauth_authorize_path %> >
+  <span class="fa fa-facebook"></span> Sign up with Twitter
+</a>
+<a class="btn btn-block btn-social btn-twitter"  >
+  <span class="fa fa-twitter"></span> Sign up with Twitter
+</a>
+
+<a class="btn btn-block btn-social btn-google"  >
+  <span class="fa fa-google"></span> Sign up with Twitter
+</a>
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {multipart: true}) do |f| %>
     <%= devise_error_messages! %>
 
