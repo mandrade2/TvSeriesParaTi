@@ -1,3 +1,4 @@
+import "https://www.gstatic.com/charts/loader.js";
 $(document).on('turbolinks:load', function () {
     var $spoiler_anchors = $('button.spoiler_button');
     $spoiler_anchors.on('click', function () {
@@ -11,9 +12,8 @@ $(document).on('turbolinks:load', function () {
         $button.hide();
     });
 });
-<<<<<<< HEAD
-=======
-import "https://www.gstatic.com/charts/loader.js";
+
+
 
 google.charts.load('current', {'packages': ['corechart']});
 
@@ -47,4 +47,3 @@ function drawChart() {
     var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
     chart.draw(data, options);
 }
->>>>>>> social-apis

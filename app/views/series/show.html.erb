@@ -26,11 +26,14 @@
     <% end %>
   </div>
 
-<<<<<<< HEAD
   <div class="btn-group pull-right">
     <div class="dropdown undiv">
       <a class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Menu<span class="caret"></span></a>
       <ul class="dropdown-menu">
+        <a class="btn btn-social-icon btn-facebook" href=
+          <%= "http://www.facebook.com/sharer.php?u=0.0.0.0:3000/series/"+@series.id.to_s %> >
+          <span class="fa fa-facebook"></span>
+        </a>
         <li><%= link_to 'Recomendar', recommend_series_path(@series) %></li>
         <% if can?(:destroy, Series) %>
             <li>
@@ -48,26 +51,7 @@
       </ul>
     </div>
   </div>
-=======
-<div class="btn-group pull-left">
-  <%= link_to 'Capitulos', series_chapters_path(@series), class: 'btn btn-primary' %>
-</div>
 
-<div class="btn-group pull-right">
-  <a class="btn btn-social-icon btn-facebook" href=
-      <%= "http://www.facebook.com/sharer.php?u=0.0.0.0:3000/series/"+@series.id.to_s %> >
-    <span class="fa fa-facebook"></span>
-  </a>
-  <%= link_to 'Recomendar', recommend_series_path(@series), class: 'btn btn-primary' %>
-  <%= link_to 'Atras', series_index_path, class: "btn btn-primary" %>
-  <% if can?(:destroy, Series) %>
-      <%= link_to 'Eliminar', @series, method: :delete, class: "btn btn-danger", data: {confirm: 'Are you sure?'} %>
-  <% end %>
-  <% if current_user && current_user.id == @series.user_id %>
-      <%= link_to 'Editar', edit_series_path(@series), class: 'btn btn-primary' %>
-      <a type="button" class='btn btn-primary' data-toggle="modal" data-target="#myModal">Agregar información</a>
-  <% end %>
->>>>>>> social-apis
 </div>
 
 <% if @boole %>
