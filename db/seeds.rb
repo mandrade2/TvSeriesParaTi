@@ -65,7 +65,7 @@ series = Tmdb::TV.top_rated
 20.times do |i|
   name = series[i].name
   description = series[i].overview
-  country = series[i].origin_country
+  country = series[i].origin_country[0]
   release_date = series[i].first_air_date
   image = get_api_poster(series[i].poster_path)
   serie = Series.new(name: name, description: description, country: country,
