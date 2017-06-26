@@ -1,4 +1,5 @@
 <% provide(:title, "#{@series.name}") %>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet"/>
 
 <% content_for :header do %>
     <%= @series.name %>
@@ -20,7 +21,9 @@
 </div>
 
 <div class="btn-group pull-right">
-  <%= social_share_button_tag(@series.name, 'data-facebook-title' => 'TheTitleForFacebook') %>
+  <a class="btn btn-social-icon btn-facebook" href="http://www.facebook.com/sharer">
+    <span class="fa fa-facebook"></span>
+  </a>
   <%= link_to 'Recomendar', recommend_series_path(@series), class: 'btn btn-primary' %>
   <%= link_to 'Atras', series_index_path, class: "btn btn-primary" %>
   <% if can?(:destroy, Series) %>
