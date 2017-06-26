@@ -30,6 +30,7 @@ gem 'simple_form'
 gem 'bootstrap-social-rails'
 gem 'font-awesome-rails'
 gem 'themoviedb'
+gem 'social-share-button'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
 
