@@ -1,18 +1,18 @@
 <% provide(:title, "#{@chapter.name}") %>
 
 <% content_for :header do %>
-  <%= @chapter.name %>
-  <% if current_user %>
-    <% if @chapter.fans.find_by_id(current_user.id).nil? %>
-      <%= link_to favorites_path(chapter_id: @chapter.id), method: :post do %>
-        <span class="star glyphicon glyphicon-star-empty" ></span>
-      <% end %>
-    <% else %>
-      <%= link_to favorite_path(chapter_id: @chapter.id), method: :delete do %>
-        <span class="star glyphicon glyphicon-star" ></span>
-      <% end %>
+    <%= @chapter.name %>
+    <% if current_user %>
+        <% if @chapter.fans.find_by_id(current_user.id).nil? %>
+            <%= link_to favorites_path(chapter_id: @chapter.id), method: :post do %>
+                <span class="star glyphicon glyphicon-star-empty"></span>
+            <% end %>
+        <% else %>
+            <%= link_to favorite_path(chapter_id: @chapter.id), method: :delete do %>
+                <span class="star glyphicon glyphicon-star"></span>
+            <% end %>
+        <% end %>
     <% end %>
-  <% end %>
 <% end %>
 
 <div class="btn-group pull-right">

@@ -20,8 +20,7 @@
 
 class ReleaseValidator < ActiveModel::Validator
   def validate(record)
-    record.errors[:release_date] << 'es mayor a la fecha actual' if
-        record.release_date.nil? || record.release_date > DateTime.current
+    record.errors[:release_date] << 'es mayor a la fecha actual' if record.release_date.nil? || record.release_date > DateTime.current
   end
 end
 
@@ -45,7 +44,7 @@ class Series < ApplicationRecord
   has_many :fans, through: :favorites, source: :user
 
   belongs_to :user
-  validates :name, presence: true, length: { minimum: 1, maximum: 50 }
+  validates :name, presence: true, length: {minimum: 1, maximum: 50}
   validates :description, presence: true, length: {minimum: 10, maximum: 1000}
   validates :country, presence: true, length: {minimum: 1, maximum: 50}
   validates :rating, numericality: {grater_than_or_equal_to: 1,
@@ -63,22 +62,22 @@ class Series < ApplicationRecord
       if user.admin?
         @series = Series.all
       elsif user.child?
-        series = Series.joins(:user).where(users: { role: 'admin' }).or(
-          Series.joins(:user).where(users: { id: user.father_id })
+        series = Series.joins(:user).where(users: {role: 'admin'}).or(
+            Series.joins(:user).where(users: {id: user.father_id})
         )
         @series = series.where(for_children: true)
       else
-        @series = Series.joins(:user).where(users: { role: 'admin' }).or(
-          Series.joins(:user).where(users: { id: user.id })
+        @series = Series.joins(:user).where(users: {role: 'admin'}).or(
+            Series.joins(:user).where(users: {id: user.id})
         )
       end
     else
-      @series = Series.joins(:user).where(users: { role: 'admin' })
+      @series = Series.joins(:user).where(users: {role: 'admin'})
     end
   end
 
   def self.search(user, nombre, pais, rating1, rating2,
-                  capitulo, director, actor, genero)
+      capitulo, director, actor, genero)
     @series = get_series_by_role(user)
     series = []
     if nombre.present?
@@ -102,7 +101,7 @@ class Series < ApplicationRecord
       end
       if director.present?
         director_search = serie2.directors.where(
-          'name ILIKE ?', "%#{director}%"
+            'name ILIKE ?', "%#{director}%"
         )
         next unless director_search.count > 0
       end
@@ -111,7 +110,7 @@ class Series < ApplicationRecord
       end
       if genero.present?
         gender_search = serie2.genders.where(
-          'name ILIKE ?', "%#{genero}%"
+            'name ILIKE ?', "%#{genero}%"
         )
         next unless gender_search.count > 0
       end

@@ -19,17 +19,10 @@
 <% end -%>
 
 <%- if devise_mapping.omniauthable? %>
-        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet"/>
 
-        <a class="btn btn-block btn-social btn-facebook" href= <%= user_facebook_omniauth_authorize_path %> >
-          <span class="fa fa-facebook"></span> Sign in with facebook
-        </a>
-        <a class="btn btn-block btn-social btn-twitter"  >
-          <span class="fa fa-twitter"></span> Sign in with Twitter
-        </a>
-
-        <a class="btn btn-block btn-social btn-google"  >
-          <span class="fa fa-google"></span> Sign in with Google
-        </a>
-        <br/>
+    <a class="btn btn-block btn-social btn-facebook" href=<%= user_facebook_omniauth_authorize_path %>>
+      <span class="fa fa-facebook"></span> Sign in with facebook
+    </a>
+    <br/>
 <% end -%>

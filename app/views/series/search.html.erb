@@ -65,11 +65,11 @@
 </div>
 
 
-<% if  @series %>
+<% if @series %>
     <h3> <%= @series.count %> resultados</h3>
     <div class="row">
       <div class="col-md-12">
-          <% @series.each do |series| %>
+        <% @series.each do |series| %>
             <div class="series-display">
               <div class="img-preview img-rounded">
                 <a href='<%= "series/#{series.id}" %>'>
@@ -80,7 +80,7 @@
                 </a>
               </div>
             </div>
-          <% end %>
+        <% end %>
       </div>
     </div>
 <% else %>

@@ -18,8 +18,8 @@
 guard :minitest do
   # with Minitest::Unit
   watch(%r{^test/(.*)\/?test_(.*)\.rb$})
-  watch(%r{^lib/(.*/)?([^/]+)\.rb$})     { |m| "test/#{m[1]}test_#{m[2]}.rb" }
-  watch(%r{^test/test_helper\.rb$})      { 'test' }
+  watch(%r{^lib/(.*/)?([^/]+)\.rb$}) {|m| "test/#{m[1]}test_#{m[2]}.rb"}
+  watch(%r{^test/test_helper\.rb$}) {'test'}
 
   # with Minitest::Spec
   # watch(%r{^spec/(.*)_spec\.rb$})
@@ -58,8 +58,8 @@ guard :rspec, cmd: "bin/rspec", all_on_start: true do
 
   # RSpec files
   rspec = dsl.rspec
-  watch(rspec.spec_helper) { rspec.spec_dir }
-  watch(rspec.spec_support) { rspec.spec_dir }
+  watch(rspec.spec_helper) {rspec.spec_dir}
+  watch(rspec.spec_support) {rspec.spec_dir}
   watch(rspec.spec_files)
 
   # Ruby files
@@ -73,20 +73,20 @@ guard :rspec, cmd: "bin/rspec", all_on_start: true do
 
   watch(rails.controllers) do |m|
     [
-      rspec.spec.call("routing/#{m[1]}_routing"),
-      rspec.spec.call("controllers/#{m[1]}_controller"),
-      rspec.spec.call("acceptance/#{m[1]}")
+        rspec.spec.call("routing/#{m[1]}_routing"),
+        rspec.spec.call("controllers/#{m[1]}_controller"),
+        rspec.spec.call("acceptance/#{m[1]}")
     ]
   end
 
   # Rails config changes
-  watch(rails.spec_helper)     { rspec.spec_dir }
-  watch(rails.routes)          { "#{rspec.spec_dir}/routing" }
-  watch(rails.app_controller)  { "#{rspec.spec_dir}/controllers" }
+  watch(rails.spec_helper) {rspec.spec_dir}
+  watch(rails.routes) {"#{rspec.spec_dir}/routing"}
+  watch(rails.app_controller) {"#{rspec.spec_dir}/controllers"}
 
   # Capybara features specs
-  watch(rails.view_dirs)     { |m| rspec.spec.call("features/#{m[1]}") }
-  watch(rails.layouts)       { |m| rspec.spec.call("features/#{m[1]}") }
+  watch(rails.view_dirs) {|m| rspec.spec.call("features/#{m[1]}")}
+  watch(rails.layouts) {|m| rspec.spec.call("features/#{m[1]}")}
 
   # Turnip features and steps
   watch(%r{^spec/acceptance/(.+)\.feature$})

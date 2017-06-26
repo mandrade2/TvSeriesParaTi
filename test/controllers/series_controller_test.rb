@@ -17,11 +17,11 @@ class SeriesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should create series' do
     assert_no_difference('Series.count') do
-      post series_index_url, params: { series: {
-        chapters_duration: @series.chapters_duration,
-        country: @series.country,
-        description: @series.description
-      } }
+      post series_index_url, params: {series: {
+          chapters_duration: @series.chapters_duration,
+          country: @series.country,
+          description: @series.description
+      }}
     end
 
     assert_redirected_to new_user_session_url #series_url(Series.last)
@@ -38,14 +38,14 @@ class SeriesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should update series' do
-    patch series_url(@series), params: { series: {
-      chapters_duration: @series.chapters_duration,
-      country: @series.country,
-      description: @series.description,
-      name: @series.name,
-      rating: @series.rating,
-      seasons: @series.seasons
-    } }
+    patch series_url(@series), params: {series: {
+        chapters_duration: @series.chapters_duration,
+        country: @series.country,
+        description: @series.description,
+        name: @series.name,
+        rating: @series.rating,
+        seasons: @series.seasons
+    }}
     assert_redirected_to new_user_session_url #series_url(@series)
   end
 

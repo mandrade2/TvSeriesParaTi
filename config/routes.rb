@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   end
 
   resources :favorites, only: %i[index create destroy]
-  devise_for :users , controllers: { sessions: "users/sessions", omniauth_callbacks: "users/omniauth_callbacks" }
+  devise_for :users, controllers: {sessions: "users/sessions", omniauth_callbacks: "users/omniauth_callbacks"}
   #get 'users/auth/facebook/callback', to: 'series#index'
   #get 'auth/facebook/callback' => 'sessions#create_facebook'
   #get '/auth/:facebook/callback', to: 'sessions#create'
@@ -60,20 +60,20 @@ Rails.application.routes.draw do
   # Users routes
   get '/stats', to: 'users#get_stats'
   get '/:username', to: 'users#profile',
-                    as: :profile,
-                    constraints: { username: %r{[^\/]+} }
+      as: :profile,
+      constraints: {username: %r{[^\/]+}}
 
   # Child routes
   get '/:username/children', to: 'users#children',
-                             as: :children,
-                             constraints: { username: %r{[^\/]+} }
+      as: :children,
+      constraints: {username: %r{[^\/]+}}
   get '/:username/children/new', to: 'users#new_child',
-                                 as: :children_new,
-                                 constraints: { username: %r{[^\/]+} }
+      as: :children_new,
+      constraints: {username: %r{[^\/]+}}
   post '/:username/children/new', to: 'users#create_child',
-                                  as: :children_new_path,
-                                  constraints: { username: %r{[^\/]+} }
+       as: :children_new_path,
+       constraints: {username: %r{[^\/]+}}
   delete '/:username/children/destroy', to: 'users#destroy_child',
-                                        as: :children_destroy,
-                                        constraints: { username: %r{[^\/]+} }
+         as: :children_destroy,
+         constraints: {username: %r{[^\/]+}}
 end

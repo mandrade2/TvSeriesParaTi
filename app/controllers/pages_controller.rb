@@ -1,18 +1,22 @@
 class PagesController < ApplicationController
   before_action :authenticate_user!, only: %i[myseries]
 
-  def about; end
+  def about;
+  end
 
-  def contact; end
+  def contact;
+  end
 
-  def help; end
+  def help;
+  end
 
-  def invite; end
+  def invite;
+  end
 
   def myseries
     @user = current_user
     if @user.child?
-      @series = Series.joins(:user).where(users: { id: @user.father_id })
+      @series = Series.joins(:user).where(users: {id: @user.father_id})
     else
       @series = Series.where(user_id: @user.id)
     end

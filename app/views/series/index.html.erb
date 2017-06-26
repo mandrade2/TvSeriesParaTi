@@ -1,16 +1,16 @@
 <% provide(:title, 'Series') %>
 <% provide(:header, 'Series') %>
-<%= debug session["devise.facebook_data"].inspect %>
+<%= debug session["devise.data"].inspect %>
 
 <div class="btn-group pull-left">
   <%= link_to 'Buscar Serie', search_path, class: 'btn btn-primary' %>
   <%= link_to 'Buscar capitulo', search_chapter_path, class: 'btn btn-primary' %>
 </div>
 <% if current_user %>
-  <div class="btn-group pull-right">
-    <%= link_to 'Crear Serie', new_series_path, class: 'btn btn-primary' if can? :manage, Series %>
-    <%= link_to 'Mis Series', myseries_path, class: 'btn btn-primary' %>
-  </div>
+    <div class="btn-group pull-right">
+      <%= link_to 'Crear Serie', new_series_path, class: 'btn btn-primary' if can? :manage, Series %>
+      <%= link_to 'Mis Series', myseries_path, class: 'btn btn-primary' %>
+    </div>
 <% end %>
 
 <div class="row">

@@ -18,6 +18,7 @@ module ApplicationHelper
     'alert alert-error' if level == :error
     'alert alert-warning' if level == :alert
   end
+
   def resource_name
     :user
   end

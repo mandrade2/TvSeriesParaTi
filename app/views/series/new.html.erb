@@ -9,16 +9,16 @@
   <h3> Buscar serie </h3>
   <%= form_tag(new_search_series_index_path, :method => "get", class: "form-inline") do %>
       <div class="input-group">
-        <%= text_field_tag :name%>
+        <%= text_field_tag :name %>
       </div>
       <%= submit_tag "Search", class: 'btn btn-primary' %>
   <% end %>
 </div>
 
 <% unless @search.empty? %>
-  <div class="api-series">
-    <table class="table">
-      <thead>
+    <div class="api-series">
+      <table class="table">
+        <thead>
         <tr>
           <th></th>
           <th>Nombre</th>
@@ -26,20 +26,20 @@
           <th>Pais</th>
           <th></th>
         </tr>
-      </thead>
-      <tbody>
+        </thead>
+        <tbody>
         <% @search.each do |series| %>
-          <tr>
-            <td><img src="<%= get_api_poster(series['poster_path']) unless series['poster_path'].blank? %>"/></td>
-            <td><%= series['name'] %></td>
-            <td><%= series['first_air_date'] %></td>
-            <td><%= Tmdb::TV.detail(series['id'])['origin_country'][0] %></td>
-            <td><%= button_to 'Crear serie', new_search_series_index_path, params: { series_id: series['id'] } %></td>
-          </tr>
+            <tr>
+              <td><img src="<%= get_api_poster(series['poster_path']) unless series['poster_path'].blank? %>"/></td>
+              <td><%= series['name'] %></td>
+              <td><%= series['first_air_date'] %></td>
+              <td><%= Tmdb::TV.detail(series['id'])['origin_country'][0] %></td>
+              <td><%= button_to 'Crear serie', new_search_series_index_path, params: {series_id: series['id']} %></td>
+            </tr>
         <% end %>
-      </tbody>
-    </table>
-  </div>
+        </tbody>
+      </table>
+    </div>
 <% end %>
 
 <div class="new-series-form">

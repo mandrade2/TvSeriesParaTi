@@ -17,8 +17,8 @@ class SeriesController < ApplicationController
   def search
     @series = []
     if params[:nombre] || params[:pais] || params[:rating1] ||
-       params[:rating2] || params[:capitulo] || params[:director] ||
-       params[:actor] || params[:genero]
+        params[:rating2] || params[:capitulo] || params[:director] ||
+        params[:actor] || params[:genero]
       @series = Series.search(current_user, params[:nombre], params[:pais],
                               params[:rating1], params[:rating2],
                               params[:capitulo], params[:director],
@@ -26,16 +26,16 @@ class SeriesController < ApplicationController
     end
     unless params[:rating_order].blank?
       if params[:rating_order] == '1'
-        @series.sort! { |a, b| a.rating <=> b.rating }.reverse!
+        @series.sort! {|a, b| a.rating <=> b.rating}.reverse!
       elsif params[:rating_order] == '2'
-        @series.sort! { |a, b| a.rating <=> b.rating }
+        @series.sort! {|a, b| a.rating <=> b.rating}
       end
     end
     return if params[:release_date_order].blank?
     if params[:release_date_order] == '1'
-      @series.sort! { |a, b| a.release_date <=> b.release_date }.reverse!
+      @series.sort! {|a, b| a.release_date <=> b.release_date}.reverse!
     elsif params[:release_date_order] == '2'
-      @series.sort! { |a, b| a.release_date <=> b.release_date }
+      @series.sort! {|a, b| a.release_date <=> b.release_date}
     end
   end
 
@@ -53,7 +53,7 @@ class SeriesController < ApplicationController
     series = Tmdb::TV.detail(params[:series_id])
     unless series
       redirect_to new_series_path,
-                  flash: { warning: 'No se pudo crear la serie' }
+                  flash: {warning: 'No se pudo crear la serie'}
     end
     @series = Series.new(name: series['name'],
                          description: series['overview'],
@@ -69,11 +69,12 @@ class SeriesController < ApplicationController
     else
       p @series.errors.full_messages
       redirect_to new_series_path,
-                  flash: { warning: 'No se pudo crear la serie' }
+                  flash: {warning: 'No se pudo crear la serie'}
     end
   end
 
-  def recommend_series; end
+  def recommend_series;
+  end
 
   def send_recommendation
     user = current_user
@@ -81,7 +82,7 @@ class SeriesController < ApplicationController
     SeriesMailer.send_recommendation(user, to_user, @series).deliver_now
     redirect_to @series,
                 flash: {
-                  success: "Se ha enviado la recomendacion a #{to_user}"
+                    success: "Se ha enviado la recomendacion a #{to_user}"
                 }
   end
 
@@ -146,14 +147,14 @@ class SeriesController < ApplicationController
       unless @series.user.admin? || @series.user_id == @user.id || @user.admin?
         redirect_to root_path,
                     flash: {
-                      alert: 'No tiene permisos para acceder a esta serie'
+                        alert: 'No tiene permisos para acceder a esta serie'
                     }
       end
     else
       unless @series.user.role == 'admin'
         redirect_to root_path,
                     flash: {
-                      alert: 'No tiene permisos para acceder a esta serie'
+                        alert: 'No tiene permisos para acceder a esta serie'
                     }
       end
     end
@@ -182,7 +183,8 @@ class SeriesController < ApplicationController
     @search = []
   end
 
-  def edit; end
+  def edit;
+  end
 
   def create
     to_children = true
@@ -197,12 +199,12 @@ class SeriesController < ApplicationController
       if @series.save
         format.html do
           redirect_to @series,
-                      flash: { success: 'Serie fue creada correctamente' }
+                      flash: {success: 'Serie fue creada correctamente'}
         end
-        format.json { render :show, status: :created, location: @series }
+        format.json {render :show, status: :created, location: @series}
       else
         @search = []
-        format.html { render :new }
+        format.html {render :new}
         format.json do
           render json: @series.errors, status: :unprocessable_entity
         end
@@ -215,11 +217,11 @@ class SeriesController < ApplicationController
       if @series.update(series_params)
         format.html do
           redirect_to @series,
-                      flash: { success: 'Serie fue actualizada correctamente' }
+                      flash: {success: 'Serie fue actualizada correctamente'}
         end
-        format.json { render :show, status: :ok, location: @series }
+        format.json {render :show, status: :ok, location: @series}
       else
-        format.html { render :edit }
+        format.html {render :edit}
         format.json do
           render json: @series.errors, status: :unprocessable_entity
         end
@@ -232,9 +234,9 @@ class SeriesController < ApplicationController
     respond_to do |format|
       format.html do
         redirect_to series_index_url,
-                    flash: { success: 'Serie fue destruida correctamente' }
+                    flash: {success: 'Serie fue destruida correctamente'}
       end
-      format.json { head :no_content }
+      format.json {head :no_content}
     end
   end
 
@@ -269,7 +271,8 @@ class SeriesController < ApplicationController
     redirect_to @series
   end
 
-  def new_season; end
+  def new_season;
+  end
 
   private
 

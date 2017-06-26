@@ -14,11 +14,10 @@
 #
 class ReleasValidator < ActiveModel::Validator
   def validate(record)
-  return record.errors[:season_id] << 'No puede ser nulo' if record.season_id.nil?
-  record.errors[:release_date] << 'mayor a la fecha de estreno de la serie' if
-      record.release_date.nil? || record.release_date <
-      Season.find(record.season_id).series.release_date ||
-      record.release_date > DateTime.current
+    return record.errors[:season_id] << 'No puede ser nulo' if record.season_id.nil?
+    record.errors[:release_date] << 'mayor a la fecha de estreno de la serie' if record.release_date.nil? || record.release_date <
+        Season.find(record.season_id).series.release_date ||
+        record.release_date > DateTime.current
   end
 end
 
@@ -32,19 +31,19 @@ class Chapter < ApplicationRecord
   has_many :favorites, as: :favorable
   has_many :fans, through: :favorites, source: :user
 
-  validates :name, presence: true, length: { minimum: 1, maximum: 50 },
-                   uniqueness: { scope: :season_id }
+  validates :name, presence: true, length: {minimum: 1, maximum: 50},
+            uniqueness: {scope: :season_id}
   validates :duration, presence: true,
-                       numericality: { only_integer: true,
-                                       grater_than_or_equal_to: 1 }
-  validates :rating, numericality: { grater_than_or_equal_to: 1,
-                                     less_than_or_equal_to: 5,
-                                     message: 'debe ser un numero entre 1 y 5' }
-  validates :chapter_number, uniqueness: { scope: :season_id },
-                             numericality: {
-                               only_integer: true,
-                               grater_than_or_equal_to: 1
-                             }
+            numericality: {only_integer: true,
+                           grater_than_or_equal_to: 1}
+  validates :rating, numericality: {grater_than_or_equal_to: 1,
+                                    less_than_or_equal_to: 5,
+                                    message: 'debe ser un numero entre 1 y 5'}
+  validates :chapter_number, uniqueness: {scope: :season_id},
+            numericality: {
+                only_integer: true,
+                grater_than_or_equal_to: 1
+            }
   validates :release_date, presence: true
   validates_with ReleasValidator
 
@@ -53,21 +52,21 @@ class Chapter < ApplicationRecord
       if user.admin?
         @chapters = Chapter.all
       elsif user.child?
-        @chapters = Chapter.joins(season: { series: :user }).where(
-          users: { role: 'admin' }
-        ).or(Chapter.all.joins(season: { series: :user }).where(
-               users: { id: user.father_id }
+        @chapters = Chapter.joins(season: {series: :user}).where(
+            users: {role: 'admin'}
+        ).or(Chapter.all.joins(season: {series: :user}).where(
+            users: {id: user.father_id}
         ))
       else
-        @chapters = Chapter.joins(season: { series: :user }).where(
-          users: { role: 'admin' }
-        ).or(Chapter.all.joins(season: { series: :user }).where(
-               users: { id: user.id }
+        @chapters = Chapter.joins(season: {series: :user}).where(
+            users: {role: 'admin'}
+        ).or(Chapter.all.joins(season: {series: :user}).where(
+            users: {id: user.id}
         ))
       end
     else
-      @chapters = Chapter.joins(season: { series: :user }).where(
-        users: { role: 'admin' }
+      @chapters = Chapter.joins(season: {series: :user}).where(
+          users: {role: 'admin'}
       )
     end
   end
@@ -79,10 +78,10 @@ class Chapter < ApplicationRecord
     end
     @chapters = @chapters.where(duration: duracion.to_i) if duracion.present?
     @chapters = @chapters.includes(
-      season:
-      [
-        series: %i[user actors directors genders]
-      ]
+        season:
+            [
+                series: %i[user actors directors genders]
+            ]
     )
     searched_chapters = []
 
