@@ -1,4 +1,5 @@
 <p id="notice"><%= notice %></p>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet"/>
 
 <h1 style="text-align: center"><%= @news.title %></h1>
 <h3 style="text-align: center"> <%= @news.user.name %></h3>
@@ -8,6 +9,10 @@
   <%= @news.content %>
 </p>
 <div class="btn-group">
+  <a class="btn btn-social-icon btn-facebook" href=
+    <%= "http://www.facebook.com/sharer.php?u=http://0.0.0.0:3000/news/"+@news.id.to_s %> >
+    <span class="fa fa-facebook"></span>
+  </a>
   <%= link_to 'Atras', news_index_path, :class => 'btn btn-primary', :type => 'button' %>
   <% if current_user && current_user.id == @news.user.id %>
       <%= link_to 'Editar', edit_news_path(@news), :class => 'btn btn-primary', :type => 'button' %>
