@@ -1,41 +1,38 @@
 <%= javascript_include_tag "https://www.gstatic.com/charts/loader.js" %>
-<table>
-  <tr>
-    <td>
-<%= column_chart @minuts_series[0], download: true, label: "Minutos", id: "minutos-por-serie", width: "500px", height: "500px", title: "Tiempo por series(total: #{@total_minuts})", xtitle: "Serie", ytitle: "Minutos" %>
-</td>
-<td>
-<%= column_chart @minuts_series[1], download: true, label: "Capítulos", id: "capitulos-por-serie", width: "500px", height: "500px", title: "Capítulos vistos por series(total: #{@minuts_series[2]})", xtitle: "Serie", ytitle: "Número de capítulos" %>
-</td>
-</tr>
-<tr>
-  <td>
-<%= column_chart @views_series[0], download: true, label: "Vistos", id: "vistos-por-serie", width: "500px", height: "500px", title: "Series más vistas", xtitle: "Serie", ytitle: "Vistos" %>
-</td>
-<td>
-  <%= column_chart @views_series[1], download: true, label: "Vistos", id: "vistos-por-genero", width: "500px", height: "500px", title: "Generos más vistos", xtitle: "Géneros", ytitle: "Vistos" %>
-</td>
-</tr>
-<tr>
-  <td>
-<div class="datagrid"><table>
-<thead><tr><th>Series vistas</th></tr></thead>
-<tbody>
-  <% @list_of_views[0].each do |name| %>
-    <tr><td><%=name.name%></td></tr>
-  <% end %>
-</tbody>
-</table></div>
-</td>
-<td>
-<div class="datagrid"><table>
-<thead><tr><th>Capítulos vistos</th></tr></thead>
-<tbody>
-  <% @list_of_views[1].each do |name| %>
-    <tr><td><%=name.name%></td></tr>
-  <% end %>
-</tbody>
-</table></div>
-</td>
-</tr>
-</table>
+<div class="row">
+  <div class="col-md-6">
+    <%= column_chart @minuts_series[0], download: true, label: "Minutos", id: "minutos-por-serie", width: "500px", height: "500px", title: "Tiempo por series(total: #{@total_minuts})", xtitle: "Serie", ytitle: "Minutos" %>
+  </div>
+  <div class="col-md-6">
+    <%= column_chart @minuts_series[1], download: true, label: "Capítulos", id: "capitulos-por-serie", width: "500px", height: "500px", title: "Capítulos vistos por series(total: #{@minuts_series[2]})", xtitle: "Serie", ytitle: "Número de capítulos" %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <%= column_chart @views_series[0], download: true, label: "Vistos", id: "vistos-por-serie", width: "500px", height: "500px", title: "Series más vistas", xtitle: "Serie", ytitle: "Vistos" %>
+  </div>
+  <div class="col-md-6">
+    <%= column_chart @views_series[1], download: true, label: "Vistos", id: "vistos-por-genero", width: "500px", height: "500px", title: "Generos más vistos", xtitle: "Géneros", ytitle: "Vistos" %>
+  </div>
+</div>
+<br />
+<hr />
+<br />
+<div class="row">
+  <div class="col-md-6 datagrid">
+    <h4>Series vistas</h4>
+    <ul>
+    <% @list_of_views[0].each do |name| %>
+      <li><%=name.name%></li>
+    <% end %>
+    </ul>
+  </div>
+  <div class="col-md-6 datagrid">
+    <h4>Capítulos vistos</h4>
+    <ul>
+      <% @list_of_views[1].each do |name| %>
+        <li><%=name.name%></li>
+      <% end %>
+    </ul>
+  </div>
+</div>

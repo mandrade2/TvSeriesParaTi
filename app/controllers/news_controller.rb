@@ -4,7 +4,7 @@ class NewsController < ApplicationController
   before_action :authenticate_not_child, except: %i[index show]
 
   def index
-    @news = News.all.includes(:user)
+    @news = News.all.order(:created_at).includes(:user)
   end
 
   def show; end

@@ -9,12 +9,29 @@
 
     #title {
       text-align: center;
-      background-color: #ddd;
-      height: 200px;
+      background-color: #dbdbdb;
+      height: 150px;
       overflow: auto;
+      display: table;
+      width: 100%;
 
       h3 {
-        vertical-align: text-bottom;
+        display: table;
+        display: table-cell;
+        vertical-align: middle;
+
+        a {
+          color: #222;
+
+          &:hover {
+            color: #777;
+            text-decoration: none;
+          }
+
+          &:active {
+            color: #555;
+          }
+        }
       }
     }
   }
