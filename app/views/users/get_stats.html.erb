@@ -10,6 +10,14 @@
 </tr>
 <tr>
   <td>
+<%= column_chart @views_series[0], download: true, label: "Vistos", id: "vistos-por-serie", width: "500px", height: "500px", title: "Series más vistas", xtitle: "Serie", ytitle: "Vistos" %>
+</td>
+<td>
+  <%= column_chart @views_series[1], download: true, label: "Vistos", id: "vistos-por-genero", width: "500px", height: "500px", title: "Generos más vistos", xtitle: "Géneros", ytitle: "Vistos" %>
+</td>
+</tr>
+<tr>
+  <td>
 <div class="datagrid"><table>
 <thead><tr><th>Series vistas</th></tr></thead>
 <tbody>

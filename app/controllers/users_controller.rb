@@ -92,6 +92,7 @@ class UsersController < ApplicationController
     @minuts_series = get_chapters_per_season(user)
     @total_minuts = get_total_minuts(user)
     @list_of_views = get_list_of_views(user)
+    @views_series = get_most_view(user)
   end
 
   private
@@ -123,6 +124,28 @@ class UsersController < ApplicationController
     [series, chapters]
   end
 
+  def get_most_view(user)
+    series = Series.get_series_by_role(user)
+    viewers_series = {}
+    gender_views = {}
+    series.each do |serie|
+      views = serie.viewers.length
+      viewers_series[serie.id] = [serie.name, views]
+      serie.genders.each do |gender|
+        if gender_views.key? gender.id
+          gender_views[gender.id][1] += views
+        else
+          gender_views[gender.id] = [gender.name, views]
+        end
+      end
+    end
+    views = viewers_series.values.sort { |x| x[1] }.reverse
+    views = views[0..10] if views.length > 10
+    gender = gender_views.values.sort { |x| x[1] }.reverse
+    [views, gender]
+  end
+
+
   def children_params
     params.require(:user).permit(:name, :username, :email,
                                  :password, :password_confirmation)
@@ -130,9 +153,5 @@ class UsersController < ApplicationController
 
   def verify_user
     redirect_to root_path unless current_user.user? || current_user.admin?
-  end
-
-  def random_color
-    "##{SecureRandom.hex(3)}"
   end
 end
