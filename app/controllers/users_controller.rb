@@ -66,10 +66,7 @@ class UsersController < ApplicationController
       redirect_to children_path,
                   flash: { success: 'Cuenta hijo creada con exito' }
     else
-      flash.now[:warning] = 'Cuenta no a podido ser creada'
-      redirect_to children_new_path(current_user.username), flash: {
-        warning: 'No se a podido crear cuenta hijo'
-      }
+      render 'new_child'
     end
   end
 

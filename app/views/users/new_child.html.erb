@@ -1,18 +1,17 @@
 <% provide(:title, "Nueva cuenta hijo") %>
 <% provide(:header, "Nueva cuenta hijo") %>
 
-<% if @child.errors.any? %>
-    <div id="error_explanation">
-      <h6><%= pluralize(@child.errors.count, "error") %> prohibited this series from being saved:</h2>
-        <ul>
-          <% @child.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
-          <% end %>
-        </ul>
-    </div>
-<% end %>
-
 <%= form_for(@child, url: children_new_path(current_user.username)) do |f| %>
+    <% if @child.errors.any? %>
+        <div id="error_explanation">
+          <div class="alert alert-danger"><h4><%= pluralize(@child.errors.count, "error") %> no dejaron que la cuenta niño se guarde </h4></div>
+          <ol>
+            <% @child.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ol>
+        </div>
+    <% end %>
     <div class="form-group">
       <%= f.label :nombre %>
       <%= f.text_field :name, class: 'form-control' %>
