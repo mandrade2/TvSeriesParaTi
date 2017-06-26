@@ -97,7 +97,7 @@
     </div>
   </div>
 
-  <div class="modal fade" id="myModal" role="dialog">
+  <div class="modal fade information-modal" id="myModal" role="dialog">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -105,21 +105,39 @@
           <h4 class="modal-title">Agregar actores/directores/géneros</h4>
         </div>
         <div class="modal-body">
-          <%= form_tag(add_actor_series_path(@series)) do %>
-            Actores:
-            <%= select_tag 'actor', options_from_collection_for_select(Actor.all, 'id', 'name') %>
-            <%= submit_tag 'Agregar', class: 'btn btn-primary' %>
-          <% end %>
-          <%= form_tag(add_director_series_path(@series)) do %>
-            Directores:
-            <%= select_tag 'director', options_from_collection_for_select(Director.all, 'id', 'name') %>
-            <%= submit_tag 'Agregar', class: 'btn btn-primary' %>
-          <% end %>
-          <%= form_tag(add_gender_series_path(@series)) do %>
-            Generos:
-            <%= select_tag 'gender', options_from_collection_for_select(Gender.all, 'id', 'name') %>
-            <%= submit_tag 'Agregar', class: 'btn btn-primary' %>
-          <% end %>
+          <div class="row">
+            <div class="col-xs-12 col-centered">
+              <%= form_tag(add_actor_series_path(@series), class: 'form-inline') do %>
+                <div class="form-group">
+                  <%= label_tag :actor %>
+                  <%= select_tag 'actor', options_from_collection_for_select(Actor.all, 'id', 'name') %>
+                </div>
+                <%= submit_tag 'Agregar', class: 'btn btn-primary' %>
+              <% end %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-centered">
+              <%= form_tag(add_director_series_path(@series), class: 'form-inline') do %>
+                <div class="form-group">
+                  <%= label_tag :director %>
+                  <%= select_tag 'director', options_from_collection_for_select(Director.all, 'id', 'name') %>
+                </div>
+                <%= submit_tag 'Agregar', class: 'btn btn-primary' %>
+              <% end %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-centered">
+              <%= form_tag(add_gender_series_path(@series), class: 'form-inline') do %>
+                <div class="form-group">
+                  <%= label_tag :genero %>
+                  <%= select_tag 'gender', options_from_collection_for_select(Gender.all, 'id', 'name') %>
+                </div>
+                <%= submit_tag 'Agregar', class: 'btn btn-primary' %>
+              <% end %>
+            </div>
+          </div>
         </div>
       </div>
     </div>

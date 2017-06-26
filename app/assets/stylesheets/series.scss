@@ -184,3 +184,15 @@
     display: inline;
   }
 }
+
+.information-modal form div.form-group {
+  width: 300px;
+
+  label {
+    width: 100px;
+  }
+
+  select {
+    width: 150px;
+  }
+}
