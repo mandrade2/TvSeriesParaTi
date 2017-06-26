@@ -7,7 +7,12 @@ class ChaptersController < ApplicationController
 
   def index
     @series = Series.find(params[:series_id])
-    @seasons = @series.real_seasons
+    @seasons = @series.real_seasons.order(:number)
+    chapters = []
+    @seasons.each do |season|
+      chapters << season.chapters.order(:chapter_number)
+    end
+    @seasons = @seasons.zip(chapters)
   end
 
   def show

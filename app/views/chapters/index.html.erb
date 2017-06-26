@@ -8,8 +8,8 @@
   <% end %>
 </div>
 
-<% @seasons.order(:number).each do |season| %>
-    <h3> Temporada <%= season.number %></h3>
+<% @seasons.each do |season| %>
+    <h3> Temporada <%= season[0].number %></h3>
     <table class="table">
       <thead>
       <tr>
@@ -21,7 +21,7 @@
       </thead>
 
       <tbody>
-      <% season.chapters.each do |chapter| %>
+      <% season[1].each do |chapter| %>
           <tr>
             <td><%= chapter.chapter_number %></td>
             <td><%= link_to chapter.name, series_chapter_path(@series, chapter) %></td>
