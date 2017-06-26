@@ -6,6 +6,7 @@
     <th>Nombre</th>
     <th>Usuario</th>
     <th>Email</th>
+    <th></th>
   </tr>
   <% @children.each do |child| %>
       <tr>
@@ -14,6 +15,7 @@
         <td><%= child.email %></td>
         <td>
           <%= button_to "Destroy", children_destroy_path(current_user.username), method: :delete,
+                        class: 'btn btn-danger',
                         params: {child_id: child},
                         data: {confirm:
                                    'Estas seguro?'} %>
