@@ -21,7 +21,8 @@
 </div>
 
 <div class="btn-group pull-right">
-  <a class="btn btn-social-icon btn-facebook" href="http://www.facebook.com/sharer">
+  <a class="btn btn-social-icon btn-facebook" href=
+      <%= "http://www.facebook.com/sharer.php?u=0.0.0.0:3000/series/"+@series.id.to_s %> >
     <span class="fa fa-facebook"></span>
   </a>
   <%= link_to 'Recomendar', recommend_series_path(@series), class: 'btn btn-primary' %>
