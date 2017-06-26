@@ -137,11 +137,11 @@
   float: right;
 }
 
-
 .center {
   align-items: center;
   align-content: center;
 }
+
 /***** CSS Magic to Highlight Stars on Hover *****/
 
 .rating > input:checked ~ label, /* show gold star when clicked */

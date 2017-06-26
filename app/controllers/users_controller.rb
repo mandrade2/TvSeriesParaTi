@@ -53,7 +53,7 @@ class UsersController < ApplicationController
   def new_child
     if current_user.children.count >= 5
       redirect_to children_path,
-                  flash: { warning: 'No puede agregar mas cuentas hijo' }
+                  flash: {warning: 'No puede agregar mas cuentas hijo'}
     end
     @child = User.new
   end
@@ -64,9 +64,10 @@ class UsersController < ApplicationController
     if @child.skip_confirmation! && @child.save
       current_user.children << @child
       redirect_to children_path,
-                  flash: { success: 'Cuenta hijo creada con exito' }
+                  flash: {success: 'Cuenta hijo creada con exito'}
     else
       render 'new_child'
+
     end
   end
 
@@ -74,14 +75,14 @@ class UsersController < ApplicationController
     @child = User.find(params[:child_id])
     @child.destroy
     redirect_to children_path,
-                flash: { success: 'Cuenta hijo fue borrada correctamente' }
+                flash: {success: 'Cuenta hijo fue borrada correctamente'}
   end
 
   def destroy
     @user = User.find(params[:user_id])
     @user.destroy
     redirect_to users_path,
-                flash: { success: 'Usuario fue borrado correctamente' }
+                flash: {success: 'Usuario fue borrado correctamente'}
   end
 
   def get_stats

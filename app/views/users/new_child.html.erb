@@ -1,6 +1,20 @@
 <% provide(:title, "Nueva cuenta hijo") %>
 <% provide(:header, "Nueva cuenta hijo") %>
 
+<<<<<<< HEAD
+=======
+<% if @child.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@child.errors.count, "error") %> prohibited this series from being saved:</h2>
+      <ul>
+        <% @child.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+<% end %>
+
+>>>>>>> social-apis
 <%= form_for(@child, url: children_new_path(current_user.username)) do |f| %>
     <% if @child.errors.any? %>
         <div id="error_explanation">

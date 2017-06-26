@@ -7,7 +7,8 @@ class NewsController < ApplicationController
     @news = News.all.order(:created_at).includes(:user)
   end
 
-  def show; end
+  def show;
+  end
 
   def new
     @news = News.new
@@ -16,6 +17,7 @@ class NewsController < ApplicationController
   def edit
     return if @news.user == current_user
     redirect_to root_path, flash: { danger: 'Acceso no autorizado' }
+
   end
 
   def create
@@ -24,12 +26,12 @@ class NewsController < ApplicationController
       if @news.save
         format.html do
           redirect_to @news,
-                      flash: { success: 'Noticia fue creada correctamente' }
+                      flash: {success: 'Noticia fue creada correctamente'}
         end
-        format.json { render :show, status: :created, location: @news }
+        format.json {render :show, status: :created, location: @news}
       else
-        format.html { render :new }
-        format.json { render json: @news.errors, status: :unprocessable_entity }
+        format.html {render :new}
+        format.json {render json: @news.errors, status: :unprocessable_entity}
       end
     end
   end
@@ -40,13 +42,13 @@ class NewsController < ApplicationController
         format.html do
           redirect_to @news,
                       flash: {
-                        success: 'Noticia fue actualizada correctamente'
+                          success: 'Noticia fue actualizada correctamente'
                       }
         end
-        format.json { render :show, status: :ok, location: @news }
+        format.json {render :show, status: :ok, location: @news}
       else
-        format.html { render :edit }
-        format.json { render json: @news.errors, status: :unprocessable_entity }
+        format.html {render :edit}
+        format.json {render json: @news.errors, status: :unprocessable_entity}
       end
     end
   end
@@ -56,9 +58,9 @@ class NewsController < ApplicationController
     respond_to do |format|
       format.html do
         redirect_to news_index_url,
-                    flash: { success: 'News was successfully destroyed.' }
+                    flash: {success: 'News was successfully destroyed.'}
       end
-      format.json { head :no_content }
+      format.json {head :no_content}
     end
   end
 

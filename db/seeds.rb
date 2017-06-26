@@ -7,12 +7,12 @@ user_amount = 10
 
 user_amount.times do |i|
   user = User.new(
-    username: Faker::Internet.unique.user_name(6..10),
-    name: Faker::Name.name,
-    role: 'user',
-    email: i.to_s + Faker::Internet.email,
-    password: Faker::Internet.password,
-    # avatar: Faker::Avatar.image
+      username: Faker::Internet.unique.user_name(6..10),
+      name: Faker::Name.name,
+      role: 'user',
+      email: i.to_s + Faker::Internet.email,
+      password: Faker::Internet.password,
+  # avatar: Faker::Avatar.image
   )
   user.skip_confirmation!
   user.save
@@ -20,17 +20,17 @@ end
 
 user_amount.times do |i|
   user = User.new(
-    username: Faker::Internet.unique.user_name(6..10),
-    name: Faker::Name.name,
-    role: 'admin',
-    email: i.to_s + Faker::Internet.email,
-    password: Faker::Internet.password,
-    # avatar: Faker::Avatar.image
+      username: Faker::Internet.unique.user_name(6..10),
+      name: Faker::Name.name,
+      role: 'admin',
+      email: i.to_s + Faker::Internet.email,
+      password: Faker::Internet.password,
+  # avatar: Faker::Avatar.image
   )
   user.skip_confirmation!
   user.save
 end
-gender = Tmdb::Genre.list['genres'].map { |x| x['name'] }.compact
+gender = Tmdb::Genre.list['genres'].map {|x| x['name']}.compact
 gender.each do |i|
   Gender.create(name: i)
 end
@@ -39,7 +39,7 @@ end
   Actor.create(name: Tmdb::Person.detail(i * 3)['name'],
                nacionality: Tmdb::Person.detail(i * 3)['origin_country'])
   Director.create(name: Tmdb::Person.detail(i * 3 - 1)['name'],
-              nacionality: Tmdb::Person.detail(i * 3 - 1)['origin_country'])
+                  nacionality: Tmdb::Person.detail(i * 3 - 1)['origin_country'])
 end
 
 User.all.each do |user|
@@ -52,13 +52,13 @@ end
 
 
 main = User.create!(
-  username: 'jecastro2',
-  name: 'Juan Castro',
-  role: 'admin',
-  email: 'jecastro2@uc.cl',
-  password:  'mypassword',
-  confirmed_at: Time.now,
-  avatar: Faker::Avatar.image
+    username: 'jecastro2',
+    name: 'Juan Castro',
+    role: 'admin',
+    email: 'jecastro2@uc.cl',
+    password: 'mypassword',
+    confirmed_at: Time.now,
+    avatar: Faker::Avatar.image
 )
 main.save
 series = Tmdb::TV.top_rated

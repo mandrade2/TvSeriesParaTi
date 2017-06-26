@@ -7,10 +7,20 @@
 <br>
 <br>
 <% @news.each do |noticia| %>
+<<<<<<< HEAD
   <div class="news-index">
     <ul class="list-group">
       <li class="list-group-item" id="title"><h3><%= link_to noticia.title, news_path(noticia.id) %></h3></li>
       <li class="list-group-item">Creado por <%= noticia.user.name %> el <%= noticia.created_at %></li>
     </ul>
   </div>
+=======
+    <div class="news-index">
+      <ul class="list-group">
+        <li class="list-group-item" id="title"><h3><%= link_to noticia.title, news_path(noticia.id) %></h3></li>
+        <li class="list-group-item">Creado por <%= noticia.user.name %></li>
+        <li class="list-group-item">Publicado el<%= noticia.created_at %></li>
+      </ul>
+    </div>
+>>>>>>> social-apis
 <% end %>

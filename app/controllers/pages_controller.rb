@@ -1,13 +1,17 @@
 class PagesController < ApplicationController
   before_action :authenticate_user!, only: %i[myseries]
 
-  def about; end
+  def about;
+  end
 
-  def contact; end
+  def contact;
+  end
 
-  def help; end
+  def help;
+  end
 
-  def invite; end
+  def invite;
+  end
 
   def myseries
     @user = current_user

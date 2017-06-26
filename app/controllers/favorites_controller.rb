@@ -15,7 +15,7 @@ class FavoritesController < ApplicationController
       current_user.favorite_chapters << @chapter
       redirect_to series_chapter_path(@chapter.season.series, @chapter)
     else
-      redirect_to root_path, flash: { alert: 'Ocurrio un error inesperado' }
+      redirect_to root_path, flash: {alert: 'Ocurrio un error inesperado'}
     end
   end
 
@@ -27,7 +27,7 @@ class FavoritesController < ApplicationController
       current_user.favorite_chapters.delete(@chapter)
       redirect_to series_chapter_path(@chapter.season.series, @chapter)
     else
-      redirect_to root_path, flash: { alert: 'Ocurrio un error inesperado' }
+      redirect_to root_path, flash: {alert: 'Ocurrio un error inesperado'}
     end
   end
 

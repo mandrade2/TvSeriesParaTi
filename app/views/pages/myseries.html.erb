@@ -6,10 +6,10 @@
   <%= link_to 'Buscar capitulo', search_chapter_path, class: 'btn btn-primary' %>
 </div>
 <% if current_user %>
-  <div class="btn-group pull-right">
-    <%= link_to 'Crear Serie', new_series_path, class: 'btn btn-primary' if can? :manage, Series %>
-    <%= link_to 'Todas las series', series_index_path, class: 'btn btn-primary' %>
-  </div>
+    <div class="btn-group pull-right">
+      <%= link_to 'Crear Serie', new_series_path, class: 'btn btn-primary' if can? :manage, Series %>
+      <%= link_to 'Todas las series', series_index_path, class: 'btn btn-primary' %>
+    </div>
 <% end %>
 
 <div class="row">

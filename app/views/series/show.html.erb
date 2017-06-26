@@ -1,18 +1,19 @@
 <% provide(:title, "#{@series.name}") %>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet"/>
 
 <% content_for :header do %>
-  <%= @series.name %>
-  <% if current_user %>
-    <% if @series.fans.find_by_id(current_user.id).nil? %>
-      <%= link_to favorites_path(series_id: @series.id), method: :post do %>
-        <span class="star glyphicon glyphicon-star-empty" ></span>
-      <% end %>
-    <% else %>
-      <%= link_to favorite_path(series_id: @series.id), method: :delete do %>
-        <span class="star glyphicon glyphicon-star" ></span>
-      <% end %>
+    <%= @series.name %>
+    <% if current_user %>
+        <% if @series.fans.find_by_id(current_user.id).nil? %>
+            <%= link_to favorites_path(series_id: @series.id), method: :post do %>
+                <span class="star glyphicon glyphicon-star-empty"></span>
+            <% end %>
+        <% else %>
+            <%= link_to favorite_path(series_id: @series.id), method: :delete do %>
+                <span class="star glyphicon glyphicon-star"></span>
+            <% end %>
+        <% end %>
     <% end %>
-  <% end %>
 <% end %>
 <div class="row">
   <div class="btn-group pull-left">
@@ -25,6 +26,7 @@
     <% end %>
   </div>
 
+<<<<<<< HEAD
   <div class="btn-group pull-right">
     <div class="dropdown undiv">
       <a class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Menu<span class="caret"></span></a>
@@ -46,6 +48,26 @@
       </ul>
     </div>
   </div>
+=======
+<div class="btn-group pull-left">
+  <%= link_to 'Capitulos', series_chapters_path(@series), class: 'btn btn-primary' %>
+</div>
+
+<div class="btn-group pull-right">
+  <a class="btn btn-social-icon btn-facebook" href=
+      <%= "http://www.facebook.com/sharer.php?u=0.0.0.0:3000/series/"+@series.id.to_s %> >
+    <span class="fa fa-facebook"></span>
+  </a>
+  <%= link_to 'Recomendar', recommend_series_path(@series), class: 'btn btn-primary' %>
+  <%= link_to 'Atras', series_index_path, class: "btn btn-primary" %>
+  <% if can?(:destroy, Series) %>
+      <%= link_to 'Eliminar', @series, method: :delete, class: "btn btn-danger", data: {confirm: 'Are you sure?'} %>
+  <% end %>
+  <% if current_user && current_user.id == @series.user_id %>
+      <%= link_to 'Editar', edit_series_path(@series), class: 'btn btn-primary' %>
+      <a type="button" class='btn btn-primary' data-toggle="modal" data-target="#myModal">Agregar información</a>
+  <% end %>
+>>>>>>> social-apis
 </div>
 
 <% if @boole %>
@@ -84,11 +106,11 @@
         <% if @series.seasons == 1 %> temporada
         <% else %> temporadas
         <% end %>,
-        <%= @series.chapters_duration %> minutos por capítulo <br />
-        <strong>Rating: </strong><%= @series.rating %> <br />
-        <strong>Fecha de estreno: </strong> <%= @series.release_date %> <br />
-        <strong>Actores: </strong> <%= @actors %> <br />
-        <strong>Directores: </strong> <%= @directors %> <br />
+        <%= @series.chapters_duration %> minutos por capítulo <br/>
+        <strong>Rating: </strong><%= @series.rating %> <br/>
+        <strong>Fecha de estreno: </strong> <%= @series.release_date %> <br/>
+        <strong>Actores: </strong> <%= @actors %> <br/>
+        <strong>Directores: </strong> <%= @directors %> <br/>
         <strong>Generos: </strong> <%= @genders %>
       </p>
       <p>
@@ -105,6 +127,7 @@
           <h4 class="modal-title">Agregar actores/directores/géneros</h4>
         </div>
         <div class="modal-body">
+<<<<<<< HEAD
           <div class="row">
             <div class="col-xs-12 col-centered">
               <%= form_tag(add_actor_series_path(@series), class: 'form-inline') do %>
@@ -138,6 +161,23 @@
               <% end %>
             </div>
           </div>
+=======
+          <%= form_tag(add_actor_series_path(@series)) do %>
+              Actores:
+              <%= select_tag 'actor', options_from_collection_for_select(Actor.all, 'id', 'name') %>
+              <%= submit_tag 'Agregar', class: 'btn btn-primary' %>
+          <% end %>
+          <%= form_tag(add_director_series_path(@series)) do %>
+              Directores:
+              <%= select_tag 'director', options_from_collection_for_select(Director.all, 'id', 'name') %>
+              <%= submit_tag 'Agregar', class: 'btn btn-primary' %>
+          <% end %>
+          <%= form_tag(add_gender_series_path(@series)) do %>
+              Generos:
+              <%= select_tag 'gender', options_from_collection_for_select(Gender.all, 'id', 'name') %>
+              <%= submit_tag 'Agregar', class: 'btn btn-primary' %>
+          <% end %>
+>>>>>>> social-apis
         </div>
       </div>
     </div>
@@ -168,39 +208,40 @@
             </td>
             <td>
               <% if comment.spoiler %>
-                <button class="spoiler_button" data-toggle="spoiler<%= comment.id %>">Spoiler</button> <span id="spoiler<%= comment.id %>" class="spoiler"><%= comment.content %></span>
+                  <button class="spoiler_button" data-toggle="spoiler<%= comment.id %>">Spoiler</button>
+                  <span id="spoiler<%= comment.id %>" class="spoiler"><%= comment.content %></span>
               <% else %>
-                <%= comment.content %>
+                  <%= comment.content %>
               <% end %>
             </td>
             <% if current_user %>
-              <td>
-                <% if !current_user.likes.find_by_id(comment.id).nil? %>
-                  <%= link_to comment_like_series_path(@series, comment: comment.id, like: false), method: :post do %>
-                    <span class="glyphicon glyphicon-thumbs-down" ></span>
+                <td>
+                  <% if !current_user.likes.find_by_id(comment.id).nil? %>
+                      <%= link_to comment_like_series_path(@series, comment: comment.id, like: false), method: :post do %>
+                          <span class="glyphicon glyphicon-thumbs-down"></span>
+                      <% end %>
+                  <% else %>
+                      <%= link_to comment_like_series_path(@series, comment: comment.id, like: true), method: :post do %>
+                          <span class="glyphicon glyphicon-thumbs-up"></span>
+                      <% end %>
                   <% end %>
-                <% else %>
-                  <%= link_to comment_like_series_path(@series, comment: comment.id, like: true), method: :post do %>
-                    <span class="glyphicon glyphicon-thumbs-up" ></span>
+                  <br/> <strong><%= comment.likes.count %></strong> likes
+                </td>
+                <td>
+                  <% if can?(:destroy, Comment) || comment.user_id == current_user.id %>
+                      <%= link_to 'x', comment_series_path(@series, comment: comment.id), method: :delete, class: "btn btn-danger" %>
                   <% end %>
-                <% end%>
-                <br /> <strong><%= comment.likes.count %></strong> likes
-              </td>
-              <td>
-                <% if can?(:destroy, Comment) || comment.user_id == current_user.id %>
-                  <%= link_to 'x', comment_series_path(@series, comment: comment.id), method: :delete, class: "btn btn-danger" %>
-                <% end %>
-                <% if can?(:manage, Comment) && !comment.spoiler %>
-                  <%= link_to 'Spoiler', comment_series_path(@series, comment: comment.id, is_spoiler: true), method: :patch, class: "btn btn-primary" %>
-                <% end %>
-                <% if can?(:manage, Comment) && comment.spoiler %>
-                  <%= link_to 'Unspoiler', comment_series_path(@series, comment: comment.id, is_spoiler: false), method: :patch, class: "btn btn-primary" %>
-                <% end %>
-              </td>
+                  <% if can?(:manage, Comment) && !comment.spoiler %>
+                      <%= link_to 'Spoiler', comment_series_path(@series, comment: comment.id, is_spoiler: true), method: :patch, class: "btn btn-primary" %>
+                  <% end %>
+                  <% if can?(:manage, Comment) && comment.spoiler %>
+                      <%= link_to 'Unspoiler', comment_series_path(@series, comment: comment.id, is_spoiler: false), method: :patch, class: "btn btn-primary" %>
+                  <% end %>
+                </td>
             <% else %>
-              <td>
-                <strong><%= comment.likes.count %></strong> likes
-              </td>
+                <td>
+                  <strong><%= comment.likes.count %></strong> likes
+                </td>
             <% end %>
           </tr>
       <% end %>
