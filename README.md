@@ -28,4 +28,4 @@ GMAIL_USER: 'tvseriesparati@gmail.com'
 GMAIL_PASSWORD: 'lasseriessonparati'
 API_KEY: '8b231548c9c8922281ec712c4f4c59c6'
 
-
+Como funcionalidades extra agregamos la posibilidad de poner like a comentarios, y la posibilidad (de los admin) de marcar como spoilers los comentarios para que a los usuarios de la página no se les muestren sino que tenga que apretar un boton para verlo. Como otra funcionalidad hicimos la posibilidad de agregar actores, directores y género a una serie, ademas de marcar una serie para niños o no con una checkbox.
