@@ -23,9 +23,6 @@ Para poblar la base de datos usamos seeds y la gema Faker, junto con poblar las 
 
 Para ingresar como administrador usar el usuario jecastro2@uc.cl, con contraseña mypassword.
 
-En la carpeta config hay que crear un archivo llamado local_env.yml, que debe contener:
-GMAIL_USER: 'tvseriesparati@gmail.com'
-GMAIL_PASSWORD: 'lasseriessonparati'
-API_KEY: '8b231548c9c8922281ec712c4f4c59c6'
+Tener en cuenta la configuracion de local_env.yml.
 
 Como funcionalidades extra agregamos la posibilidad de poner like a comentarios, y la posibilidad (de los admin) de marcar como spoilers los comentarios para que a los usuarios de la página no se les muestren sino que tenga que apretar un boton para verlo. Como otra funcionalidad hicimos la posibilidad de agregar actores, directores y género a una serie, ademas de marcar una serie para niños o no con una checkbox.
